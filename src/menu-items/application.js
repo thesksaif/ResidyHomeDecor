@@ -140,104 +140,40 @@ const application = {
             ]
         },
         {
-            id: 'customer',
-            title: <FormattedMessage id="customer" />,
+            id: 'lead',
+            title: <FormattedMessage id="Lead Management" />,
             type: 'collapse',
             icon: icons.IconBasket,
             children: [
                 {
-                    id: 'customer-list',
-                    title: <FormattedMessage id="customer-list" />,
+                    id: 'contact',
+                    title: <FormattedMessage id="Contact" />,
                     type: 'item',
                     url: '/customer/customer-list',
                     breadcrumbs: false
                 },
                 {
-                    id: 'order-list',
-                    title: <FormattedMessage id="order-list" />,
+                    id: 'getquote',
+                    title: <FormattedMessage id="Get Quote" />,
                     type: 'item',
                     url: '/customer/order-list',
                     breadcrumbs: false
                 },
                 {
-                    id: 'create-invoice',
-                    title: <FormattedMessage id="create-invoice" />,
+                    id: 'ProjectLead',
+                    title: <FormattedMessage id="Project Lead" />,
                     type: 'item',
                     url: '/customer/create-invoice',
                     breadcrumbs: false
-                },
-                {
-                    id: 'order-details',
-                    title: <FormattedMessage id="order-details" />,
-                    type: 'item',
-                    url: '/customer/order-details'
-                },
-                {
-                    id: 'product',
-                    title: <FormattedMessage id="product" />,
-                    type: 'item',
-                    url: '/customer/product',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'product-review',
-                    title: <FormattedMessage id="product-review" />,
-                    type: 'item',
-                    url: '/customer/product-review',
-                    breadcrumbs: false
                 }
             ]
-        },
-        {
-            id: 'chat',
-            title: <FormattedMessage id="chat" />,
-            type: 'item',
-            icon: icons.IconMessages,
-            url: '/app/chat'
-        },
-        {
-            id: 'kanban',
-            title: 'Kanban',
-            type: 'item',
-            icon: icons.IconLayoutKanban,
-            url: '/app/kanban/board'
         },
         {
             id: 'mail',
-            title: <FormattedMessage id="mail" />,
+            title: <FormattedMessage id="Single List" />,
             type: 'item',
             icon: icons.IconMail,
             url: '/app/mail'
-        },
-        {
-            id: 'calendar',
-            title: <FormattedMessage id="calendar" />,
-            type: 'item',
-            url: '/app/calendar',
-            icon: icons.IconCalendar,
-            breadcrumbs: false
-        },
-        {
-            id: 'contact',
-            title: <FormattedMessage id="contact" />,
-            type: 'collapse',
-            icon: icons.IconNfc,
-            children: [
-                {
-                    id: 'c-card',
-                    title: <FormattedMessage id="cards" />,
-                    type: 'item',
-                    url: '/app/contact/c-card',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'c-list',
-                    title: <FormattedMessage id="list" />,
-                    type: 'item',
-                    url: '/app/contact/c-list',
-                    breadcrumbs: false
-                }
-            ]
         },
         {
             id: 'e-commerce',

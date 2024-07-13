@@ -3,7 +3,7 @@ import { useTheme, styled } from '@mui/material/styles';
 
 // project imports
 import AppBar from 'ui-component/extended/AppBar';
-import HeaderSection from './HeaderSectionBackup';
+import HeaderSection from './HeaderSection';
 import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
 import PeopleSection from './PeopleSection';
