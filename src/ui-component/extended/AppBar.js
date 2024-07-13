@@ -77,10 +77,13 @@ const AppBar = ({ ...others }) => {
                                 Home
                             </Button>
                             <Button color="inherit" component={RouterLink} to="/login" target="_blank">
-                                Dashboard
+                                About
                             </Button>
                             <Button color="inherit" component={Link} href="https://codedthemes.gitbook.io/berry" target="_blank">
-                                Documentation
+                                Services
+                            </Button>
+                            <Button color="inherit" component={RouterLink} to="/login" target="_blank">
+                                Contact
                             </Button>
                             <Button
                                 component={Link}
@@ -89,7 +92,7 @@ const AppBar = ({ ...others }) => {
                                 variant="contained"
                                 color="secondary"
                             >
-                                Purchase Now
+                                GET QUOTE
                             </Button>
                         </Stack>
                         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>

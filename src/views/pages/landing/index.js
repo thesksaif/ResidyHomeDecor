@@ -2,9 +2,8 @@
 import { useTheme, styled } from '@mui/material/styles';
 
 // project imports
-import Customization from 'layout/Customization';
 import AppBar from 'ui-component/extended/AppBar';
-import HeaderSection from './HeaderSection';
+import HeaderSection from './HeaderSectionBackup';
 import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
 import PeopleSection from './PeopleSection';
@@ -13,8 +12,6 @@ import FooterSection from './FooterSection';
 import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 import StartupProjectSection from './StartupProjectSection';
-// import IncludeSection from './IncludeSection';
-// import RtlInfoSection from './RtlInfoSection';
 
 // custom stlye
 const HeaderWrapper = styled('div')(({ theme }) => ({
@@ -75,16 +72,6 @@ const Landing = () => {
                 <StartupProjectSection />
             </SectionWrapper>
 
-            {/* 7. inculde section */}
-            {/* <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
-                <IncludeSection />
-            </SectionWrapper> */}
-
-            {/* 8. multi-language section */}
-            {/* <SectionWrapper sx={{ py: 0 }}>
-                <RtlInfoSection />
-            </SectionWrapper> */}
-
             {/* 9. framework section */}
             <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
                 <FrameworkSection />
@@ -94,7 +81,6 @@ const Landing = () => {
             <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'background.default' : 'dark.900', pb: 0 }}>
                 <FooterSection />
             </SectionWrapper>
-            <Customization />
         </>
     );
 };
