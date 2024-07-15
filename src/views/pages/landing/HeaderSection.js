@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useTheme, styled } from '@mui/material/styles';
+import // useTheme
+//  styled
+'@mui/material/styles';
 import { Box, Button, Container, Grid, Link, Stack, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -10,47 +12,48 @@ import v2 from 'assets/videos/v2.mp4';
 import v3 from 'assets/videos/v3.mp4';
 import v4 from 'assets/videos/v4.mp4';
 import v5 from 'assets/videos/v5.mp4';
-import dashboard from 'assets/images/landing/hero-dashboard.png';
-import widget1 from 'assets/images/landing/hero-widget-1.png';
-import widget2 from 'assets/images/landing/hero-widget-2.png';
+// import dashboard from 'assets/images/landing/hero-dashboard.png';
+// import widget1 from 'assets/images/landing/hero-widget-1.png';
+// import widget2 from 'assets/images/landing/hero-widget-2.png';
 import { DASHBOARD_PATH } from 'config';
 
 const videos = [bGVideo, v2, v3, v4, v5];
 
-const HeaderImage = styled('img')(({ theme }) => ({
-    maxWidth: '100%',
-    borderRadius: 20,
-    transform: 'scale(1.7)',
-    transformOrigin: theme.direction === 'rtl' ? '100% 50%' : '0 50%',
-    [theme.breakpoints.down('xl')]: {
-        transform: 'scale(1.5)'
-    },
-    [theme.breakpoints.down('lg')]: {
-        transform: 'scale(1.2)'
-    }
-}));
+// const HeaderImage = styled('img')(({ theme }) => ({
+//     maxWidth: '100%',
+//     borderRadius: 20,
+//     transform: 'scale(1.7)',
+//     transformOrigin: theme.direction === 'rtl' ? '100% 50%' : '0 50%',
+//     [theme.breakpoints.down('xl')]: {
+//         transform: 'scale(1.5)'
+//     },
+//     [theme.breakpoints.down('lg')]: {
+//         transform: 'scale(1.2)'
+//     }
+// }));
 
-const HeaderAnimationImage = styled('img')({
-    maxWidth: '100%',
-    filter: 'drop-shadow(0px 0px 50px rgb(33 150 243 / 30%))'
-});
+// const HeaderAnimationImage = styled('img')({
+//     maxWidth: '100%',
+//     filter: 'drop-shadow(0px 0px 50px rgb(33 150 243 / 30%))'
+// });
 
 const HeaderSection = () => {
-    const theme = useTheme();
+    // const theme = useTheme();
     const headerSX = { fontSize: { xs: '2rem', sm: '3rem', md: '3.5rem', lg: '3.5rem' } };
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const handleVideoEnd = () => {
+    const handleVideoEnd = useCallback(() => {
         const nextVideoIndex = (currentVideoIndex + 1) % videos.length;
         setCurrentVideoIndex(nextVideoIndex);
-    };
+    }, [currentVideoIndex]);
 
     useEffect(() => {
         const videoElement = videoRef.current;
 
         const handleCanPlayThrough = () => {
+            console.log('Video can play through');
             if (!isPlaying) {
                 videoElement.play();
                 setIsPlaying(true);
@@ -58,6 +61,7 @@ const HeaderSection = () => {
         };
 
         const handleEnded = () => {
+            console.log('Video ended');
             handleVideoEnd();
             setIsPlaying(false);
         };
@@ -69,12 +73,13 @@ const HeaderSection = () => {
             videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
             videoElement.removeEventListener('ended', handleEnded);
         };
-    }, [currentVideoIndex, isPlaying]);
+    }, [handleVideoEnd, isPlaying]);
 
     useEffect(() => {
         const videoElement = videoRef.current;
         videoElement.src = videos[currentVideoIndex];
         videoElement.load();
+        console.log('Video source set to:', videos[currentVideoIndex]);
     }, [currentVideoIndex]);
 
     return (
@@ -89,7 +94,7 @@ const HeaderSection = () => {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    zIndex: -1
+                    // zIndex: -1
                 }}
                 autoPlay
                 loop={false}
@@ -98,6 +103,17 @@ const HeaderSection = () => {
                 <source src={videos[currentVideoIndex]} type="video/mp4" />
                 Your browser does not support the video tag.
             </Box>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the alpha value to change transparency
+                    // zIndex: -1
+                }}
+            />
             <Container sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Grid
                     container
@@ -114,7 +130,7 @@ const HeaderSection = () => {
                                     transition={{ type: 'spring', stiffness: 150, damping: 30 }}
                                 >
                                     <Stack spacing={1}>
-                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX}>
+                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1"  sx={{ ...headerSX, color: 'white' }}>
                                             Design Your Comfort
                                         </Typography>
                                         <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
@@ -177,7 +193,7 @@ const HeaderSection = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} md={7} sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    {/* <Grid item xs={12} md={7} sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <Box sx={{ position: 'relative', mt: 8.75, zIndex: 9 }}>
                             <HeaderImage src={dashboard} alt="Berry" />
                             <Box
@@ -216,7 +232,7 @@ const HeaderSection = () => {
                                 </motion.div>
                             </Box>
                         </Box>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Container>
         </Box>
