@@ -1,15 +1,7 @@
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Container, Grid, IconButton, Link, Stack, Typography } from '@mui/material'; // Divider
-
-// project import
-import Chip from 'ui-component/extended/Chip';
-import { frameworks } from './FrameworkSection';
-
-// assets
-// import Dribble from 'assets/images/landing/footer-dribble.png';
-// import Freepik from 'assets/images/landing/footer-freepik.png';
-// import Awards from 'assets/images/landing/footer-awards.png';
 
 import PublicIcon from '@mui/icons-material/Public';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -42,31 +34,15 @@ const FooterSection = () => {
         <>
             <Container sx={{ mb: 15 }}>
                 <Grid container spacing={6}>
-                    {/* <Grid item xs={12}>
-                        <Stack spacing={4.25}>
-                            <Divider sx={dividerSX} />
-                            <Stack
-                                direction="row"
-                                justifyContent="center"
-                                spacing={{ xs: 1.5, sm: 6, md: 10, lg: 12 }}
-                                sx={{ overflow: 'hidden' }}
-                            >
-                                <img src={Dribble} alt="dribble" />
-                                <img src={Freepik} alt="freepik" />
-                                <img src={Awards} alt="awards" />
-                            </Stack>
-                            <Divider sx={dividerSX} />
-                        </Stack>
-                    </Grid> */}
                     <Grid item xs={12}>
                         <Grid container spacing={8}>
                             <Grid item xs={12} md={4}>
                                 <Stack spacing={{ xs: 2, md: 5 }}>
                                     <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
-                                        About Berry
+                                        About ResidyHomeDecor
                                     </Typography>
                                     <Typography variant="body2" color={textColor}>
-                                        Berry React is a dashboard template that utilizes the Material-UI framework and the React JavaScript
+                                        ResidyHomeDecor is a dashboard template that utilizes the Material-UI framework and the JavaScript
                                         library. It offers a range of features and customization options to help you create a powerful and
                                         user-friendly admin panel.
                                     </Typography>
@@ -74,82 +50,56 @@ const FooterSection = () => {
                             </Grid>
                             <Grid item xs={12} md={8}>
                                 <Grid container spacing={{ xs: 5, md: 2 }}>
-                                    <Grid item xs={6} sm={3}>
+                                    <Grid item xs={6} sm={4}>
                                         <Stack spacing={{ xs: 3, md: 5 }}>
                                             <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
                                                 Help
                                             </Typography>
                                             <Stack spacing={{ xs: 1.5, md: 2.5 }}>
-                                                <FooterLink href="https://links.codedthemes.com/HTIBc" target="_blank" underline="none">
+                                                <FooterLink component={RouterLink} to="/" underline="none">
+                                                    Home
+                                                </FooterLink>
+                                                <FooterLink component={RouterLink} to="/about" underline="none">
+                                                    About
+                                                </FooterLink>
+                                                <FooterLink component={RouterLink} to="/service" underline="none">
+                                                    Service
+                                                </FooterLink>
+                                                <FooterLink component={RouterLink} to="/contact-us" underline="none">
+                                                    Contact
+                                                </FooterLink>
+                                            </Stack>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item xs={6} sm={4}>
+                                        <Stack spacing={{ xs: 3, md: 5 }}>
+                                            <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
+                                                Additonal Help
+                                            </Typography>
+                                            <Stack spacing={{ xs: 1.5, md: 2.5 }}>
+                                                <FooterLink component={RouterLink} to="/faqs" underline="none">
+                                                    Faqs
+                                                </FooterLink>
+                                                <FooterLink component={RouterLink} to="/blog" underline="none">
                                                     Blog
                                                 </FooterLink>
-                                                <FooterLink href="https://codedthemes.gitbook.io/berry/" target="_blank" underline="none">
-                                                    Documentation
+                                                <FooterLink component={RouterLink} to="/privacy-policy" underline="none">
+                                                    Privacy Policy
                                                 </FooterLink>
-                                                <FooterLink
-                                                    href="https://codedthemes.gitbook.io/berry/changelog"
-                                                    target="_blank"
-                                                    underline="none"
-                                                >
-                                                    Change Log
-                                                </FooterLink>
-                                                <FooterLink href="https://codedthemes.support-hub.io/" target="_blank" underline="none">
-                                                    Support
-                                                </FooterLink>
-                                            </Stack>
-                                        </Stack>
-                                    </Grid>
-                                    <Grid item xs={6} sm={3}>
-                                        <Stack spacing={{ xs: 3, md: 5 }}>
-                                            <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
-                                                Store Help
-                                            </Typography>
-                                            <Stack spacing={{ xs: 1.5, md: 2.5 }}>
-                                                <FooterLink href="https://mui.com/store/license/" target="_blank" underline="none">
-                                                    License
-                                                </FooterLink>
-                                                <FooterLink
-                                                    href="https://mui.com/store/customer-refund-policy/"
-                                                    target="_blank"
-                                                    underline="none"
-                                                >
+                                                <FooterLink component={RouterLink} to="/refund-policy" underline="none">
                                                     Refund Policy
                                                 </FooterLink>
-                                                <FooterLink
-                                                    href="https://support.mui.com/hc/en-us/sections/360002564979-For-customers"
-                                                    target="_blank"
-                                                    underline="none"
-                                                >
-                                                    Submit a Request
-                                                </FooterLink>
                                             </Stack>
                                         </Stack>
                                     </Grid>
-                                    <Grid item xs={6} sm={3}>
+                                    <Grid item xs={6} sm={4}>
                                         <Stack spacing={{ xs: 3, md: 5 }}>
                                             <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
-                                                Berry Eco-System
-                                            </Typography>
-                                            <Stack spacing={{ xs: 1.5, md: 2.5 }}>
-                                                {frameworks.map((item, index) => (
-                                                    <FooterLink href={item.link} target="_blank" underline="none" key={index}>
-                                                        {item.title}
-                                                        {item.isUpcoming && (
-                                                            <Chip variant="outlined" size="small" label="Upcoming" sx={{ ml: 0.5 }} />
-                                                        )}
-                                                    </FooterLink>
-                                                ))}
-                                            </Stack>
-                                        </Stack>
-                                    </Grid>
-                                    <Grid item xs={6} sm={3}>
-                                        <Stack spacing={{ xs: 3, md: 5 }}>
-                                            <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
-                                                Free Versions
+                                                Get In Touch
                                             </Typography>
                                             <Stack spacing={{ xs: 1.5, md: 2.5 }}>
                                                 <FooterLink href="https://links.codedthemes.com/Yfkxg" target="_blank" underline="none">
-                                                    Free React MUI
+                                                    Free MUI
                                                 </FooterLink>
                                                 <FooterLink href="https://links.codedthemes.com/epTmN" target="_blank" underline="none">
                                                     Free Bootstrap 5
@@ -178,9 +128,9 @@ const FooterSection = () => {
                         spacing={{ xs: 1.5, sm: 1, md: 3 }}
                     >
                         <Typography color="text.secondary">
-                            © Berry is managed by{' '}
-                            <Link href="https://codedthemes.com/" target="_blank" underline="hover">
-                                CodedThemes
+                            © ResidyHomeDecor is managed by{' '}
+                            <Link href="https://webspidy.in/" target="_blank" underline="hover">
+                                Webspidy
                             </Link>
                         </Typography>
                         <Stack direction="row" alignItems="center" spacing={{ xs: 3, sm: 1.5, md: 2 }}>

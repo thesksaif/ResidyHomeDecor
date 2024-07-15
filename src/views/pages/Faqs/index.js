@@ -2,12 +2,12 @@
 import { styled } from '@mui/material/styles';
 
 // project imports
-import ContactCard from './ContactCard';
 import AppBar from 'ui-component/extended/AppBar';
 
 // assets
 import headerBackground from 'assets/images/landing/bg-header.jpg';
 import FooterSection from '../landing/FooterSection';
+import Faqs from './Faqs';
 
 const HeaderWrapper = styled('div')(({ theme }) => ({
     backgroundImage: `url(${headerBackground})`,
@@ -29,12 +29,12 @@ const SectionWrapper = styled('div')(({ theme }) => ({
 
 // ============================|| CONTACT US MAIN ||============================ //
 
-const ContactUsPage = () => {
+const FaqsPage = () => {
     return (
         <>
             <HeaderWrapper>
                 <AppBar />
-                <ContactCard />
+                <Faqs />
             </HeaderWrapper>
             <SectionWrapper>
                 <FooterSection />
@@ -43,4 +43,4 @@ const ContactUsPage = () => {
     );
 };
 
-export default ContactUsPage;
+export default FaqsPage;

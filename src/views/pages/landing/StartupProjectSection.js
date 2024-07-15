@@ -78,7 +78,7 @@ const RtlInfoSection = () => {
                                     fontSize: { xs: '1.563rem', md: '2.5rem', xl: '3.125rem' }
                                 }}
                             >
-                                Choose Berry for
+                                Choose Residy for
                             </Typography>
                         </Box>
                         <Slider {...settings}>

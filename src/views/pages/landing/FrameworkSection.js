@@ -9,62 +9,62 @@ import Slider from 'react-slick';
 import SubCard from 'ui-component/cards/SubCard';
 
 // assets
-import Angular from 'assets/images/landing/frameworks/angular.svg';
-import Bootstrap from 'assets/images/landing/frameworks/bootstrap.svg';
-import Django from 'assets/images/landing/frameworks/django.svg';
-import Codeigniter from 'assets/images/landing/frameworks/codeigniter.svg';
-import DotNet from 'assets/images/landing/frameworks/dot-net.svg';
-import Flask from 'assets/images/landing/frameworks/flask.svg';
-import Shopify from 'assets/images/landing/frameworks/shopify.svg';
-import FullStack from 'assets/images/landing/frameworks/full-stack.svg';
-import Vue from 'assets/images/landing/frameworks/vue.svg';
+import Philips from 'assets/images/partner/philips.png';
+import Jaguar from 'assets/images/partner/Jaquar.png';
+import AsianPaint from 'assets/images/partner/asian_paint.png';
+import SyskaLed from 'assets/images/partner/syska.png';
+import Wipro from 'assets/images/partner/wipro.png';
+import Fevicol from 'assets/images/partner/fevicol.png';
+import Crompton from 'assets/images/partner/Crompton.png';
+import urbanLeader from 'assets/images/partner/urbanLeader.png';
+import Hettich from 'assets/images/partner/Hettich.png';
 
 export const frameworks = [
     {
-        title: 'Bootstrap 5',
-        logo: Bootstrap,
-        link: 'https://links.codedthemes.com/VpESi'
+        title: 'Jaguar',
+        logo: Jaguar,
+        link: 'https://jaquar.com/'
     },
     {
-        title: 'Angular',
-        logo: Angular,
-        link: 'https://links.codedthemes.com/iNpKo'
+        title: 'Philips',
+        logo: Philips,
+        link: 'https://lighting.philips.co.in/'
     },
     {
-        title: 'CodeIgniter',
-        logo: Codeigniter,
-        link: 'https://links.codedthemes.com/AdRiB'
+        title: 'Asian Paint',
+        logo: AsianPaint,
+        link: 'https://asianpaints.com/'
     },
     {
-        title: '.Net',
-        logo: DotNet,
-        link: 'https://links.codedthemes.com/wkQEu'
+        title: 'Syska Led',
+        logo: SyskaLed,
+        link: 'https://syska.co.in/'
     },
     {
-        title: 'Shopify',
-        logo: Shopify,
-        link: '/',
+        title: 'Wipro',
+        logo: Wipro,
+        link: 'https://wiproconsumercare.com/brands-india/'
+    },
+    {
+        title: 'Fevicol',
+        logo: Fevicol,
+        link: 'https://fevicol.in/'
+    },
+    {
+        title: 'Crompton',
+        logo: Crompton,
+        link: 'https://crompton.co.in/',
         isUpcoming: true
     },
     {
-        title: 'Vuetify 3',
-        logo: Vue,
-        link: 'https://links.codedthemes.com/RqhwV'
+        title: 'Urban Leader',
+        logo: urbanLeader,
+        link: 'https://urbanladder.com/'
     },
     {
-        title: 'Full Stack',
-        logo: FullStack,
-        link: 'https://links.codedthemes.com/quhuG'
-    },
-    {
-        title: 'Django',
-        logo: Django,
-        link: 'https://links.codedthemes.com/Wfbiy'
-    },
-    {
-        title: 'Flask',
-        logo: Flask,
-        link: 'https://links.codedthemes.com/quhuG'
+        title: 'Hettich',
+        logo: Hettich,
+        link: 'https://web.hettich.com/en-de/home'
     }
 ];
 
@@ -123,13 +123,10 @@ const FrameworkSection = () => {
             <Container sx={{ mb: 6 }}>
                 <Stack spacing={0.25} alignItems="center">
                     <Typography variant="h2" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-                        Berry is now available in multiple frameworks*
+                        Our Trusted Partners
                     </Typography>
                     <Typography variant="body2" align="center" sx={{ pt: 1 }}>
-                        Each framework is sold separately on different platforms. Click to{' '}
-                        <Link href="https://codedthemes.gitbook.io/berry/berry-eco-system" target="_blank" underline="hover">
-                            learn more.
-                        </Link>
+                        Best in World Wide
                     </Typography>
                 </Stack>
             </Container>
@@ -214,9 +211,9 @@ const FrameworkSection = () => {
                                         <Stack sx={{ width: 'auto', height: 48 }} alignItems="center" justifyContent="center">
                                             <CardMedia alt={item.title} src={item.logo} component="img" />
                                         </Stack>
-                                        <Typography variant="h4" sx={{ width: 'max-content' }}>
+                                        {/* <Typography variant="h4" sx={{ width: 'max-content' }}>
                                             {item.title}
-                                        </Typography>
+                                        </Typography> */}
                                     </Stack>
                                 </Box>
                             </SubCard>
