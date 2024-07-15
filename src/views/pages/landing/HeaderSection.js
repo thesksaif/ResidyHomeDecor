@@ -93,8 +93,8 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
-                    zIndex: -1
+                    objectFit: 'cover'
+                    // zIndex: -1
                 }}
                 autoPlay
                 loop={false}
@@ -119,7 +119,7 @@ const HeaderSection = () => {
                                     transition={{ type: 'spring', stiffness: 150, damping: 30 }}
                                 >
                                     <Stack spacing={1}>
-                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX}>
+                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX} color="white">
                                             Design Your Comfort
                                         </Typography>
                                         <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
@@ -136,7 +136,7 @@ const HeaderSection = () => {
                                 >
                                     <Typography
                                         textAlign={{ xs: 'center', md: 'left' }}
-                                        color="text.primary"
+                                        color="white"
                                         variant="body1"
                                         sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}
                                     >
