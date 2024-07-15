@@ -103,6 +103,17 @@ const HeaderSection = () => {
                 <source src={videos[currentVideoIndex]} type="video/mp4" />
                 Your browser does not support the video tag.
             </Box>
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)' // Adjust the alpha value to change transparency
+                    // zIndex: -1
+                }}
+            />
             <Container sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Grid
                     container
@@ -119,7 +130,11 @@ const HeaderSection = () => {
                                     transition={{ type: 'spring', stiffness: 150, damping: 30 }}
                                 >
                                     <Stack spacing={1}>
-                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={headerSX} color="white">
+                                        <Typography
+                                            textAlign={{ xs: 'center', md: 'left' }}
+                                            variant="h1"
+                                            sx={{ ...headerSX, color: 'white' }}
+                                        >
                                             Design Your Comfort
                                         </Typography>
                                         <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
@@ -136,7 +151,7 @@ const HeaderSection = () => {
                                 >
                                     <Typography
                                         textAlign={{ xs: 'center', md: 'left' }}
-                                        color="white"
+                                        color="text.primary"
                                         variant="body1"
                                         sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}
                                     >
