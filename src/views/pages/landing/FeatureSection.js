@@ -62,13 +62,13 @@ const FeatureSection = () => (
                 <Grid container spacing={1.5}>
                     <Grid item xs={12}>
                         <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-                            What does Berry offer?
+                            What Does Residy Home Decor Offer?
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body2" sx={{ fontSize: '1rem' }}>
-                            Berry is a reliable choice for your admin panel needs, offering a wide range of features to easily manage your
-                            backend panel
+                            Residy Home Decor is a reliable choice for your interior design needs, offering a wide range of features to
+                            easily manage your design projects.
                         </Typography>
                     </Grid>
                 </Grid>
@@ -77,43 +77,43 @@ const FeatureSection = () => (
                 <Grid container justifyContent="center" spacing={5} sx={{ '&> .MuiGrid-root > div': { height: '100%' } }}>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Beautiful User Interface"
-                            caption="Berry can improve the user experience of your web application by providing a clear and intuitive layout, and consistent look and feel."
+                            title="Beautiful Design Aesthetics"
+                            caption="Residy Home Decor can enhance your spaces by providing clear and intuitive layouts with a consistent and stylish look and feel."
                             image={Offer1}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
                             title="Time and Cost Savings"
-                            caption="Berry can save developers time and effort by providing a pre-built user interface, allowing them to focus on other aspects of the project."
+                            caption="Residy Home Decor saves designers time and effort by providing pre-planned layouts and design elements, allowing them to focus on other aspects of the project."
                             image={Offer2}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title="Reduce Development Complexity"
-                            caption="Berry simplifies admin panel development with easy theme setup and clear code with flexible layouts options."
+                            title="Reduce Design Complexity"
+                            caption="Residy Home Decor simplifies the design process with easy theme setup and well-organized, flexible layout options."
                             image={Offer3}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
                             title="Improved Scalability"
-                            caption="Berry uses scalable technologies and resources to ensure that your admin panel remains efficient and effective as your needs evolve."
+                            caption="Residy Home Decor uses scalable design strategies to ensure that your spaces remain efficient and stylish as your needs evolve."
                             image={Offer4}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
-                            title=" Well-Documented and Supported"
-                            caption="With a range of resources including user guides, tutorials, and FAQs to help users understand and effectively use the Berry."
+                            title="Well-Documented and Supported"
+                            caption="With a range of resources including design guides, tutorials, and FAQs to help clients understand and effectively use Residy Home Decor."
                             image={Offer5}
                         />
                     </Grid>
                     <Grid item md={4} sm={6}>
                         <OfferCard
                             title="Performance Centric"
-                            caption="Berry is a performance-centric dashboard template that is designed to deliver optimal performance for your admin panel."
+                            caption="Residy Home Decor is focused on delivering optimal performance, ensuring that your design projects are both beautiful and functional."
                             image={Offer6}
                         />
                     </Grid>

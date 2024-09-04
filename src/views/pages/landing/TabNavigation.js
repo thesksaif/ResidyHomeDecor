@@ -1,0 +1,47 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import './Gallery.css';
+
+const TabNavigation = ({ categories, selectedCategory, onSelectCategory }) => {
+    const scrollContainer = (direction) => {
+        const container = document.querySelector('.tabs');
+        const scrollAmount = 200;
+        if (direction === 'left') {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
+
+    return (
+        <div className="tab-navigation">
+            <div className="tabs-wrapper">
+                <button className="scroll-button" onClick={() => scrollContainer('left')}>
+                    {'<'}
+                </button>
+                <div className="tabs">
+                    {categories.map((category) => (
+                        <button
+                            key={category}
+                            className={`tab ${category === selectedCategory ? 'active' : ''}`}
+                            onClick={() => onSelectCategory(category)}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </div>
+                <button className="scroll-button" onClick={() => scrollContainer('right')}>
+                    {'>'}
+                </button>
+            </div>
+        </div>
+    );
+};
+
+TabNavigation.propTypes = {
+    categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+    selectedCategory: PropTypes.string.isRequired,
+    onSelectCategory: PropTypes.func.isRequired
+};
+
+export default TabNavigation;

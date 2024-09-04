@@ -87,7 +87,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        Components
+                                        Residential Design
                                     </Typography>
                                 </Stack>
                             </Stack>
@@ -132,7 +132,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        Application
+                                        Commercial Design
                                     </Typography>
                                 </Stack>
                             </Stack>
@@ -175,7 +175,7 @@ const CardSection = () => {
                                             color: theme.palette.mode === 'dark' ? theme.palette.dark[900] : theme.palette.grey[900]
                                         }}
                                     >
-                                        Pages
+                                        Hospitality Design
                                     </Typography>
                                 </Stack>
                             </Stack>

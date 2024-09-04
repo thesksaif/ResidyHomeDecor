@@ -85,13 +85,7 @@ const AppBar = ({ ...others }) => {
                             <Button color="inherit" component={RouterLink} to="/contact-us">
                                 Contact
                             </Button>
-                            <Button
-                                component={Link}
-                                href="https://links.codedthemes.com/hsqll"
-                                disableElevation
-                                variant="contained"
-                                color="secondary"
-                            >
+                            <Button component={Link} href="quote" disableElevation variant="contained" color="error">
                                 GET QUOTE
                             </Button>
                         </Stack>

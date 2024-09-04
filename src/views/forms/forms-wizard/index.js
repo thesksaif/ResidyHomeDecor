@@ -2,7 +2,7 @@
 import { Grid } from '@mui/material';
 
 // project imports
-import BasicWizard from './BasicWizard';
+// import BasicWizard from './BasicWizard';
 import ValidationWizard from './ValidationWizard';
 import { gridSpacing } from 'store/constant';
 
@@ -10,9 +10,9 @@ import { gridSpacing } from 'store/constant';
 
 const FormsWizard = () => (
     <Grid container spacing={gridSpacing} justifyContent="center">
-        <Grid item xs={12} md={9} lg={7}>
+        {/* <Grid item xs={12} md={9} lg={7}>
             <BasicWizard />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={9} lg={7}>
             <ValidationWizard />
         </Grid>

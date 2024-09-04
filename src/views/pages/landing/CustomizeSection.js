@@ -44,7 +44,7 @@ const CustomizeSection = () => {
                     <Grid container spacing={2.5}>
                         <Grid item xs={12}>
                             <Typography variant="h5" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' }, mb: 2 }}>
-                                Easy Developer Experience
+                                Effortless Design Experience
                             </Typography>
                             <Typography
                                 variant="subtitle2"
@@ -55,20 +55,20 @@ const CustomizeSection = () => {
                                     width: { xs: '100%', sm: '100%', md: 'calc(100% - 20%)' }
                                 }}
                             >
-                                Berry has made it easy for developers of any skill level to use their product.
+                                ResidyHomeDecor has made it easy for developers of any skill level to use their product.
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography sx={listSX}>
-                                <IconCircleCheck size={20} />A straightforward and simple folder structure.
+                                <IconCircleCheck size={20} />A straightforward and simple project structure.
                             </Typography>
                             <Typography sx={listSX}>
                                 <IconCircleCheck size={20} />
-                                Code that is organized in a clear and logical manner.
+                                Designs that are organized in a clear and logical manner.
                             </Typography>
                             <Typography sx={listSX}>
                                 <IconCircleCheck size={20} />
-                                Setting up Typography and Color schemes is easy and effortless.
+                                Setting up typography and color schemes is easy and effortless.
                             </Typography>
                             <Typography sx={listSX}>
                                 <IconCircleCheck size={20} />
@@ -100,7 +100,7 @@ const CustomizeSection = () => {
                             <Grid container spacing={2.5}>
                                 <Grid item xs={12}>
                                     <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' }, mb: 2 }}>
-                                        Figma Design System
+                                        Interior Design Toolkit
                                     </Typography>
                                     <Typography
                                         variant="subtitle2"
@@ -111,25 +111,25 @@ const CustomizeSection = () => {
                                             width: { xs: '100%', md: 'calc(100% - 20%)' }
                                         }}
                                     >
-                                        Streamlining the development process and saving you time and effort in the initial design phase.
+                                        Streamlining the design process and saving you time and effort in the initial planning phase.
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />
-                                        Professional Kit for Designer
+                                        Professional resources for interior designers.
                                     </Typography>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />
-                                        Properly Organised Pages
+                                        Properly organized project layouts.
                                     </Typography>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />
-                                        Dark/Light Design
+                                        Dark/Light design options for versatile aesthetics.
                                     </Typography>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />
-                                        *Figma file included only in Plus & Extended Licenses.
+                                        *Detailed project plans available only in Premium & Extended Packages.
                                     </Typography>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />A theme that can be easily configured on a single page.

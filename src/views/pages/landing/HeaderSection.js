@@ -137,7 +137,12 @@ const HeaderSection = () => {
                                         >
                                             Design Your Comfort
                                         </Typography>
-                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" color="primary" sx={headerSX}>
+                                        <Typography
+                                            textAlign={{ xs: 'center', md: 'left' }}
+                                            variant="h1"
+                                            color="danger"
+                                            sx={{ headerSX, color: '#dc3545' }}
+                                        >
                                             Dream Interior
                                         </Typography>
                                     </Stack>
@@ -153,7 +158,7 @@ const HeaderSection = () => {
                                         textAlign={{ xs: 'center', md: 'left' }}
                                         color="text.primary"
                                         variant="body1"
-                                        sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}
+                                        sx={{ fontSize: { xs: '1rem', md: '1.125rem', color: 'white' } }}
                                     >
                                         Berry is React based Dashboard template which helps you to build faster and beautiful web
                                         applications.
@@ -175,7 +180,7 @@ const HeaderSection = () => {
                                                     target="_blank"
                                                     size="large"
                                                     variant="contained"
-                                                    color="secondary"
+                                                    color="error"
                                                     startIcon={<PlayArrowIcon />}
                                                 >
                                                     GET QUOTE
@@ -188,6 +193,7 @@ const HeaderSection = () => {
                                                 href="https://links.codedthemes.com/hsqll"
                                                 target="_blank"
                                                 size="large"
+                                                sx={{ color: 'white' }}
                                             >
                                                 Contact Now
                                             </Button>

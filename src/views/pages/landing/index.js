@@ -12,6 +12,7 @@ import FooterSection from './FooterSection';
 import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 import StartupProjectSection from './StartupProjectSection';
+import Gallery from './Gallery';
 
 // custom stlye
 const HeaderWrapper = styled('div')(({ theme }) => ({
@@ -55,6 +56,11 @@ const Landing = () => {
             {/* 3. about section */}
             <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
                 <FeatureSection />
+            </SectionWrapper>
+
+            {/* 3. about section */}
+            <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
+                <Gallery />
             </SectionWrapper>
 
             {/* 4. Apps */}

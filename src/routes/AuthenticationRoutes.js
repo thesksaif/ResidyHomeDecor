@@ -41,6 +41,9 @@ const PagesFaqs = Loadable(lazy(() => import('views/pages/Faqs')));
 const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/PrivacyPolicy')));
 const PagesRefundPolicy = Loadable(lazy(() => import('views/pages/RefundPolicy')));
 
+// const FrmFormsValidation = Loadable(lazy(() => import('views/forms/forms-validation')));
+// const FrmFormsWizard = Loadable(lazy(() => import('views/forms/forms-wizard')));
+const FrmFormsWizard = Loadable(lazy(() => import('views/pages/quote')));
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
@@ -158,6 +161,10 @@ const AuthenticationRoutes = {
         {
             path: '/refund-policy',
             element: <PagesRefundPolicy />
+        },
+        {
+            path: '/quote',
+            element: <FrmFormsWizard />
         }
     ]
 };
