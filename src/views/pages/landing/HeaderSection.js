@@ -93,7 +93,11 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
+<<<<<<< HEAD
                     objectFit: 'cover'
+=======
+                    objectFit: 'cover',
+>>>>>>> origin/main
                     // zIndex: -1
                 }}
                 autoPlay
@@ -110,7 +114,11 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
+<<<<<<< HEAD
                     backgroundColor: 'rgba(0, 0, 0, 0.5)' // Adjust the alpha value to change transparency
+=======
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the alpha value to change transparency
+>>>>>>> origin/main
                     // zIndex: -1
                 }}
             />
@@ -130,11 +138,15 @@ const HeaderSection = () => {
                                     transition={{ type: 'spring', stiffness: 150, damping: 30 }}
                                 >
                                     <Stack spacing={1}>
+<<<<<<< HEAD
                                         <Typography
                                             textAlign={{ xs: 'center', md: 'left' }}
                                             variant="h1"
                                             sx={{ ...headerSX, color: 'white' }}
                                         >
+=======
+                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1"  sx={{ ...headerSX, color: 'white' }}>
+>>>>>>> origin/main
                                             Design Your Comfort
                                         </Typography>
                                         <Typography

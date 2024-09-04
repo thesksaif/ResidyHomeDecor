@@ -26,7 +26,7 @@ const FooterSection = () => {
 
     // const dividerSX = {
     //     borderImageSlice: 1,
-    //     borderImageSource: `linear-gradient(90deg, rgba(255, 255, 255, 0) -0.01%, rgba(255, 255, 255, 0.56) 51.97%, rgba(255, 255, 255, 0.03) 99.99%)`,
+    //     borderImageSource: linear-gradient(90deg, rgba(255, 255, 255, 0) -0.01%, rgba(255, 255, 255, 0.56) 51.97%, rgba(255, 255, 255, 0.03) 99.99%),
     //     opacity: 0.5
     // };
 
@@ -168,5 +168,4 @@ const FooterSection = () => {
         </>
     );
 };
-
 export default FooterSection;
