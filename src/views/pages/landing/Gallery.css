@@ -1,3 +1,5 @@
+/* Updated Gallery and Services Styles */
+
 .services-container {
     text-align: center;
     padding: 20px;
@@ -7,19 +9,20 @@
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Larger images */
+    gap: 30px; /* More space between cards */
     margin-top: 20px;
 }
 
 .consultation-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+    margin-top: 30px;
+    padding: 12px 24px;
     background-color: #f85a7e;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .consultation-button:hover {
@@ -27,23 +30,43 @@
 }
 
 .gallery-card {
-    border-radius: 10px;
+    border-radius: 12px;
     position: relative;
     overflow: hidden;
-    width: 360px;
+    width: 100%;
     max-height: 240px;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: scale(1.05); /* Slight zoom effect */
 }
 
 .gallery-image {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    object-fit: cover; /* Ensures consistent image cropping */
 }
 
 .gallery-title {
-    margin-top: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    color: white;
     font-size: 1.2em;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    opacity: 0; /* Hidden by default */
+}
+
+.gallery-card:hover .gallery-title {
+    opacity: 1; /* Show title on hover */
 }
 
 .tab-navigation {
@@ -77,18 +100,20 @@
 }
 
 .tab {
-    padding: 5px 10px;
-    margin: 0 5px;
+    padding: 8px 16px; /* More padding for tabs */
+    margin: 0 10px;
     border: none;
     background-color: #f5f5f5;
     cursor: pointer;
     white-space: nowrap;
     font-size: 14px;
+    border-radius: 20px; /* Rounded tabs */
 }
 
 .tab.active {
     background-color: #ff7f7f;
     color: white;
+    font-weight: bold;
 }
 
 .gallery {

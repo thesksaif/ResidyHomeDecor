@@ -35,8 +35,8 @@ const CustomizeSection = () => {
             }}
         >
             <Grid container justifyContent="space-between" alignItems="center" spacing={{ xs: 1.5, sm: 2.5, md: 3, lg: 5 }}>
-                <Grid item xs={12} md={6} sx={{ img: { width: '100%' } }}>
-                    <Stack sx={{ width: '75%', mb: 5, mx: 'auto' }}>
+                <Grid item xs={12} md={6} sx={{ img: { width: '100%',  borderRadius: '5px' } }}>
+                    <Stack sx={{ width: '85%', marginTop: '6%', mb: 5, mx: 'auto' }}>
                         <CardMedia component="img" image={LayerLeft} alt="Layer" />
                     </Stack>
                 </Grid>
@@ -94,7 +94,7 @@ const CustomizeSection = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} marginLeft={5}>
                     <Grid container spacing={2.5} direction={{ xs: 'column-reverse', md: 'row' }}>
                         <Grid item xs={12} md={6}>
                             <Grid container spacing={2.5}>
@@ -129,7 +129,7 @@ const CustomizeSection = () => {
                                     </Typography>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />
-                                        *Detailed project plans available only in Premium & Extended Packages.
+                                        Detailed project plans available only in Premium & Extended Packages.
                                     </Typography>
                                     <Typography sx={listSX}>
                                         <IconCircleCheck size={20} />A theme that can be easily configured on a single page.
@@ -151,8 +151,8 @@ const CustomizeSection = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} md={6} sx={{ img: { width: '100%' } }}>
-                            <Stack sx={{ width: '70%', mx: 'auto' }}>
+                        <Grid item xs={12} md={6} sx={{ img: { width: '100%', borderRadius: '5px' } }}>
+                            <Stack sx={{ width: '88%', mx: 'auto', marginRight: '13%' }}>
                                 <CardMedia component="img" image={LayerRight} alt="Layer" />
                             </Stack>
                         </Grid>

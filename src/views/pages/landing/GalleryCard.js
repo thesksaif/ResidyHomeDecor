@@ -17,3 +17,4 @@ GalleryCard.propTypes = {
 };
 
 export default GalleryCard;
+

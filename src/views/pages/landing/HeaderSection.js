@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import // useTheme
-//  styled
-'@mui/material/styles';
+    //  styled
+    '@mui/material/styles';
 import { Box, Button, Container, Grid, Link, Stack, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -93,11 +93,7 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-<<<<<<< HEAD
-                    objectFit: 'cover'
-=======
                     objectFit: 'cover',
->>>>>>> origin/main
                     // zIndex: -1
                 }}
                 autoPlay
@@ -114,11 +110,7 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-<<<<<<< HEAD
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)' // Adjust the alpha value to change transparency
-=======
                     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the alpha value to change transparency
->>>>>>> origin/main
                     // zIndex: -1
                 }}
             />
@@ -138,15 +130,12 @@ const HeaderSection = () => {
                                     transition={{ type: 'spring', stiffness: 150, damping: 30 }}
                                 >
                                     <Stack spacing={1}>
-<<<<<<< HEAD
                                         <Typography
                                             textAlign={{ xs: 'center', md: 'left' }}
                                             variant="h1"
                                             sx={{ ...headerSX, color: 'white' }}
-                                        >
-=======
-                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1"  sx={{ ...headerSX, color: 'white' }}>
->>>>>>> origin/main
+                                        />
+                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={{ ...headerSX, color: 'white' }}>
                                             Design Your Comfort
                                         </Typography>
                                         <Typography
@@ -172,8 +161,7 @@ const HeaderSection = () => {
                                         variant="body1"
                                         sx={{ fontSize: { xs: '1rem', md: '1.125rem', color: 'white' } }}
                                     >
-                                        Berry is React based Dashboard template which helps you to build faster and beautiful web
-                                        applications.
+                                       Resdiy Home Decor is a home decor company that helps you design your dream home.
                                     </Typography>
                                 </motion.div>
                             </Grid>

@@ -1,243 +1,128 @@
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Grid, Typography, Box, Stack, Button } from '@mui/material';
 
-// material-ui
-import { styled, useTheme } from '@mui/material/styles';
-import { Box, Grid, IconButton, Typography, Stack, useMediaQuery } from '@mui/material';
+const FeatureComparison = () => {
+  // const theme = useTheme();
 
-// third-party
-import { Carousel } from 'react-responsive-carousel';
+  const features = [
+    {
+      title: "Solutions",
+      companyFeature: "All Under One Roof",
+      companyDescription: "A one-stop destination to resolve all your queries",
+      competitorFeature: "Multiple Contractors & Market Trips",
+      competitorDescription: "Coordination with several intermediaries"
+    },
+    {
+      title: "Dedicated Team",
+      companyFeature: "Dedicated Team of Designers",
+      companyDescription: "Experts who chalk out innovative solutions",
+      competitorFeature: "In-efficient Support",
+      competitorDescription: "No team to provide feasible results"
+    },
+    {
+      title: "VR Experience",
+      companyFeature: "3D Visual Walkthroughs",
+      companyDescription: "Home Interior Designs in tandem with interactive 3D Visual Walkthroughs",
+      competitorFeature: "No VR Walkthroughs",
+      competitorDescription: "Absence of Advanced Technology support"
+    },
+    {
+      title: "Quality Assurance",
+      companyFeature: "Periodic Inspections",
+      companyDescription: "Well-timed quality reviews at various stages of the project",
+      competitorFeature: "No Periodic Quality Checks",
+      competitorDescription: "Usage of low-grade material to save costs"
+    },
+    {
+      title: "Price",
+      companyFeature: "No False Claims",
+      companyDescription: "Lowest price guaranteed!",
+      competitorFeature: "Over Promising & Under Delivery",
+      competitorDescription: "No price match guarantee"
+    },
+    {
+      title: "Hidden Charges",
+      companyFeature: "You Get What You See",
+      companyDescription: "No hidden charges",
+      competitorFeature: "Overhead Charges",
+      competitorDescription: "Unidentified costs lead to higher prices"
+    },
+    // {
+    //   title: "Support",
+    //   companyFeature: "We’re Right by Your Side",
+    //   companyDescription: "Dedicated after-sales support",
+    //   competitorFeature: "No After-Sales Support",
+    //   competitorDescription: "Customer service ends after project completion"
+    // }
+  ];
 
-// assets
-import { IconChevronRight, IconChevronLeft, IconLink } from '@tabler/icons';
-
-import SliderLight1 from 'assets/images/landing/pre-apps/slider-light-1.png';
-import SliderDark1 from 'assets/images/landing/pre-apps/slider-dark-1.png';
-import SliderLight2 from 'assets/images/landing/pre-apps/slider-light-2.png';
-import SliderDark2 from 'assets/images/landing/pre-apps/slider-dark-2.png';
-import SliderLight3 from 'assets/images/landing/pre-apps/slider-light-3.png';
-import SliderDark3 from 'assets/images/landing/pre-apps/slider-dark-3.png';
-import SliderLight4 from 'assets/images/landing/pre-apps/slider-light-4.png';
-import SliderDark4 from 'assets/images/landing/pre-apps/slider-dark-4.png';
-import SliderLight5 from 'assets/images/landing/pre-apps/slider-light-5.png';
-import SliderDark5 from 'assets/images/landing/pre-apps/slider-dark-5.png';
-import SliderLight6 from 'assets/images/landing/pre-apps/slider-light-6.png';
-import SliderDark6 from 'assets/images/landing/pre-apps/slider-dark-6.png';
-
-// styles
-const Images = styled('img')({
-    width: '100%',
-    height: 'auto',
-    marginBottom: 32,
-    backgroundSize: 'cover',
-    objectFit: 'cover'
-});
-
-function SampleNextArrow({ onClickHandler }) {
-    const theme = useTheme();
-
-    return (
-        <IconButton
-            onClick={onClickHandler}
-            sx={{
-                position: 'absolute',
-                zIndex: 2,
-                top: 'calc(50% - 70px)',
-                cursor: 'pointer',
-                background: `${theme.palette.background.paper} !important`,
-                width: { xs: '40px !important', xl: '65px !important' },
-                height: { xs: '40px !important', xl: '65px !important' },
-                boxShadow: '0px 24px 38px rgba(9, 15, 37, 0.07)',
-                '&:after': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    transform: 'scale(9)'
-                },
-                svg: {
-                    height: { md: 20, lg: 40, xl: '40px' },
-                    width: { md: 20, lg: 40, xl: '40px' }
-                },
-                right: { xs: '50px', md: '80px', lg: '120px', xl: '220px' }
-            }}
-        >
-            <IconChevronRight fontSize={25} color={theme.palette.grey[900]} aria-label="click to slide change left side" />
-        </IconButton>
-    );
-}
-
-SampleNextArrow.propTypes = {
-    onClickHandler: PropTypes.func
-};
-
-function SamplePrevArrow({ onClickHandler }) {
-    const theme = useTheme();
-    return (
-        <IconButton
-            onClick={onClickHandler}
-            sx={{
-                position: 'absolute',
-                zIndex: 2,
-                top: 'calc(50% - 70px)',
-                cursor: 'pointer',
-                background: `${theme.palette.background.paper} !important`,
-                width: { xs: '40px !important', xl: '65px !important' },
-                height: { xs: '40px !important', xl: '65px !important' },
-                boxShadow: '0px 24px 38px rgba(9, 15, 37, 0.07)',
-                '&:after': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    transform: 'scale(9)'
-                },
-                svg: {
-                    height: { md: 20, lg: 40, xl: '40px' },
-                    width: { md: 20, lg: 40, xl: '40px' }
-                },
-                left: { xs: '50px', md: '80px', lg: '120px', xl: '220px' }
-            }}
-        >
-            <IconChevronLeft fontSize={25} color={theme.palette.grey[900]} aria-label="click to slide change right side" />
-        </IconButton>
-    );
-}
-
-SamplePrevArrow.propTypes = {
-    onClickHandler: PropTypes.func
-};
-
-const Items = ({ title, caption, image, link }) => {
-    const theme = useTheme();
-    return (
-        <>
-            <Images
-                src={image}
-                alt="dashboard"
-                sx={{
-                    width: { xs: '100%', xl: 743 },
-                    objectFit: 'contain',
-                    direction: 'initial'
-                }}
-            />
-            <Stack spacing={1} sx={{ pt: 1 }}>
+  return (
+    <Box sx={{ py: 6, backgroundColor: '#f8f8f8'  }}> {/* Light background color */}
+      <Grid container justifyContent="center">
+        <Grid item xs={12} md={10}>
+          {/* Header Section */}
+          <Typography variant="h2" align="center" sx={{ mb: 6, fontWeight: 'bold', color: '#333' }}>
+            What Sets Us Apart?
+          </Typography>
+          <Grid container spacing={6}> {/* Increased spacing for a modern layout */}
+            {features.map((feature, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}> {/* Updated grid layout for three-column design */}
+                {/* Card container */}
                 <Stack
-                    direction="row"
-                    spacing={1}
-                    alignItems="center"
-                    justifyContent="center"
-                    component={Link}
-                    to={link}
-                    target="_blank"
-                    sx={{ textDecoration: 'none' }}
+                  spacing={2}
+                  sx={{
+                    backgroundColor: '#fff',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
+                    borderRadius: '10px',
+                    p: 3,
+                    transition: 'transform 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.05)', /* Subtle hover effect */
+                    },
+                  }}
                 >
-                    <Typography variant="h3" sx={{ fontWeight: 500 }}>
-                        {title}
+                  <Typography variant="h6" sx={{ fontWeight: 600, color: '#2c3e50' }}>
+                    {feature.title}
+                  </Typography>
+                  <Box>
+                    <Typography variant="body1" sx={{ fontWeight: 500, color: '#e74c3c' }}> {/* Company Feature Highlighted */}
+                      {feature.companyFeature}
                     </Typography>
-                    <IconButton size="small">
-                        <IconLink size={18} color={theme.palette.text.primary} aria-label="page redirect to this theme page" />
-                    </IconButton>
+                    <Typography variant="body2" color="text.secondary">
+                      {feature.companyDescription}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="body1" sx={{ fontWeight: 500, color: '#3498db' }}> {/* Competitor Feature */}
+                      {feature.competitorFeature}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {feature.competitorDescription}
+                    </Typography>
+                  </Box>
                 </Stack>
-                <Typography variant="subtitle2" color="text.primary" sx={{ fontSize: { xs: '1rem', xl: '1.125rem' } }}>
-                    {caption}
-                </Typography>
-            </Stack>
-        </>
-    );
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      </Grid>
+      {/* Call to Action Button */}
+      <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{
+            padding: '10px 30px',
+            backgroundColor: '#e74c3c',
+            '&:hover': { backgroundColor: '#c0392b' },
+            borderRadius: '50px',
+            fontSize: '16px',
+          }}
+        >
+          Book Free Consultation
+        </Button>
+      </Box>
+    </Box>
+  );
 };
 
-Items.propTypes = {
-    title: PropTypes.string,
-    caption: PropTypes.string,
-    image: PropTypes.string,
-    link: PropTypes.string
-};
-
-const PreBuildDashBoard = () => {
-    const theme = useTheme();
-    const matchUpSM = useMediaQuery(theme.breakpoints.down('md'));
-
-    return (
-        <>
-            <Grid container spacing={7.5} justifyContent="center" sx={{ px: 1.25 }}>
-                <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
-                    <Grid container spacing={1.5}>
-                        <Grid item xs={12}>
-                            <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-                                Explore Concenputal Apps
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="h4" sx={{ fontWeight: 400 }} align="center">
-                                Berry has conceptul working apps like Chat, Inbox, E-commerce, Invoice, Kanban, and Calendar
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box
-                        className="preBuildDashBoard-slider"
-                        sx={{
-                            direction: 'initial',
-                            '.slider': { height: { xs: 'auto' }, '& .slide:not(.selected)': { transformOrigin: 'center !important' } }
-                        }}
-                    >
-                        <Carousel
-                            showArrows
-                            showThumbs={false}
-                            showIndicators={false}
-                            centerMode={!matchUpSM}
-                            centerSlidePercentage={50}
-                            infiniteLoop
-                            autoFocus
-                            emulateTouch
-                            swipeable
-                            autoPlay
-                            interval={2000}
-                            renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                                hasPrev && <SamplePrevArrow onClickHandler={onClickHandler} hasPrev={hasPrev} label={label} />
-                            }
-                            renderArrowNext={(onClickHandler, hasNext, label) =>
-                                hasNext && <SampleNextArrow onClickHandler={onClickHandler} hasNext={hasNext} label={label} />
-                            }
-                        >
-                            <Items
-                                title="Mail/Message App"
-                                image={theme.palette.mode === 'dark' ? SliderDark5 : SliderLight5}
-                                link="/app/mail"
-                            />
-                            <Items title="Chat App" image={theme.palette.mode === 'dark' ? SliderDark3 : SliderLight3} link="/app/chat" />
-                            <Items
-                                title="Kanban App"
-                                image={theme.palette.mode === 'dark' ? SliderDark4 : SliderLight4}
-                                link="/app/kanban/board"
-                            />
-                            <Items
-                                title="Calendar App"
-                                image={theme.palette.mode === 'dark' ? SliderDark2 : SliderLight2}
-                                link="/app/calendar"
-                            />
-                            <Items
-                                title="Ecommerce App"
-                                image={theme.palette.mode === 'dark' ? SliderDark1 : SliderLight1}
-                                link="/e-commerce/products"
-                            />
-                            <Items
-                                title="Social Profile"
-                                image={theme.palette.mode === 'dark' ? SliderDark6 : SliderLight6}
-                                link="/user/social-profile/posts"
-                            />
-                        </Carousel>
-                    </Box>
-                </Grid>
-            </Grid>
-        </>
-    );
-};
-
-export default PreBuildDashBoard;
+export default FeatureComparison;

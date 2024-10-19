@@ -77,13 +77,13 @@ const AppBar = ({ ...others }) => {
                                 Home
                             </Button>
                             <Button color="inherit" component={RouterLink} to="/login">
-                                About
+                                About Us
                             </Button>
                             <Button color="inherit" component={Link} href="#!">
                                 Services
                             </Button>
                             <Button color="inherit" component={RouterLink} to="/contact-us">
-                                Contact
+                                Contact Us
                             </Button>
                             <Button component={Link} href="quote" disableElevation variant="contained" color="error">
                                 GET QUOTE
