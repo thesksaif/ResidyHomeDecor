@@ -48,8 +48,6 @@ import kitchenFalseCeiling2 from '../../../assets/images/gallery/kitchen-false-c
 import balcony1 from '../../../assets/images/gallery/balcony-1.jpg';
 import balcony2 from '../../../assets/images/gallery/balcony-2.jpg';
 
-
-
 const categories = [
     'Living Room',
     'Modular Kitchen',
@@ -77,7 +75,7 @@ const services = {
         { image: kitchen3, title: 'Opulent Kitchen' },
         { image: kitchen4, title: 'Opulent Kitchen' },
         { image: kitchen5, title: 'Opulent Kitchen' },
-        { image: kitchen6, title: 'Opulent Kitchen' },
+        { image: kitchen6, title: 'Opulent Kitchen' }
     ],
     Wardrobe: [
         { image: wardrobe1, title: 'Spacious Wardrobe' },
@@ -85,8 +83,7 @@ const services = {
         { image: wardrobe3, title: 'Elegant Wardrobe' },
         { image: wardrobe4, title: 'Elegant Wardrobe' },
         { image: wardrobe5, title: 'Elegant Wardrobe' },
-        { image: wardrobe6, title: 'Elegant Wardrobe' },
-        
+        { image: wardrobe6, title: 'Elegant Wardrobe' }
     ],
     'Master Bedroom': [
         { image: masterBedroom1, title: 'Luxurious Master Bedroom' },
@@ -94,18 +91,16 @@ const services = {
         { image: masterBedroom3, title: 'Comfortable Master Bedroom' },
         { image: masterBedroom4, title: 'Comfortable Master Bedroom' },
         { image: masterBedroom5, title: 'Comfortable Master Bedroom' },
-        { image: masterBedroom6, title: 'Comfortable Master Bedroom' },
-
+        { image: masterBedroom6, title: 'Comfortable Master Bedroom' }
     ],
-        
+
     'Kids Room': [
         { image: kidsRoom1, title: 'Fun Kids Room' },
         { image: kidsRoom2, title: 'Colorful Kids Room' },
         { image: kidsRoom3, title: 'Fun Kids Room' },
         { image: kidsRoom4, title: 'Fun Kids Room' },
         { image: kidsRoom5, title: 'Fun Kids Room' },
-        { image: kidsRoom6, title: 'Fun Kids Room' },
-       
+        { image: kidsRoom6, title: 'Fun Kids Room' }
     ],
     'Kitchen Wall Tiles': [
         { image: kitchenWallTiles1, title: 'Stylish Kitchen Wall Tiles' },
@@ -131,16 +126,10 @@ const Gallery = () => {
         <div className="services-container">
             <h2>Design Ideas for Every Space</h2>
             <p>Because every corner holds a unique design potential.</p>
-            <TabNavigation 
-                categories={categories} 
-                selectedCategory={selectedCategory} 
-                onSelectCategory={setSelectedCategory} 
-            />
+            <TabNavigation categories={categories} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
             <div className="services-grid">
                 {categoryServices.length > 0 ? (
-                    categoryServices.map((service, index) => (
-                        <GalleryCard key={index} image={service.image} title={service.title} />
-                    ))
+                    categoryServices.map((service, index) => <GalleryCard key={index} image={service.image} title={service.title} />)
                 ) : (
                     <p>No designs available for this category.</p> // {/* Fallback message */}
                 )}

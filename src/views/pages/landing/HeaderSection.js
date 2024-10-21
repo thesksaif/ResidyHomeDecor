@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import // useTheme
-    //  styled
-    '@mui/material/styles';
+//  styled
+'@mui/material/styles';
 import { Box, Button, Container, Grid, Link, Stack, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -93,7 +93,7 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    objectFit: 'cover'
                     // zIndex: -1
                 }}
                 autoPlay
@@ -110,7 +110,7 @@ const HeaderSection = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adjust the alpha value to change transparency
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)' // Adjust the alpha value to change transparency
                     // zIndex: -1
                 }}
             />
@@ -135,7 +135,11 @@ const HeaderSection = () => {
                                             variant="h1"
                                             sx={{ ...headerSX, color: 'white' }}
                                         />
-                                        <Typography textAlign={{ xs: 'center', md: 'left' }} variant="h1" sx={{ ...headerSX, color: 'white' }}>
+                                        <Typography
+                                            textAlign={{ xs: 'center', md: 'left' }}
+                                            variant="h1"
+                                            sx={{ ...headerSX, color: 'white' }}
+                                        >
                                             Design Your Comfort
                                         </Typography>
                                         <Typography
@@ -161,7 +165,7 @@ const HeaderSection = () => {
                                         variant="body1"
                                         sx={{ fontSize: { xs: '1rem', md: '1.125rem', color: 'white' } }}
                                     >
-                                       Resdiy Home Decor is a home decor company that helps you design your dream home.
+                                        Resdiy Home Decor is a home decor company that helps you design your dream home.
                                     </Typography>
                                 </motion.div>
                             </Grid>

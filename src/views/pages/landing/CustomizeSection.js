@@ -35,7 +35,7 @@ const CustomizeSection = () => {
             }}
         >
             <Grid container justifyContent="space-between" alignItems="center" spacing={{ xs: 1.5, sm: 2.5, md: 3, lg: 5 }}>
-                <Grid item xs={12} md={6} sx={{ img: { width: '100%',  borderRadius: '5px' } }}>
+                <Grid item xs={12} md={6} sx={{ img: { width: '100%', borderRadius: '5px' } }}>
                     <Stack sx={{ width: '85%', marginTop: '6%', mb: 5, mx: 'auto' }}>
                         <CardMedia component="img" image={LayerLeft} alt="Layer" />
                     </Stack>
