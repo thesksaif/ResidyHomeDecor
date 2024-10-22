@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { TreeItem, TreeView, treeItemClasses } from '@mui/lab';
+import { TreeItem, TreeView } from '@mui/lab';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -19,7 +19,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
     color: theme.palette.text.secondary,
-    [`& .${treeItemClasses.content}`]: {
+    '& .MuiTreeItem-content': {
         color: theme.palette.text.secondary,
         paddingRight: theme.spacing(1),
         fontWeight: theme.typography.fontWeightMedium,
@@ -33,14 +33,14 @@ const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
             backgroundColor: `var(--tree-view-bg-color, ${theme.palette.action.selected})`,
             color: 'var(--tree-view-color)'
         },
-        [`& .${treeItemClasses.label}`]: {
+        '& .MuiTreeItem-label': {
             fontWeight: 'inherit',
             color: 'inherit'
         }
     },
-    [`& .${treeItemClasses.group}`]: {
+    '& .MuiTreeItem-group': {
         marginLeft: 0,
-        [`& .${treeItemClasses.content}`]: {
+        '& .MuiTreeItem-content': {
             paddingLeft: theme.spacing(2)
         }
     }
