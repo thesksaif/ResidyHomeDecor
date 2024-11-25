@@ -76,10 +76,10 @@ const AppBar = ({ ...others }) => {
                             <Button color="inherit" component={RouterLink} to="/">
                                 Home
                             </Button>
-                            <Button color="inherit" component={RouterLink} to="/login">
-                                About Us
+                            <Button color="inherit" component={RouterLink} to="/about-us">
+                                About
                             </Button>
-                            <Button color="inherit" component={Link} href="#!">
+                            <Button color="inherit" component={Link} href="/services">
                                 Services
                             </Button>
                             <Button color="inherit" component={RouterLink} to="/contact-us">
@@ -110,7 +110,7 @@ const AppBar = ({ ...others }) => {
                                                     <ListItemText primary="Home" />
                                                 </ListItemButton>
                                             </Link>
-                                            <Link style={{ textDecoration: 'none' }} href="/login" target="_blank">
+                                            <Link style={{ textDecoration: 'none' }} href="/about-us" target="_blank">
                                                 <ListItemButton component="a">
                                                     <ListItemIcon>
                                                         <IconDashboard />

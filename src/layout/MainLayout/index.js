@@ -1,13 +1,13 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { AppBar, Box, Container, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
+import { AppBar, Box, Container, CssBaseline, useMediaQuery } from '@mui/material';
 
 // project imports
-import Header from './Header';
-import Sidebar from './Sidebar';
+// import Header from './Header';
+// import Sidebar from './Sidebar';
 import HorizontalBar from './HorizontalBar';
 import Customization from '../Customization';
 import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
@@ -103,31 +103,31 @@ const MainLayout = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [matchDownMd]);
 
-    const condition = layout === LAYOUT_CONST.HORIZONTAL_LAYOUT && !matchDownMd;
+    // const condition = layout === LAYOUT_CONST.HORIZONTAL_LAYOUT && !matchDownMd;
 
-    const header = useMemo(
-        () => (
-            <Toolbar sx={{ p: condition ? '10px' : '16px' }}>
-                <Header />
-            </Toolbar>
-        ),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [layout, matchDownMd]
-    );
+    // const header = useMemo(
+    //     () => (
+    //         <Toolbar sx={{ p: condition ? '10px' : '16px' }}>
+    //             {/* <Header /> */}
+    //         </Toolbar>
+    //     ),
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    //     [layout, matchDownMd]
+    // );
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             {/* header */}
             <AppBar enableColorOnDark position="fixed" color="inherit" elevation={0} sx={{ bgcolor: theme.palette.background.default }}>
-                {header}
+                {/* {header} */}
             </AppBar>
 
             {/* horizontal menu-list bar */}
             {layout === LAYOUT_CONST.HORIZONTAL_LAYOUT && !matchDownMd && <HorizontalBar />}
 
             {/* drawer */}
-            {(layout === LAYOUT_CONST.VERTICAL_LAYOUT || matchDownMd) && <Sidebar />}
+            {/* {(layout === LAYOUT_CONST.VERTICAL_LAYOUT || matchDownMd) && <Sidebar />} */}
 
             {/* main content */}
             <Main theme={theme} open={drawerOpen} layout={layout}>

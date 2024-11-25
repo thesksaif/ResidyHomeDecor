@@ -5,16 +5,22 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 
+// about Us routing
+const AboutUs = Loadable(lazy(() => import('views/pages/about/AboutUs')));
+
+// services routing
+const Services = Loadable(lazy(() => import('views/pages/services/Services')));
+
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
+// const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+// const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
 
 // widget routing
 const WidgetStatistics = Loadable(lazy(() => import('views/widget/Statistics')));
 const WidgetData = Loadable(lazy(() => import('views/widget/Data')));
 const WidgetChart = Loadable(lazy(() => import('views/widget/Chart')));
 
-// application - user social & account profile routing
+// application - user social & account profile routing\s
 const AppUserSocialProfile = Loadable(lazy(() => import('views/application/users/social-profile')));
 const AppUserAccountProfile1 = Loadable(lazy(() => import('views/application/users/account-profile/Profile1')));
 const AppUserAccountProfile2 = Loadable(lazy(() => import('views/application/users/account-profile/Profile2')));
@@ -504,13 +510,21 @@ const MainRoutes = {
             path: '/sample-page',
             element: <SamplePage />
         },
+        // {
+        //     path: '/dashboard/default',
+        //     element: <DashboardDefault />
+        // },
+        // {
+        //     path: '/dashboard/analytics',
+        //     element: <DashboardAnalytics />
+        // },
         {
-            path: '/dashboard/default',
-            element: <DashboardDefault />
+            path: '/about-us',
+            element: <AboutUs />
         },
         {
-            path: '/dashboard/analytics',
-            element: <DashboardAnalytics />
+            path: '/services',
+            element: <Services />
         }
     ]
 };
