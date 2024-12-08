@@ -36,7 +36,7 @@ const MaintenanceUnderConstruction = Loadable(lazy(() => import('views/pages/mai
 
 // landing & contact-us routing
 const PagesLanding = Loadable(lazy(() => import('views/pages/landing')));
-const PagesContactUS = Loadable(lazy(() => import('views/pages/contact-us')));
+// const PagesContactUS = Loadable(lazy(() => import('views/pages/contact-us')));
 const PagesFaqs = Loadable(lazy(() => import('views/pages/Faqs')));
 const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/PrivacyPolicy')));
 const PagesRefundPolicy = Loadable(lazy(() => import('views/pages/RefundPolicy')));
@@ -146,10 +146,10 @@ const AuthenticationRoutes = {
             path: '/pages/landing',
             element: <PagesLanding />
         },
-        {
-            path: '/contact-us',
-            element: <PagesContactUS />
-        },
+        // {
+        //     path: '/contact-us',
+        //     element: <PagesContactUS />
+        // },
         {
             path: '/faqs',
             element: <PagesFaqs />
