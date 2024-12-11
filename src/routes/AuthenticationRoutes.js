@@ -2,7 +2,7 @@ import { lazy } from 'react';
 
 // project imports
 import Loadable from 'ui-component/Loadable';
-import MinimalLayout from 'layout/MinimalLayout';
+// import MinimalLayout from 'layout/MinimalLayout';
 
 // login option 1 routing
 const AuthLogin1 = Loadable(lazy(() => import('views/pages/authentication/authentication1/Login1')));
@@ -36,10 +36,10 @@ const MaintenanceUnderConstruction = Loadable(lazy(() => import('views/pages/mai
 
 // landing & contact-us routing
 const PagesLanding = Loadable(lazy(() => import('views/pages/landing')));
-// const PagesContactUS = Loadable(lazy(() => import('views/pages/contact-us')));
+const PagesContactUS = Loadable(lazy(() => import('views/pages/contact-us')));
 const PagesFaqs = Loadable(lazy(() => import('views/pages/Faqs')));
-const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/PrivacyPolicy')));
-const PagesRefundPolicy = Loadable(lazy(() => import('views/pages/RefundPolicy')));
+// const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/PrivacyPolicy')));
+// const PagesRefundPolicy = Loadable(lazy(() => import('views/pages/RefundPolicy')));
 
 // const FrmFormsValidation = Loadable(lazy(() => import('views/forms/forms-validation')));
 // const FrmFormsWizard = Loadable(lazy(() => import('views/forms/forms-wizard')));
@@ -48,7 +48,7 @@ const FrmFormsWizard = Loadable(lazy(() => import('views/pages/quote')));
 
 const AuthenticationRoutes = {
     path: '/',
-    element: <MinimalLayout />,
+    // element: <MinimalLayout />,
     children: [
         {
             path: '/pages/login/login1',
@@ -146,22 +146,22 @@ const AuthenticationRoutes = {
             path: '/pages/landing',
             element: <PagesLanding />
         },
-        // {
-        //     path: '/contact-us',
-        //     element: <PagesContactUS />
-        // },
+        {
+            path: '/contact-us',
+            element: <PagesContactUS />
+        },
         {
             path: '/faqs',
             element: <PagesFaqs />
         },
-        {
-            path: '/privacy-policy',
-            element: <PagesPrivacyPolicy />
-        },
-        {
-            path: '/refund-policy',
-            element: <PagesRefundPolicy />
-        },
+        // {
+        //     path: '/privacy-policy',
+        //     element: <PagesPrivacyPolicy />
+        // },
+        // {
+        //     path: '/refund-policy',
+        //     element: <PagesRefundPolicy />
+        // },
         {
             path: '/quote',
             element: <FrmFormsWizard />
