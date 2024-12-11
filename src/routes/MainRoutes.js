@@ -3,7 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
-import AuthGuard from 'utils/route-guard/AuthGuard';
+// import AuthGuard from 'utils/route-guard/AuthGuard';
 
 // about Us routing
 const AboutUs = Loadable(lazy(() => import('views/pages/about/AboutUs')));
@@ -141,9 +141,9 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const MainRoutes = {
     path: '/',
     element: (
-        <AuthGuard>
+        // <AuthGuard>
             <MainLayout />
-        </AuthGuard>
+        // {/* </AuthGuard> */}
     ),
     children: [
         {
