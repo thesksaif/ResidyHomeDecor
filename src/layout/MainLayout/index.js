@@ -9,7 +9,7 @@ import { AppBar, Box, Container, CssBaseline, useMediaQuery } from '@mui/materia
 // import Header from './Header';
 // import Sidebar from './Sidebar';
 import HorizontalBar from './HorizontalBar';
-import Customization from '../Customization';
+// import Customization from '../Customization';
 import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
 
 import navigation from 'menu-items';
@@ -137,7 +137,7 @@ const MainLayout = () => {
                     <Outlet />
                 </Container>
             </Main>
-            <Customization />
+            {/* <Customization /> */}
         </Box>
     );
 };

@@ -1,66 +1,12 @@
 import React from 'react';
 
-// Material-UI imports
-import { styled } from '@mui/material/styles';
-
-// Project imports
-import AppBar from 'ui-component/extended/AppBar';
-import CardSection from 'views/pages/landing/CardSection';
-import FooterSection from '../landing/FooterSection';
-
 // Assets
 import mission from 'assets/images/about/mission.jpg';
 import story from 'assets/images/about/story.webp';
 
-// Styled Components
-const SectionWrapper = styled('div')(({ theme }) => ({
-    paddingTop: 100,
-    marginTop: 80,
-    marginBottom: -60,
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
-}));
-
-const BannerWrapper = styled('div')(() => ({
-    position: 'relative',
-    width: '100%',
-    height: '300px',
-    backgroundImage: `url('https://via.placeholder.com/1920x300.png?text=Your+Banner+Image')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#fff'
-}));
-
-const BannerText = styled('h1')(() => ({
-    fontSize: '3rem',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    zIndex: 1
-}));
-
-const Overlay = styled('div')(() => ({
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)'
-}));
-
 const AboutUs = () => {
     return (
         <>
-            {/* Header */}
-            <AppBar />
-
-            {/* Full-Width Banner */}
-            <BannerWrapper>
-                <Overlay />
-                <BannerText>About Us</BannerText>
-            </BannerWrapper>
-
             {/* Main Content Wrapper */}
             <div style={{ padding: '40px 0', width: '100%', maxWidth: '1400px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
                 {/* About Us Section */}
@@ -113,14 +59,6 @@ const AboutUs = () => {
                     <h2>Awards & Recognition</h2>
                     <p>Recognized for excellence in customer satisfaction and design innovation.</p>
                 </section>
-
-                {/* Card Section */}
-                <CardSection />
-
-                {/* Footer */}
-                <SectionWrapper>
-                    <FooterSection />
-                </SectionWrapper>
             </div>
         </>
     );

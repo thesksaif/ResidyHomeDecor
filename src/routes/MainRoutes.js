@@ -6,10 +6,10 @@ import Loadable from 'ui-component/Loadable';
 // import AuthGuard from 'utils/route-guard/AuthGuard';
 
 // about Us routing
-const AboutUs = Loadable(lazy(() => import('views/pages/about/AboutUs')));
+const AboutUsPage = Loadable(lazy(() => import('views/pages/about-us/index.js')));
 
 // services routing
-const Services = Loadable(lazy(() => import('views/pages/services/Services')));
+const ServicesPage = Loadable(lazy(() => import('views/pages/services/index.js')));
 
 // dashboard routing
 // const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -142,7 +142,7 @@ const MainRoutes = {
     path: '/',
     element: (
         // <AuthGuard>
-            <MainLayout />
+        <MainLayout />
         // {/* </AuthGuard> */}
     ),
     children: [
@@ -520,11 +520,11 @@ const MainRoutes = {
         // },
         {
             path: '/about-us',
-            element: <AboutUs />
+            element: <AboutUsPage />
         },
         {
             path: '/services',
-            element: <Services />
+            element: <ServicesPage />
         }
     ]
 };
