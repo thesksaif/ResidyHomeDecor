@@ -1,8 +1,9 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Typography, Grid, Paper } from '@mui/material';
-import AppBar from 'ui-component/extended/AppBar';
-import FooterSection from '../landing/FooterSection';
+
+// import AppBar from 'ui-component/extended/AppBar';
+// import FooterSection from '../landing/FooterSection';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -38,53 +39,53 @@ const IconWrapper = styled('div')(({ theme }) => ({
     marginBottom: '10px'
 }));
 
-const SectionWrapper = styled('div')(({ theme }) => ({
-    paddingTop: 100,
-    marginTop: 80,
-    marginBottom: -20,
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
-}));
+// const SectionWrapper = styled('div')(({ theme }) => ({
+//     paddingTop: 100,
+//     marginTop: 80,
+//     marginBottom: -20,
+//     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
+// }));
 
-// Banner Styles
-const BannerWrapper = styled('div')(() => ({
-    position: 'relative',
-    width: '100%',
-    height: '300px',
-    backgroundImage: `url('https://via.placeholder.com/1920x300.png?text=Services+Banner')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#fff'
-}));
+// // Banner Styles
+// const BannerWrapper = styled('div')(() => ({
+//     position: 'relative',
+//     width: '100%',
+//     height: '300px',
+//     backgroundImage: `url('https://via.placeholder.com/1920x300.png?text=Services+Banner')`,
+//     backgroundSize: 'cover',
+//     backgroundPosition: 'center',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     color: '#fff'
+// }));
 
-const BannerText = styled('h1')(() => ({
-    fontSize: '3rem',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    zIndex: 1
-}));
+// const BannerText = styled('h1')(() => ({
+//     fontSize: '3rem',
+//     fontWeight: 'bold',
+//     textAlign: 'center',
+//     zIndex: 1
+// }));
 
-const Overlay = styled('div')(() => ({
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)'
-}));
+// const Overlay = styled('div')(() => ({
+//     position: 'absolute',
+//     top: 0,
+//     left: 0,
+//     width: '100%',
+//     height: '100%',
+//     backgroundColor: 'rgba(0, 0, 0, 0.4)'
+// }));
 
 const Services = () => {
     return (
         <>
-            <AppBar />
+            {/* <AppBar /> */}
 
             {/* Full-Width Banner */}
-            <BannerWrapper>
+            {/* <BannerWrapper>
                 <Overlay />
                 <BannerText>Our Services</BannerText>
-            </BannerWrapper>
+            </BannerWrapper> */}
 
             <ServicesWrapper>
                 {/* Header Section */}
@@ -160,10 +161,10 @@ const Services = () => {
                 </Grid>
             </ServicesWrapper>
 
-            {/* Footer Section */}
+            {/* Footer Section
             <SectionWrapper>
                 <FooterSection />
-            </SectionWrapper>
+            </SectionWrapper> */}
         </>
     );
 };
