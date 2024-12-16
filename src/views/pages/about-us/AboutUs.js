@@ -1,66 +1,94 @@
-import React from 'react';
+// material-ui
+// import { useTheme } from '@mui/material/styles';
+import { CardMedia, Container, Grid, Stack, Typography } from '@mui/material';
 
-// Assets
-import mission from 'assets/images/about/mission.jpg';
-import story from 'assets/images/about/story.webp';
+import LayerLeft from 'assets/images/landing/customization-left.png';
+import LayerRight from 'assets/images/landing/customization-right.png';
+
+// ==============================|| LANDING - CUSTOMIZE ||============================== //
 
 const AboutUs = () => {
+    // const theme = useTheme();
+    // const listSX = {
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     gap: '0.7rem',
+    //     padding: '10px 0',
+    //     fontSize: '1rem',
+    //     color: theme.palette.grey[900],
+    //     svg: { color: theme.palette.secondary.main }
+    // };
+
     return (
-        <>
-            {/* Main Content Wrapper */}
-            <div style={{ padding: '40px 0', width: '100%', maxWidth: '1400px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
-                {/* About Us Section */}
-                <section style={{ textAlign: 'center', marginBottom: '50px' }}>
-                    <h1>About Resdiy Home Decor</h1>
-                    <p>
-                        Welcome to Resdiy Home Decor, your one-stop solution for unique and affordable home decor items. We are committed to
-                        enhancing the beauty and comfort of your home with designs that inspire and delight. Whether you are looking to
-                        refresh a single room or transform your entire living space, our diverse range of products offers something for
-                        every style and budget.
-                    </p>
-                </section>
-
-                {/* Mission Section */}
-                <section
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '50px', flexWrap: 'wrap' }}
-                >
-                    <div style={{ flex: '1 1 50%', padding: '20px', textAlign: 'center' }}>
-                        <img src={mission} alt="Our Mission" style={{ width: '100%', maxWidth: '500px', borderRadius: '10px' }} />
-                    </div>
-                    <div style={{ flex: '1 1 50%', padding: '20px' }}>
-                        <h2>Our Mission: Bringing Unique Style to Every Home</h2>
-                        <p>
-                            At Resdiy Home Decor, our mission is to provide high-quality, stylish, and affordable home decor that inspires
-                            and transforms your space. We believe every home deserves a touch of elegance and personality, and we are
-                            dedicated to making that vision accessible to all.
-                        </p>
-                    </div>
-                </section>
-
-                {/* Story Section */}
-                <section
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '100px', flexWrap: 'wrap' }}
-                >
-                    <div style={{ flex: '1 1 50%', padding: '20px' }}>
-                        <h2>Our Story</h2>
-                        <p>
-                            Founded with a passion for design and a commitment to quality, Resdiy Home Decor has grown from a small startup
-                            to a trusted name in home decor. We are inspired by the belief that stylish, affordable decor should be
-                            accessible to everyone. Over the years, we’ve expanded our range to include products that suit every style.
-                        </p>
-                    </div>
-                    <div style={{ flex: '1 1 50%', padding: '20px', textAlign: 'center' }}>
-                        <img src={story} alt="Our Story" style={{ width: '100%', maxWidth: '500px', borderRadius: '10px' }} />
-                    </div>
-                </section>
-
-                {/* Awards Section */}
-                <section style={{ textAlign: 'center', marginBottom: '50px', marginTop: '60px' }}>
-                    <h2>Awards & Recognition</h2>
-                    <p>Recognized for excellence in customer satisfaction and design innovation.</p>
-                </section>
-            </div>
-        </>
+        <Container
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
+        >
+            <Grid container justifyContent="space-between" alignItems="center" spacing={{ xs: 1.5, sm: 2.5, md: 3, lg: 5 }}>
+                <Grid item xs={12} md={6} sx={{ img: { width: '100%', borderRadius: '5px' } }}>
+                    <Stack sx={{ width: '85%', marginTop: '6%', mb: 5, mx: 'auto' }}>
+                        <CardMedia component="img" image={LayerLeft} alt="Layer" />
+                    </Stack>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Grid container spacing={2.5}>
+                        <Grid item xs={12}>
+                            <Typography variant="h5" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' }, mb: 2 }}>
+                                Our Mission: Bringing Unique Style to Every Home
+                            </Typography>
+                            <Typography
+                                variant="subtitle2"
+                                color="text.primary"
+                                sx={{
+                                    fontSize: '1rem',
+                                    zIndex: '99',
+                                    width: { xs: '100%', sm: '100%', md: 'calc(100% - 20%)' }
+                                }}
+                            >
+                                At Resdiy Home Decor, our mission is to provide high-quality, stylish, and affordable home decor that
+                                inspires and transforms your space. We believe every home deserves a touch of elegance and personality, and
+                                we are dedicated to making that vision accessible to all.
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} marginLeft={5}>
+                    <Grid container spacing={2.5} direction={{ xs: 'column-reverse', md: 'row' }}>
+                        <Grid item xs={12} md={6}>
+                            <Grid container spacing={2.5}>
+                                <Grid item xs={12}>
+                                    <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' }, mb: 2 }}>
+                                        Our Story
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle2"
+                                        color="text.primary"
+                                        sx={{
+                                            fontSize: '1rem',
+                                            zIndex: '99',
+                                            width: { xs: '100%', md: 'calc(100% - 20%)' }
+                                        }}
+                                    >
+                                        Founded with a passion for design and a commitment to quality, Resdiy Home Decor has grown from a
+                                        small startup to a trusted name in home decor. We are inspired by the belief that stylish,
+                                        affordable decor should be accessible to everyone. Over the years, we’ve expanded our range to
+                                        include products that suit every style.
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} md={6} sx={{ img: { width: '100%', borderRadius: '5px' } }}>
+                            <Stack sx={{ width: '88%', mx: 'auto', marginRight: '13%' }}>
+                                <CardMedia component="img" image={LayerRight} alt="Layer" />
+                            </Stack>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

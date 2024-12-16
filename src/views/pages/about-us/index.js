@@ -61,7 +61,9 @@ const AboutUsPage = () => {
             </BannerWrapper>
 
             {/* About US */}
-            <AboutUs />
+            <SectionWrapper sx={{ bgcolor: 'white', paddingBottom: '100px' }}>
+                <AboutUs />
+            </SectionWrapper>
 
             {/* CardSection */}
             <CardSection />
