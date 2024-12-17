@@ -1,30 +1,49 @@
-// material-ui
+// Material-UI imports
 import { styled } from '@mui/material/styles';
 
-// project imports
+// Project imports
 import ContactCard from './ContactCard';
 import AppBar from 'ui-component/extended/AppBar';
-
-// assets
-import headerBackground from 'assets/images/landing/bg-header.jpg';
 import FooterSection from '../landing/FooterSection';
+import banner from 'assets/images/contact/banner2.jpg';
 
-const HeaderWrapper = styled('div')(({ theme }) => ({
-    backgroundImage: `url(${headerBackground})`,
-    backgroundSize: '100% 600px',
-    backgroundAttachment: 'fixed',
-    backgroundRepeat: 'no-repeat',
-    textAlign: 'center',
-    paddingTop: 30,
-    [theme.breakpoints.down('md')]: {
-        paddingTop: 0
-    }
+// Styled Components
+const BannerWrapper = styled('div')(() => ({
+    position: 'relative',
+    width: '100%',
+    height: '330px', // Match "Our Services" banner height
+    backgroundImage: `url(${banner})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#fff',
+    textAlign: 'center'
 }));
 
+const BannerText = styled('h1')(() => ({
+    fontSize: '3rem', // Match "Our Services" font size
+    fontWeight: 'bold',
+    zIndex: 1,
+    marginTop: '108px'
+}));
+
+// const Overlay = styled('div')(() => ({
+//     position: 'absolute',
+//     top: 0,
+//     left: 0,
+//     width: '100%',
+//     height: '100%',
+//     backgroundColor: 'rgba(0, 0, 0, 0.4)' // Consistent overlay effect
+// }));
+
 const SectionWrapper = styled('div')(({ theme }) => ({
-    paddingTop: 100,
-    marginTop: 365,
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
+    paddingTop: 50,
+    marginTop: 0, // Remove unnecessary large margin
+    backgroundColor: theme.palette.mode === 'dark' 
+        ? theme.palette.background.default 
+        : theme.palette.grey[900]
 }));
 
 // ============================|| CONTACT US MAIN ||============================ //
@@ -32,10 +51,19 @@ const SectionWrapper = styled('div')(({ theme }) => ({
 const ContactUsPage = () => {
     return (
         <>
-            <HeaderWrapper>
-                <AppBar />
-                <ContactCard />
-            </HeaderWrapper>
+            {/* Header */}
+            <AppBar />
+
+            {/* Banner Section */}
+            <BannerWrapper>
+                {/* <Overlay /> */}
+                <BannerText>Contact Us</BannerText>
+            </BannerWrapper>
+
+            {/* Contact Card */}
+            <ContactCard />
+
+            {/* Footer Section */}
             <SectionWrapper>
                 <FooterSection />
             </SectionWrapper>
@@ -44,3 +72,4 @@ const ContactUsPage = () => {
 };
 
 export default ContactUsPage;
+

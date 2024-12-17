@@ -8,6 +8,7 @@ import AppBar from 'ui-component/extended/AppBar';
 import CardSection from 'views/pages/landing/CardSection';
 import FooterSection from '../landing/FooterSection';
 import AboutUs from 'views/pages/about-us/AboutUs.js';
+import banner from 'assets/images/about/banner.jpg'
 
 // Styled Components
 const SectionWrapper = styled('div')(({ theme }) => ({
@@ -23,7 +24,7 @@ const BannerWrapper = styled('div')(() => ({
     position: 'relative',
     width: '100%',
     height: '300px',
-    backgroundImage: `url('https://via.placeholder.com/1920x300.png?text=Your+Banner+Image')`,
+    backgroundImage: `url(${banner})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',

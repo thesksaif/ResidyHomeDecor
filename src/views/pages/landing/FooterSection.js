@@ -99,13 +99,13 @@ const FooterSection = () => {
                                             </Typography>
                                             <Stack spacing={{ xs: 1.5, md: 2.5 }}>
                                                 <FooterLink href="https://links.codedthemes.com/Yfkxg" target="_blank" underline="none">
-                                                    Free MUI
+                                                221, Patliputra Colony, Near Patliputra Park, Patna-13 ( Bihar )
                                                 </FooterLink>
                                                 <FooterLink href="https://links.codedthemes.com/epTmN" target="_blank" underline="none">
-                                                    Free Bootstrap 5
+                                                9264484444
                                                 </FooterLink>
                                                 <FooterLink href="https://links.codedthemes.com/seQKN" target="_blank" underline="none">
-                                                    Free Angular
+                                                info@residygroup.com
                                                 </FooterLink>
                                                 <FooterLink href="https://links.codedthemes.com/Wfbiy" target="_blank" underline="none">
                                                     Free Django

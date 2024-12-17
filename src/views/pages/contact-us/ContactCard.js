@@ -1,236 +1,249 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
 import {
     Button,
-    Card,
-    CardContent,
     Container,
     FormControl,
     Grid,
-    InputLabel,
-    MenuItem,
     OutlinedInput,
     TextField,
-    Typography
+    Typography,
+    Box
 } from '@mui/material';
-
-// third-party
-import { PatternFormat } from 'react-number-format';
-
-// project imports
-import AnimateButton from 'ui-component/extended/AnimateButton';
-import { gridSpacing } from 'store/constant';
-
-// assets
-import mailImg from 'assets/images/landing/widget-mail.svg';
-
-// select options
-const currencies = [
-    {
-        value: '1',
-        label: 'Below $1000'
-    },
-    {
-        value: '2',
-        label: '$1000 - $5000'
-    },
-    {
-        value: '3',
-        label: 'Not specified'
-    }
-];
-
-const sizes = [
-    {
-        value: '1',
-        label: '1 - 5'
-    },
-    {
-        value: '2',
-        label: '5 - 10'
-    },
-    {
-        value: '3',
-        label: '10+'
-    }
-];
-
-// ===========================|| CONTACT CARD - FORMS ||=========================== //
+import { LocationOn, Phone, Email } from '@mui/icons-material';
+import contactIllustration from 'assets/images/contact/contactIllustration.png';
 
 const ContactCard = () => {
-    const theme = useTheme();
-
-    const [budget, setBudget] = React.useState(1);
-    const handleChange = (event) => {
-        setBudget(Number(event.target?.value));
-    };
-
-    const [size, setSize] = React.useState(1);
-    const handleChange1 = (event) => {
-        setSize(Number(event.target?.value));
-    };
-
     return (
-        <Container>
-            <Grid container justifyContent="center" spacing={gridSpacing}>
-                <Grid item sm={10} md={7} sx={{ mt: { md: 12.5, xs: 2.5 }, mb: { md: 12.5, xs: 2.5 } }}>
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item xs={12}>
-                            <Typography
-                                variant="h1"
-                                color="white"
-                                component="div"
-                                sx={{
-                                    fontSize: '3.5rem',
-                                    fontWeight: 900,
-                                    lineHeight: 1.4,
-                                    [theme.breakpoints.down('md')]: { fontSize: '1.8125rem', marginTop: '80px' }
-                                }}
-                            >
-                                Talk to our account expert
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography
-                                variant="h4"
-                                component="div"
-                                sx={{ fontWeight: 400, lineHeight: 1.4, [theme.breakpoints.up('md')]: { my: 0, mx: 12.5 } }}
-                                color="white"
-                            >
-                                The starting point for your next project based on easy-to-customize Material-UI © helps you build apps
-                                faster and better.
-                            </Typography>
+        <>
+            {/* Main Form Section */}
+            <Container maxWidth="lg" sx={{ py: 16, mb: -12 }} >
+                <Grid container spacing={8} alignItems="center">
+                    {/* Left Section - Image */}
+                    <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <img
+                            src={contactIllustration}
+                            alt="ContactIllustration"
+                            style={{
+                                width: '100%',
+                                maxWidth: '600px',
+                                height: 'auto'
+                            }}
+                        />
+                    </Grid>
+
+                    {/* Right Section - Form */}
+                    <Grid item xs={12} md={6}>
+                        <Typography
+                            variant="h2"
+                            component="div"
+                            sx={{
+                                color: '#E8474E',
+                                fontWeight: 'bold',
+                                mb: 3,
+                                textAlign: 'center'
+                            }}
+                        >
+                            Get In Touch
+                        </Typography>
+
+                        {/* Form */}
+                        <Grid container spacing={2}>
+                            {['Enter your full name', 'Phone number', 'Your email', 'Service Description'].map(
+                                (placeholder, index) => (
+                                    <Grid item xs={12} key={index}>
+                                        <FormControl fullWidth>
+                                            <OutlinedInput placeholder={placeholder} />
+                                        </FormControl>
+                                    </Grid>
+                                )
+                            )}
+
+                            <Grid item xs={12}>
+                                <TextField
+                                    placeholder="Message"
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                    fullWidth
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <input type="checkbox" defaultChecked style={{ marginRight: 8 }} />
+                                <Typography variant="body2">
+                                    You can reach me on{' '}
+                                    <Typography
+                                        component="span"
+                                        sx={{ color: 'green', ml: 0.5 }}
+                                    >
+                                        WhatsApp
+                                    </Typography>
+                                </Typography>
+                            </Grid>
+
+                            {/* Submit Button */}
+                            <Grid item xs={12}>
+                                <Button
+                                    variant="contained"
+                                    fullWidth
+                                    sx={{
+                                        backgroundColor: '#D8212E',
+                                        color: '#FFF',
+                                        py: 1.5,
+                                        '&:hover': { backgroundColor: '#B71C24' },
+                                        fontWeight: 'bold'
+                                    }}
+                                >
+                                    SEND
+                                </Button>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Typography
+                                    variant="body2"
+                                    align="center"
+                                    sx={{ color: '#888' }}
+                                >
+                                    By submitting this form, you agree to the{' '}
+                                    <Typography
+                                        component="span"
+                                        sx={{
+                                            color: '#F85063',
+                                            textDecoration: 'underline'
+                                        }}
+                                    >
+                                        privacy policy
+                                    </Typography>{' '}
+                                    and{' '}
+                                    <Typography
+                                        component="span"
+                                        sx={{
+                                            color: '#F85063',
+                                            textDecoration: 'underline'
+                                        }}
+                                    >
+                                        terms of use
+                                    </Typography>
+                                </Typography>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ position: 'relative', display: { xs: 'none', lg: 'block' } }}>
-                    <img
-                        src={mailImg}
-                        alt="Berry"
-                        style={{
-                            marginBottom: -0.625,
-                            position: 'absolute',
-                            bottom: -90,
-                            right: '0',
-                            width: 400,
-                            maxWidth: '100%',
-                            animation: '5s wings ease-in-out infinite'
-                        }}
-                    />
+            </Container>
+
+            {/* Map Section */}
+            <Container
+                maxWidth="lg"
+                sx={{
+                    my: 6,
+                    py: 5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    backgroundColor: '#F9F9F9',
+                    borderRadius: '8px',
+                }}
+            >
+                <Typography
+                    variant="h2"
+                    sx={{
+                        color: '#000',
+                        fontWeight: 'bold',
+                        mb: 4,
+                        textAlign: 'center'
+                    }}
+                >
+                    Map Location
+                </Typography>
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.904471472408!2d85.11841077554966!3d25.608090414935212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed583dcb8fdcc1%3A0x7d8b8723cdf39b3a!2sBihar%20Museum!5e0!3m2!1sen!2sin!4v1734398280780!5m2!1sen!2sin"
+                    width="100%"
+                    height="450"
+                    style={{
+                        border: '0',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Location Map"
+                ></iframe>
+            </Container>
+
+            {/* Info Cards Section */}
+            <Container maxWidth="lg" sx={{ my: 8 }}>
+                <Typography
+                    variant="h2"
+                    sx={{
+                        color: '#000',
+                        fontWeight: 'bold',
+                        mb: 5,
+                        textAlign: 'center'
+                    }}
+                >
+                    Contact Us
+                </Typography>
+
+                <Grid container spacing={4} justifyContent="center">
+                    {/* Reusable Card Component */}
+                    {[
+                        {
+                            title: 'Main Office',
+                            icon: <LocationOn sx={{ fontSize: '40px', mb: 1 }} />,
+                            text1: 'Patna-13 ( Bihar )',
+                            text2: '221, Patliputra Colony, Near Patliputra Park'
+                        },
+                        {
+                            title: 'Make a Call',
+                            icon: <Phone sx={{ fontSize: '40px', mb: 1 }} />,
+                            text1: '9264484444',
+                            text2: 'Mon - Sat: 09am - 08pm'
+                        },
+                        {
+                            title: 'Send a Mail',
+                            icon: <Email sx={{ fontSize: '40px', mb: 1 }} />,
+                            text1: 'info@residygroup.com',
+                            text2: 'info@residygroup.com'
+                        }
+                    ].map((item, index) => (
+                        <Grid item xs={12} sm={6} md={4} key={index}>
+                            <Box
+                                sx={{
+                                    border: '1px solid #ddd',
+                                    borderRadius: '10px',
+                                    p: 4,
+                                    textAlign: 'center',
+                                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                                    '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.2)' }
+                                }}
+                            >
+                                <Typography
+                                    variant="h6"
+                                    sx={{ fontWeight: 'bold', mb: 1 }}
+                                >
+                                    {item.title}
+                                </Typography>
+                                <Box sx={{ color: '#E8474E' }}>{item.icon}</Box>
+                                <Typography
+                                    variant="body1"
+                                    sx={{ fontWeight: 'bold', mb: 1 }}
+                                >
+                                    {item.text1}
+                                </Typography>
+                                <Typography variant="body2">{item.text2}</Typography>
+                            </Box>
+                        </Grid>
+                    ))}
                 </Grid>
-                <Grid item xs={10} sx={{ mb: -37.5 }}>
-                    <Card sx={{ mb: 6.25 }} elevation={4}>
-                        <CardContent sx={{ p: 4 }}>
-                            <Grid container spacing={gridSpacing}>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Name</InputLabel>
-                                        <OutlinedInput type="text" label="Name" placeholder="Enter Your Name" />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Company Name</InputLabel>
-                                        <OutlinedInput type="text" label="Company Name" placeholder="Enter Your Company Name" />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Email Address</InputLabel>
-                                        <OutlinedInput type="text" label="Email Address" placeholder="Enter Your Email Address" />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <PatternFormat
-                                            format="+1 (###) ###-####"
-                                            mask="_"
-                                            fullWidth
-                                            customInput={TextField}
-                                            label="Phone Number"
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth sx={{ textAlign: 'left' }}>
-                                        <TextField
-                                            id="outlined-select-Size"
-                                            select
-                                            fullWidth
-                                            label="Company Size"
-                                            value={size}
-                                            onChange={handleChange1}
-                                        >
-                                            {sizes.map((option, index) => (
-                                                <MenuItem key={index} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth sx={{ textAlign: 'left' }}>
-                                        <TextField
-                                            id="outlined-select-budget"
-                                            select
-                                            fullWidth
-                                            label="Project Budget"
-                                            value={budget}
-                                            onChange={handleChange}
-                                        >
-                                            {currencies.map((option, index) => (
-                                                <MenuItem key={index} value={option.value}>
-                                                    {option.label}
-                                                </MenuItem>
-                                            ))}
-                                        </TextField>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            id="outlined-multiline-static1"
-                                            placeholder="Message"
-                                            multiline
-                                            fullWidth
-                                            rows={4}
-                                            defaultValue=""
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Grid container spacing={gridSpacing}>
-                                        <Grid item sm zeroMinWidth>
-                                            <Typography align="left" variant="body2">
-                                                By submitting this, you agree to the
-                                                <Typography variant="subtitle1" component={Link} to="#" color="primary" sx={{ mx: 0.5 }}>
-                                                    Privacy Policy
-                                                </Typography>
-                                                and
-                                                <Typography variant="subtitle1" component={Link} to="#" color="primary" sx={{ ml: 0.5 }}>
-                                                    Cookie Policy
-                                                </Typography>
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <AnimateButton>
-                                                <Button variant="contained" color="secondary">
-                                                    Get Started
-                                                </Button>
-                                            </AnimateButton>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
-        </Container>
+            </Container>
+        </>
     );
 };
 
