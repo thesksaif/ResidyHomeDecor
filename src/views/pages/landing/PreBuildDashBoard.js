@@ -1,4 +1,11 @@
-import { Grid, Typography, Box, Stack, Button } from '@mui/material';
+import {
+    Grid,
+    Typography,
+    Box,
+    Stack
+    // Button
+} from '@mui/material';
+import SimpleModal from './SimpleModal';
 
 const FeatureComparison = () => {
     // const theme = useTheme();
@@ -117,7 +124,8 @@ const FeatureComparison = () => {
             </Grid>
             {/* Call to Action Button */}
             <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
-                <Button
+                <SimpleModal />
+                {/* <Button
                     variant="contained"
                     color="secondary"
                     sx={{
@@ -129,7 +137,7 @@ const FeatureComparison = () => {
                     }}
                 >
                     Book Free Consultation
-                </Button>
+                </Button> */}
             </Box>
         </Box>
     );

@@ -79,13 +79,13 @@ const AppBar = ({ ...others }) => {
                             <Button color="inherit" component={RouterLink} to="/about-us">
                                 About
                             </Button>
-                            <Button color="inherit" component={Link} href="/services">
+                            <Button color="inherit" component={RouterLink} to="/services">
                                 Services
                             </Button>
                             <Button color="inherit" component={RouterLink} to="/contact-us">
                                 Contact Us
                             </Button>
-                            <Button component={Link} href="quote" disableElevation variant="contained" color="error">
+                            <Button component={RouterLink} to="/quote" disableElevation variant="contained" color="error">
                                 GET QUOTE
                             </Button>
                         </Stack>
@@ -118,11 +118,7 @@ const AppBar = ({ ...others }) => {
                                                     <ListItemText primary="Dashboard" />
                                                 </ListItemButton>
                                             </Link>
-                                            <Link
-                                                style={{ textDecoration: 'none' }}
-                                                href="https://codedthemes.gitbook.io/berry"
-                                                target="_blank"
-                                            >
+                                            <Link style={{ textDecoration: 'none' }} href="" target="_blank">
                                                 <ListItemButton component="a">
                                                     <ListItemIcon>
                                                         <IconBook />

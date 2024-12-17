@@ -13,6 +13,7 @@ import CustomizeSection from './CustomizeSection';
 import PreBuildDashBoard from './PreBuildDashBoard';
 import StartupProjectSection from './StartupProjectSection';
 import Gallery from './Gallery';
+// import SimpleModal from './SimpleModal';
 
 // custom stlye
 const HeaderWrapper = styled('div')(({ theme }) => ({
@@ -82,6 +83,10 @@ const Landing = () => {
             <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
                 <FrameworkSection />
             </SectionWrapper>
+
+            {/* <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'dark.dark' : 'background.default' }}>
+                <SimpleModal />
+            </SectionWrapper> */}
 
             {/* 10. footer section */}
             <SectionWrapper sx={{ bgcolor: theme.palette.mode === 'dark' ? 'background.default' : 'dark.900', pb: 0 }}>
