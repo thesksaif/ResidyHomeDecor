@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import AppBar from 'ui-component/extended/AppBar';
 import FooterSection from '../landing/FooterSection';
 import Services from 'views/pages/services/Services.js';
-import banner from 'assets/images/services/banner.jpg'
+import banner from 'assets/images/services/banner.jpg';
 
 // Section Wrapper
 const SectionWrapper = styled('div')(({ theme }) => ({
@@ -21,14 +21,17 @@ const SectionWrapper = styled('div')(({ theme }) => ({
 // Banner Styles
 const BannerWrapper = styled('div')(() => ({
     position: 'relative',
-    width: '100%',
-    height: '300px',
+    width: '100vw',
+    height: '240px',
+    margin: '-10px',
     backgroundImage: `url(${banner})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: -10,
+    marginLeft: -10,
     color: '#fff'
 }));
 
@@ -39,15 +42,6 @@ const BannerText = styled('h1')(() => ({
     zIndex: 1
 }));
 
-const Overlay = styled('div')(() => ({
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)'
-}));
-
 const ServicesPage = () => {
     return (
         <>
@@ -55,8 +49,7 @@ const ServicesPage = () => {
             <AppBar />
 
             {/* // Banner */}
-            <BannerWrapper>
-                <Overlay />
+            <BannerWrapper sx={{ marginLeft: '-20px' }}>
                 <BannerText>Our Services</BannerText>
             </BannerWrapper>
 

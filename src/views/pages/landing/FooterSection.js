@@ -1,11 +1,15 @@
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Container, Grid, IconButton, Link, Stack, Typography } from '@mui/material'; // Divider
-
+import { Box, Container, Grid, IconButton, Link, Stack, Typography } from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+
+// Import the necessary icons
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CallIcon from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
 
 // Link - custom style
 const FooterLink = styled(Link)(({ theme }) => ({
@@ -18,17 +22,9 @@ const FooterLink = styled(Link)(({ theme }) => ({
     }
 }));
 
-// =============================|| LANDING - FOOTER SECTION ||============================= //
-
 const FooterSection = () => {
     const theme = useTheme();
     const textColor = theme.palette.mode === 'dark' ? 'text.secondary' : 'text.hint';
-
-    // const dividerSX = {
-    //     borderImageSlice: 1,
-    //     borderImageSource: linear-gradient(90deg, rgba(255, 255, 255, 0) -0.01%, rgba(255, 255, 255, 0.56) 51.97%, rgba(255, 255, 255, 0.03) 99.99%),
-    //     opacity: 0.5
-    // };
 
     return (
         <>
@@ -36,6 +32,7 @@ const FooterSection = () => {
                 <Grid container spacing={6}>
                     <Grid item xs={12}>
                         <Grid container spacing={8}>
+                            {/* About Section */}
                             <Grid item xs={12} md={4}>
                                 <Stack spacing={{ xs: 2, md: 5 }}>
                                     <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
@@ -48,6 +45,8 @@ const FooterSection = () => {
                                     </Typography>
                                 </Stack>
                             </Grid>
+
+                            {/* Help Section */}
                             <Grid item xs={12} md={8}>
                                 <Grid container spacing={{ xs: 5, md: 2 }}>
                                     <Grid item xs={6} sm={4}>
@@ -71,6 +70,8 @@ const FooterSection = () => {
                                             </Stack>
                                         </Stack>
                                     </Grid>
+
+                                    {/* Additional Help */}
                                     <Grid item xs={6} sm={4}>
                                         <Stack spacing={{ xs: 3, md: 5 }}>
                                             <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
@@ -92,24 +93,32 @@ const FooterSection = () => {
                                             </Stack>
                                         </Stack>
                                     </Grid>
+
+                                    {/* Get In Touch with Icons */}
                                     <Grid item xs={6} sm={4}>
                                         <Stack spacing={{ xs: 3, md: 5 }}>
                                             <Typography variant="h4" color={textColor} sx={{ fontWeight: 500 }}>
                                                 Get In Touch
                                             </Typography>
                                             <Stack spacing={{ xs: 1.5, md: 2.5 }}>
-                                                <FooterLink href="https://links.codedthemes.com/Yfkxg" target="_blank" underline="none">
-                                                221, Patliputra Colony, Near Patliputra Park, Patna-13 ( Bihar )
-                                                </FooterLink>
-                                                <FooterLink href="https://links.codedthemes.com/epTmN" target="_blank" underline="none">
-                                                9264484444
-                                                </FooterLink>
-                                                <FooterLink href="https://links.codedthemes.com/seQKN" target="_blank" underline="none">
-                                                info@residygroup.com
-                                                </FooterLink>
-                                                <FooterLink href="https://links.codedthemes.com/Wfbiy" target="_blank" underline="none">
-                                                    Free Django
-                                                </FooterLink>
+                                                <Stack direction="row" alignItems="center" spacing={1}>
+                                                    <LocationOnIcon sx={{ color: '#fff' }} />
+                                                    <FooterLink href="https://links.codedthemes.com/Yfkxg" target="_blank" underline="none">
+                                                        221, Patliputra Colony, Near Patliputra Park, Patna-13 (Bihar)
+                                                    </FooterLink>
+                                                </Stack>
+                                                <Stack direction="row" alignItems="center" spacing={1}>
+                                                    <CallIcon sx={{ color: '#fff' }} />
+                                                    <FooterLink href="tel:9264484444" target="_blank" underline="none">
+                                                        9264484444
+                                                    </FooterLink>
+                                                </Stack>
+                                                <Stack direction="row" alignItems="center" spacing={1}>
+                                                    <EmailIcon sx={{ color: '#fff' }} />
+                                                    <FooterLink href="mailto:info@residygroup.com" target="_blank" underline="none">
+                                                        info@residygroup.com
+                                                    </FooterLink>
+                                                </Stack>
                                             </Stack>
                                         </Stack>
                                     </Grid>
@@ -119,6 +128,8 @@ const FooterSection = () => {
                     </Grid>
                 </Grid>
             </Container>
+
+            {/* Bottom Section */}
             <Box sx={{ bgcolor: 'dark.dark', py: { xs: 3, sm: 1.5 } }}>
                 <Container>
                     <Stack
@@ -168,4 +179,5 @@ const FooterSection = () => {
         </>
     );
 };
+
 export default FooterSection;

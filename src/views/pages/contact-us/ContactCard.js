@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    Button,
-    Container,
-    FormControl,
-    Grid,
-    OutlinedInput,
-    TextField,
-    Typography,
-    Box
-} from '@mui/material';
+import { Button, Container, FormControl, Grid, OutlinedInput, TextField, Typography, Box } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
 import contactIllustration from 'assets/images/contact/contactIllustration.png';
 
@@ -16,15 +7,10 @@ const ContactCard = () => {
     return (
         <>
             {/* Main Form Section */}
-            <Container maxWidth="lg" sx={{ py: 16, mb: -12 }} >
+            <Container maxWidth="lg" sx={{ py: 16, mb: -12 }}>
                 <Grid container spacing={8} alignItems="center">
                     {/* Left Section - Image */}
-                    <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        sx={{ display: 'flex', justifyContent: 'center' }}
-                    >
+                    <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                         <img
                             src={contactIllustration}
                             alt="ContactIllustration"
@@ -42,7 +28,7 @@ const ContactCard = () => {
                             variant="h2"
                             component="div"
                             sx={{
-                                color: '#E8474E',
+                                color: '#000',
                                 fontWeight: 'bold',
                                 mb: 3,
                                 textAlign: 'center'
@@ -53,34 +39,23 @@ const ContactCard = () => {
 
                         {/* Form */}
                         <Grid container spacing={2}>
-                            {['Enter your full name', 'Phone number', 'Your email', 'Service Description'].map(
-                                (placeholder, index) => (
-                                    <Grid item xs={12} key={index}>
-                                        <FormControl fullWidth>
-                                            <OutlinedInput placeholder={placeholder} />
-                                        </FormControl>
-                                    </Grid>
-                                )
-                            )}
+                            {['Enter your full name', 'Phone number', 'Your email', 'Service Description'].map((placeholder, index) => (
+                                <Grid item xs={12} key={index}>
+                                    <FormControl fullWidth>
+                                        <OutlinedInput placeholder={placeholder} />
+                                    </FormControl>
+                                </Grid>
+                            ))}
 
                             <Grid item xs={12}>
-                                <TextField
-                                    placeholder="Message"
-                                    multiline
-                                    rows={4}
-                                    variant="outlined"
-                                    fullWidth
-                                />
+                                <TextField placeholder="Message" multiline rows={4} variant="outlined" fullWidth />
                             </Grid>
 
                             <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
                                 <input type="checkbox" defaultChecked style={{ marginRight: 8 }} />
                                 <Typography variant="body2">
                                     You can reach me on{' '}
-                                    <Typography
-                                        component="span"
-                                        sx={{ color: 'green', ml: 0.5 }}
-                                    >
+                                    <Typography component="span" sx={{ color: 'green', ml: 0.5 }}>
                                         WhatsApp
                                     </Typography>
                                 </Typography>
@@ -92,8 +67,8 @@ const ContactCard = () => {
                                     variant="contained"
                                     fullWidth
                                     sx={{
-                                        backgroundColor: '#D8212E',
-                                        color: '#FFF',
+                                        backgroundColor: '#e74c3c',
+                                        color: 'error',
                                         py: 1.5,
                                         '&:hover': { backgroundColor: '#B71C24' },
                                         fontWeight: 'bold'
@@ -104,11 +79,7 @@ const ContactCard = () => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Typography
-                                    variant="body2"
-                                    align="center"
-                                    sx={{ color: '#888' }}
-                                >
+                                <Typography variant="body2" align="center" sx={{ color: '#888' }}>
                                     By submitting this form, you agree to the{' '}
                                     <Typography
                                         component="span"
@@ -146,7 +117,7 @@ const ContactCard = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     backgroundColor: '#F9F9F9',
-                    borderRadius: '8px',
+                    borderRadius: '8px'
                 }}
             >
                 <Typography
@@ -224,17 +195,11 @@ const ContactCard = () => {
                                     '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.2)' }
                                 }}
                             >
-                                <Typography
-                                    variant="h6"
-                                    sx={{ fontWeight: 'bold', mb: 1 }}
-                                >
+                                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
                                     {item.title}
                                 </Typography>
                                 <Box sx={{ color: '#E8474E' }}>{item.icon}</Box>
-                                <Typography
-                                    variant="body1"
-                                    sx={{ fontWeight: 'bold', mb: 1 }}
-                                >
+                                <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 1 }}>
                                     {item.text1}
                                 </Typography>
                                 <Typography variant="body2">{item.text2}</Typography>

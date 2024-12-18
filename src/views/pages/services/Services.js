@@ -27,14 +27,14 @@ const ServiceItem = styled(Paper)(({ theme }) => ({
     }
 }));
 
-const IconWrapper = styled('div')(({ theme }) => ({
+const IconWrapper = styled('div')(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: '50px',
     height: '50px',
     borderRadius: '50%',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#e74c3c',
     color: '#fff',
     marginBottom: '10px'
 }));

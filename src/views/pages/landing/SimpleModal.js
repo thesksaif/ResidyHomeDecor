@@ -115,7 +115,7 @@ export default function SimpleModal() {
             {/* <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}> */}
             <Button
                 variant="contained"
-                color="secondary"
+                color="error"
                 sx={{
                     padding: '10px 30px',
                     backgroundColor: '#e74c3c',
