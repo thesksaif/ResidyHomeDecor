@@ -8,28 +8,29 @@ import AppBar from 'ui-component/extended/AppBar';
 import CardSection from 'views/pages/landing/CardSection';
 import FooterSection from '../landing/FooterSection';
 import AboutUs from 'views/pages/about-us/AboutUs.js';
-import banner from 'assets/images/about/banner.jpg'
+import banner from 'assets/images/about/banner.jpg';
 
 // Styled Components
 const SectionWrapper = styled('div')(({ theme }) => ({
     paddingTop: 100,
     marginTop: 80,
-    marginBottom: -60,
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900],
+    marginBottom: -20,
     marginLeft: -40,
-    marginRight: -40,
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
+    marginRight: -40
 }));
 
 const BannerWrapper = styled('div')(() => ({
     position: 'relative',
-    width: '100%',
-    height: '300px',
+    width: '100vw',
+    height: '240px',
+    margin: '-10px',
     backgroundImage: `url(${banner})`,
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: -20,
     color: '#fff'
 }));
 
@@ -40,15 +41,6 @@ const BannerText = styled('h1')(() => ({
     zIndex: 1
 }));
 
-const Overlay = styled('div')(() => ({
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)'
-}));
-
 const AboutUsPage = () => {
     return (
         <>
@@ -56,12 +48,11 @@ const AboutUsPage = () => {
             <AppBar />
 
             {/* BannerWrapper */}
-            <BannerWrapper>
-                <Overlay />
+            <BannerWrapper sx={{ marginLeft: '-20px' }}>
                 <BannerText>About Us</BannerText>
             </BannerWrapper>
 
-            {/* About US */}
+            {/* About Us */}
             <SectionWrapper sx={{ bgcolor: 'white', paddingBottom: '100px' }}>
                 <AboutUs />
             </SectionWrapper>

@@ -11,7 +11,7 @@ import banner from 'assets/images/contact/banner2.jpg';
 const BannerWrapper = styled('div')(() => ({
     position: 'relative',
     width: '100%',
-    height: '330px', // Match "Our Services" banner height
+    height: '330px',
     backgroundImage: `url(${banner})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -23,27 +23,16 @@ const BannerWrapper = styled('div')(() => ({
 }));
 
 const BannerText = styled('h1')(() => ({
-    fontSize: '3rem', // Match "Our Services" font size
+    fontSize: '3rem',
     fontWeight: 'bold',
     zIndex: 1,
     marginTop: '108px'
 }));
 
-// const Overlay = styled('div')(() => ({
-//     position: 'absolute',
-//     top: 0,
-//     left: 0,
-//     width: '100%',
-//     height: '100%',
-//     backgroundColor: 'rgba(0, 0, 0, 0.4)' // Consistent overlay effect
-// }));
-
 const SectionWrapper = styled('div')(({ theme }) => ({
     paddingTop: 50,
-    marginTop: 0, // Remove unnecessary large margin
-    backgroundColor: theme.palette.mode === 'dark' 
-        ? theme.palette.background.default 
-        : theme.palette.grey[900]
+    marginTop: 0,
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
 }));
 
 // ============================|| CONTACT US MAIN ||============================ //
@@ -56,7 +45,6 @@ const ContactUsPage = () => {
 
             {/* Banner Section */}
             <BannerWrapper>
-                {/* <Overlay /> */}
                 <BannerText>Contact Us</BannerText>
             </BannerWrapper>
 
@@ -72,4 +60,3 @@ const ContactUsPage = () => {
 };
 
 export default ContactUsPage;
-
