@@ -1,9 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, Typography, Grid, Paper } from '@mui/material';
-
-// import AppBar from 'ui-component/extended/AppBar';
-// import FooterSection from '../landing/FooterSection';
+import { Box, Typography, Grid, Paper, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -11,19 +9,31 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 // Styled Components
 const ServicesWrapper = styled(Box)(({ theme }) => ({
-    padding: '40px 20px',
-    width: '100%',
-    margin: '0 auto',
+    padding: '60px 20px',
     backgroundColor: theme.palette.background.default
+}));
+
+const SectionHeader = styled(Typography)(({ theme }) => ({
+    fontWeight: 'bold',
+    marginBottom: '20px',
+    textTransform: 'uppercase',
+    color: theme.palette.primary.main
+}));
+
+const SubText = styled(Typography)(({ theme }) => ({
+    marginBottom: '40px',
+    color: theme.palette.text.secondary
 }));
 
 const ServiceItem = styled(Paper)(({ theme }) => ({
     padding: '20px',
-    textAlign: 'left',
-    borderRadius: '8px',
+    textAlign: 'center',
+    borderRadius: '12px',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     boxShadow: theme.shadows[3],
     '&:hover': {
-        boxShadow: theme.shadows[6]
+        transform: 'translateY(-10px)',
+        boxShadow: theme.shadows[8]
     }
 }));
 
@@ -31,73 +41,62 @@ const IconWrapper = styled('div')(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50px',
-    height: '50px',
+    width: '60px',
+    height: '60px',
     borderRadius: '50%',
     backgroundColor: '#e74c3c',
     color: '#fff',
-    marginBottom: '10px'
+    margin: '0 auto 20px'
 }));
 
-// const SectionWrapper = styled('div')(({ theme }) => ({
-//     paddingTop: 100,
-//     marginTop: 80,
-//     marginBottom: -20,
-//     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900]
-// }));
+const TestimonialsWrapper = styled(Box)(({ theme }) => ({
+    padding: '60px 20px',
+    textAlign: 'center',
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: `0px 4px 10px ${theme.palette.grey[300]}`
+}));
 
-// // Banner Styles
-// const BannerWrapper = styled('div')(() => ({
-//     position: 'relative',
-//     width: '100%',
-//     height: '300px',
-//     backgroundImage: `url('https://via.placeholder.com/1920x300.png?text=Services+Banner')`,
-//     backgroundSize: 'cover',
-//     backgroundPosition: 'center',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     color: '#fff'
-// }));
+const FAQWrapper = styled(Box)(({ theme }) => ({
+    padding: '60px 20px',
+    backgroundColor: theme.palette.grey[100]
+}));
 
-// const BannerText = styled('h1')(() => ({
-//     fontSize: '3rem',
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     zIndex: 1
-// }));
+const AccordionStyled = styled(Accordion)(({ theme }) => ({
+    marginBottom: '10px',
+    boxShadow: 'none',
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: '8px',
+    '&:before': {
+        display: 'none'
+    }
+}));
 
-// const Overlay = styled('div')(() => ({
-//     position: 'absolute',
-//     top: 0,
-//     left: 0,
-//     width: '100%',
-//     height: '100%',
-//     backgroundColor: 'rgba(0, 0, 0, 0.4)'
-// }));
+const AccordionSummaryStyled = styled(AccordionSummary)(({ theme }) => ({
+    backgroundColor: theme.palette.background.default,
+    '& .MuiAccordionSummary-expandIcon': {
+        color: theme.palette.primary.main
+    }
+}));
+
+const AccordionDetailsStyled = styled(AccordionDetails)(({ theme }) => ({
+    padding: '20px',
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.secondary
+}));
 
 const Services = () => {
     return (
         <>
-            {/* <AppBar /> */}
-
-            {/* Full-Width Banner */}
-            {/* <BannerWrapper>
-                <Overlay />
-                <BannerText>Our Services</BannerText>
-            </BannerWrapper> */}
-
+            {/* Services Section */}
             <ServicesWrapper>
-                {/* Header Section */}
-                <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', marginBottom: '30px' }}>
+                <SectionHeader variant="h4" align="center">
                     Our Services
-                </Typography>
-                <Typography variant="subtitle1" align="center" gutterBottom>
+                </SectionHeader>
+                <SubText variant="subtitle1" align="center">
                     Explore the wide range of home decor services we offer at Resdiy Home Decor.
-                </Typography>
+                </SubText>
 
-                {/* Services Grid */}
-                <Grid container spacing={4} style={{ marginTop: '20px', padding: '0 40px' }}>
+                <Grid container spacing={4} style={{ padding: '0 40px' }}>
                     <Grid item xs={12} md={6} lg={3}>
                         <ServiceItem>
                             <IconWrapper>
@@ -112,8 +111,6 @@ const Services = () => {
                             </Typography>
                         </ServiceItem>
                     </Grid>
-
-                    {/* Service 2: Interior Design Consultation */}
                     <Grid item xs={12} md={6} lg={3}>
                         <ServiceItem>
                             <IconWrapper>
@@ -128,8 +125,6 @@ const Services = () => {
                             </Typography>
                         </ServiceItem>
                     </Grid>
-
-                    {/* Service 3: Home Renovation Support */}
                     <Grid item xs={12} md={6} lg={3}>
                         <ServiceItem>
                             <IconWrapper>
@@ -143,8 +138,6 @@ const Services = () => {
                             </Typography>
                         </ServiceItem>
                     </Grid>
-
-                    {/* Service 4: Fast Delivery and Setup */}
                     <Grid item xs={12} md={6} lg={3}>
                         <ServiceItem>
                             <IconWrapper>
@@ -161,10 +154,62 @@ const Services = () => {
                 </Grid>
             </ServicesWrapper>
 
-            {/* Footer Section
-            <SectionWrapper>
-                <FooterSection />
-            </SectionWrapper> */}
+            {/* Testimonials Section */}
+            <TestimonialsWrapper>
+                <SectionHeader variant="h4">What Our Clients Say</SectionHeader>
+                <SubText variant="subtitle1" align="center">
+                    Hear from our satisfied clients.
+                </SubText>
+                <Grid container spacing={4} style={{ marginTop: '20px', padding: '0 40px' }}>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ padding: '20px', borderRadius: '12px', boxShadow: 3 }}>
+                            <Typography variant="body1" gutterBottom>
+                                Resdiy Home Decor transformed my living room into a space I love spending time in. Their attention to detail
+                                is unmatched!
+                            </Typography>
+                            <Typography variant="subtitle2" align="right">
+                                - Jane Doe
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <Paper sx={{ padding: '20px', borderRadius: '12px', boxShadow: 3 }}>
+                            <Typography variant="body1" gutterBottom>
+                                The team was professional, affordable, and creative. I highly recommend their services!
+                            </Typography>
+                            <Typography variant="subtitle2" align="right">
+                                - John Smith
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </TestimonialsWrapper>
+
+            {/* FAQ Section */}
+            <FAQWrapper>
+                <SectionHeader variant="h4" align="center">
+                    Frequently Asked Questions
+                </SectionHeader>
+                <AccordionStyled>
+                    <AccordionSummaryStyled expandIcon={<ExpandMoreIcon />}>
+                        <Typography>What services do you offer?</Typography>
+                    </AccordionSummaryStyled>
+                    <AccordionDetailsStyled>
+                        <Typography>
+                            We offer a range of services including custom home decor, interior design consultations, and home renovation
+                            support.
+                        </Typography>
+                    </AccordionDetailsStyled>
+                </AccordionStyled>
+                <AccordionStyled>
+                    <AccordionSummaryStyled expandIcon={<ExpandMoreIcon />}>
+                        <Typography>How can I book your services?</Typography>
+                    </AccordionSummaryStyled>
+                    <AccordionDetailsStyled>
+                        <Typography>You can contact us directly through our website or by calling our customer service line.</Typography>
+                    </AccordionDetailsStyled>
+                </AccordionStyled>
+            </FAQWrapper>
         </>
     );
 };

@@ -48,7 +48,7 @@ const ServicesPage = () => {
             {/* header */}
             <AppBar />
 
-            {/* // Banner */}
+            {/*  Banner */}
             <BannerWrapper sx={{ marginLeft: '-20px' }}>
                 <BannerText>Our Services</BannerText>
             </BannerWrapper>

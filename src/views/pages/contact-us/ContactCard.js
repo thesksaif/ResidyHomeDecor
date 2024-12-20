@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container, FormControl, Grid, OutlinedInput, TextField, Typography, Box } from '@mui/material';
 import { LocationOn, Phone, Email } from '@mui/icons-material';
+import { WhatsApp } from '@mui/icons-material';
 import contactIllustration from 'assets/images/contact/contactIllustration.png';
 
 const ContactCard = () => {
@@ -51,14 +52,17 @@ const ContactCard = () => {
                                 <TextField placeholder="Message" multiline rows={4} variant="outlined" fullWidth />
                             </Grid>
 
-                            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <input type="checkbox" defaultChecked style={{ marginRight: 8 }} />
-                                <Typography variant="body2">
-                                    You can reach me on{' '}
-                                    <Typography component="span" sx={{ color: 'green', ml: 0.5 }}>
+                            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <input type="checkbox" defaultChecked style={{ marginRight: 8 }} />
+                                    <Typography variant="body2">You can reach me on</Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <WhatsApp sx={{ fontSize: '20px', color: 'green', mr: 0.5 }} />
+                                    <Typography variant="body2" sx={{ color: 'green' }}>
                                         WhatsApp
                                     </Typography>
-                                </Typography>
+                                </Box>
                             </Grid>
 
                             {/* Submit Button */}
