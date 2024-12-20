@@ -103,7 +103,11 @@ const FooterSection = () => {
                                             <Stack spacing={{ xs: 1.5, md: 2.5 }}>
                                                 <Stack direction="row" alignItems="center" spacing={1}>
                                                     <LocationOnIcon sx={{ color: '#fff' }} />
-                                                    <FooterLink href="https://links.codedthemes.com/Yfkxg" target="_blank" underline="none">
+                                                    <FooterLink
+                                                        href="https://maps.app.goo.gl/dX5tkUhgd6kEBpLA7"
+                                                        target="_blank"
+                                                        underline="none"
+                                                    >
                                                         221, Patliputra Colony, Near Patliputra Park, Patna-13 (Bihar)
                                                     </FooterLink>
                                                 </Stack>
