@@ -42,6 +42,11 @@ const BannerText = styled('h1')(() => ({
     zIndex: 1
 }));
 
+const ServicesWrapper = styled('div')(() => ({
+    marginRight: -20,
+    marginLeft: -20
+}));
+
 const ServicesPage = () => {
     return (
         <>
@@ -54,7 +59,9 @@ const ServicesPage = () => {
             </BannerWrapper>
 
             {/* Service */}
-            <Services />
+            <ServicesWrapper sx={{ marginLeft: '-18px' }}>
+                <Services />
+            </ServicesWrapper>
 
             {/* Footer */}
             <SectionWrapper>
