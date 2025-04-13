@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, Typography, Grid, Paper} from '@mui/material';
+import { Box, Typography, Grid, Paper } from '@mui/material';
 import SimpleModal from 'views/pages/landing/SimpleModal.js';
 
-// Project  media imports
+// Project media imports
 import KitchenVideo from 'assets/videos/kitchen.mp4';
 import StorageVideo from 'assets/videos/wardrobe.mp4';
 import ChairVideo from 'assets/videos/armchair.mp4';
@@ -17,7 +17,7 @@ import CeilingVideo from 'assets/videos/ceiling-lamp.mp4';
 import MasterBedVideo from 'assets/videos/double-bed.mp4';
 import DeskVideo from 'assets/videos/desk.mp4';
 
-// slider
+// Slider
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -29,6 +29,13 @@ import living2 from 'assets/images/gallery/living-2.jpg';
 import kitchen2 from 'assets/images/gallery/kitchen-2.jpg';
 import living3 from 'assets/images/gallery/living-3.jpg';
 import kitchen3 from 'assets/images/gallery/kitchen-3.jpg';
+import main from 'assets/images/services/main.jpg';
+
+// Import icons
+import mail from 'assets/images/services/mail.png';
+import discount from 'assets/images/services/discount.png';
+import price from 'assets/images/services/price-tag.png';
+import calendar from 'assets/images/services/calendar.png';
 
 // Styled Components
 const Wrapper = styled(Box)(({ theme }) => ({
@@ -60,6 +67,47 @@ const Item = styled(Paper)(() => ({
     }
 }));
 
+const StagesWrapper = styled(Box)(() => ({
+    padding: '80px 20px',
+    textAlign: 'center'
+}));
+
+const StageContainer = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '80px',
+    marginBottom: '-40px',
+    [theme.breakpoints.down('md')]: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '40px'
+    }
+}));
+
+const StageContent = styled(Box)(({ theme }) => ({
+    flex: 1,
+    textAlign: 'left',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '550px',
+    [theme.breakpoints.down('md')]: {
+        height: 'auto'
+    }
+}));
+
+const BigImage = styled(Box)(({ theme }) => ({
+    width: '500px',
+    height: '525px',
+    borderRadius: '4px',
+    overflow: 'hidden',
+    flexShrink: 0,
+    [theme.breakpoints.down('md')]: {
+        width: '100%',
+        height: '300px'
+    }
+}));
+
 const Services = () => {
     const services = [
         { video: KitchenVideo, title: 'Modular Kitchen' },
@@ -70,16 +118,14 @@ const Services = () => {
         { video: BrushVideo, title: 'Wall Paint' },
         { video: LightbulbVideo, title: 'Lighting' },
         { video: BathroomVideo, title: 'Bathroom' },
-        { video: KidsBedVideo, title: 'kids Bedroom' },
+        { video: KidsBedVideo, title: 'Kids Bedroom' },
         { video: CeilingVideo, title: 'Ceiling Lamp' },
         { video: MasterBedVideo, title: 'Master Bedroom' },
         { video: DeskVideo, title: 'Desk' }
     ];
 
-    // Carousel Images
     const carouselImages = [kitchen, living, living2, kitchen2, living3, kitchen3];
 
-    // Slick Slider Settings
     const sliderSettings = {
         dots: false,
         arrows: false,
@@ -104,6 +150,29 @@ const Services = () => {
         ]
     };
 
+    const stages = [
+        {
+            title: "1 - Let's Talk",
+            description:
+                'In store, by phone, or on a video call, the first exchanges with your decorator mark the starting point of your project. The way you use each room, your constraints, your tastes and your expectations are essential elements for your decorator to fully understand your project.'
+        },
+        {
+            title: '2 - Your Space & Your Future Furniture',
+            description:
+                'Based on your instructions, we draw very detailed plans of your interior. Precise measurements of existing elements, exact locations of doors and windows; every detail counts to obtain an optimised and realistic final rendering. Depending on your needs, we offer a selection of products accompanied by a layout plan that we develop with you. Once your product selection is final, we will determine the colours, materials and finishes together.'
+        },
+        {
+            title: '3 - Your Interior in 3D',
+            description:
+                'Using a powerful 3D design software, the image is finalised for optimal rendering of textures, reflections and colours. This rendering allows you to visualise your selection of products in your home and to discover the images of your future interior.'
+        },
+        {
+            title: '4 - And Then?',
+            description:
+                'We create your furniture in the best European workshops, then organise their delivery, assembly and installation for you by qualified professionals. Your decorator accompanies you every step of the way, taking care of every detail.'
+        }
+    ];
+
     return (
         <Wrapper>
             {/* Services Section */}
@@ -113,7 +182,7 @@ const Services = () => {
             <SubText variant="subtitle1" align="center">
                 Explore the wide range of home decor services we offer at Residy Home Decor.
             </SubText>
-            <Grid container spacing={4} justifyContent="center" mb={14} >
+            <Grid container spacing={4} justifyContent="center" mb={14}>
                 {services.map((service, index) => (
                     <Grid item xs={12} md={4} lg={3} key={index}>
                         <Item>
@@ -144,11 +213,9 @@ const Services = () => {
             <SectionHeader variant="h4" align="center">
                 Transform your Sweet Home
             </SectionHeader>
-
             <SubText variant="subtitle1" align="center">
                 Look no further than Resdiy Home Decor for end-to-end interior design service
             </SubText>
-
             <Slider {...sliderSettings}>
                 {carouselImages.map((image, index) => (
                     <Box
@@ -167,6 +234,115 @@ const Services = () => {
                 ))}
             </Slider>
 
+            {/* Stages of Your Project Section */}
+            <StagesWrapper>
+                <SectionHeader variant="h4" align="center">
+                    The Stages of Your Project
+                </SectionHeader>
+                <SubText variant="subtitle1" align="center">
+                    Discover how we bring your dream home to life, step by step.
+                </SubText>
+                <StageContainer>
+                    <StageContent>
+                        {stages.map((stage, index) => (
+                            <Box key={index} mb={6}>
+                                <Typography variant="h5" gutterBottom>
+                                    {stage.title}
+                                </Typography>
+                                <Typography variant="body1">{stage.description}</Typography>
+                            </Box>
+                        ))}
+                    </StageContent>
+                    <BigImage component="img" src={main} alt="Stages of Your Project" />
+                </StageContainer>
+            </StagesWrapper>
+
+            {/* New Section - Promises */}
+            <Box sx={{ padding: '60px 20px', backgroundColor: '#f9f9f9', textAlign: 'center' }}>
+                <Grid container spacing={4} justifyContent="center">
+                    {/* Promise 1 */}
+                    <Grid item xs={12} md={3}>
+                        <Box
+                            component="img"
+                            src={calendar}
+                            alt="Calendar Icon"
+                            sx={{
+                                width: '64px',
+                                height: '64px',
+                                margin: '0 auto 16px', // Center the icon and add margin below
+                            }}
+                        />
+                        <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                            20 Year Structural Guarantee
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            We stand by the quality of our products with a 20-year guarantee.
+                        </Typography>
+                    </Grid>
+
+                    {/* Promise 2 */}
+                    <Grid item xs={12} md={3}>
+                        <Box
+                            component="img"
+                            src={price}
+                            alt="Price Tag Icon"
+                            sx={{
+                                width: '64px',
+                                height: '64px',
+                                margin: '0 auto 16px', // Center the icon and add margin below
+                            }}
+                        />
+                        <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                            Lowest Price Promise
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            We guarantee the lowest prices on all brands we carry.
+                        </Typography>
+                    </Grid>
+
+                    {/* Promise 3 */}
+                    <Grid item xs={12} md={3}>
+                        <Box
+                            component="img"
+                            src={discount}
+                            alt="Discount Icon"
+                            sx={{
+                                width: '64px',
+                                height: '64px',
+                                margin: '0 auto 16px', // Center the icon and add margin below
+                            }}
+                        />
+                        <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                            Sign Up for 10% Off
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Get an exclusive 10% discount when you sign up for our newsletter.
+                        </Typography>
+                    </Grid>
+
+                    {/* Promise 4 */}
+                    <Grid item xs={12} md={3}>
+                        <Box
+                            component="img"
+                            src={mail}
+                            alt="Mail Icon"
+                            sx={{
+                                width: '64px',
+                                height: '64px',
+                                margin: '0 auto 16px', // Center the icon and add margin below
+                            }}
+                        />
+                        <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                            Interest-Free Credit
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                            Enjoy interest-free credit options for your purchases.
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Box>
+
+            {/* Modal */}
             <Box mt={4}>
                 <SimpleModal />
             </Box>

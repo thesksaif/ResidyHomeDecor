@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import AppBar from 'ui-component/extended/AppBar';
 import FooterSection from '../landing/FooterSection';
 import Services from 'views/pages/services/Services.js';
-import banner from 'assets/images/services/banner.jpg';
+import banner from 'assets/images/services/banner.avif';
 
 // Section Wrapper
 const SectionWrapper = styled('div')(({ theme }) => ({
@@ -39,6 +39,7 @@ const BannerText = styled('h1')(() => ({
     fontSize: '3rem',
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'black',
     zIndex: 1
 }));
 
