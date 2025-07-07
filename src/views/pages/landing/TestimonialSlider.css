@@ -1,0 +1,133 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #f1f1f7;
+}
+
+.testimonial-container {
+  width: 100%;
+  max-width: 56rem;
+  margin: auto;
+  padding: 2rem;
+}
+
+.testimonial-grid {
+  display: grid;
+  gap: 5rem;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 24rem;
+  perspective: 1000px;
+}
+
+.testimonial-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.25rem;
+}
+
+.designation {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.quote {
+  font-size: 1.125rem;
+  color: #4b5563;
+  line-height: 1.75;
+}
+
+.arrow-buttons {
+  display: flex;
+  gap: 1rem;
+  padding-top: 3rem;
+}
+
+.arrow-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #dc3545;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+  outline: none;
+  position: relative;
+  z-index: 2;
+}
+
+.arrow-button:hover {
+  background-color: #b71c1c;
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.25);
+  transform: scale(1.12);
+  border-color: #fff;
+}
+
+.arrow-button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: #fff;
+  transition: transform 0.3s;
+}
+
+.arrow-button:hover svg {
+  fill: #fff;
+}
+
+.prev-button:hover svg {
+  transform: rotate(-12deg);
+}
+
+.next-button:hover svg {
+  transform: rotate(12deg);
+}
+
+@media (min-width: 768px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .arrow-buttons {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .arrow-button {
+    width: 2rem;
+    height: 2rem;
+    border-width: 1.5px;
+  }
+  .arrow-button svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
