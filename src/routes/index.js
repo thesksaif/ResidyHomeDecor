@@ -29,7 +29,7 @@ const PagesRefundPolicy = Loadable(
 const PagesTermsAndConditions = Loadable(
   lazy(() => import('views/pages/terms-and-conditions'))
 );
-// ==============================|| ROUTING RENDER ||============================== //
+// ==============================|| ROUTING RENDER ||============================== /////
 
 export default function ThemeRoutes() {
   return useRoutes([
