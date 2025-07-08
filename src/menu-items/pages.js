@@ -4,10 +4,12 @@ import { FormattedMessage } from 'react-intl';
 // assets
 import {
   IconKey,
+  IconPictureInPicture,
   IconReceipt2,
   IconBug,
   IconBellRinging,
   IconPhoneCall,
+  IconUserCheck,
   IconQuestionMark,
   IconShieldLock,
 } from '@tabler/icons';
@@ -15,10 +17,12 @@ import {
 // constant
 const icons = {
   IconKey,
+  IconPictureInPicture,
   IconReceipt2,
   IconBug,
   IconBellRinging,
   IconPhoneCall,
+  IconUserCheck,
   IconQuestionMark,
   IconShieldLock,
 };
@@ -29,201 +33,96 @@ const pages = {
   id: 'pages',
   title: <FormattedMessage id="pages" />,
   caption: <FormattedMessage id="pages-caption" />,
-  icon: icons.IconKey,
+  icon: icons.IconPictureInPicture,
   type: 'group',
   children: [
     {
-      id: 'authentication',
-      title: <FormattedMessage id="authentication" />,
+      id: 'pages',
+      title: <FormattedMessage id="pages" />,
       type: 'collapse',
-      icon: icons.IconKey,
+      icon: icons.IconPictureInPicture,
       children: [
         {
-          id: 'authentication1',
+          id: 'home',
           title: (
             <>
-              <FormattedMessage id="authentication" /> 1
+              <FormattedMessage id="Home" />
             </>
           ),
-          type: 'collapse',
-          children: [
-            {
-              id: 'login1',
-              title: <FormattedMessage id="login" />,
-              type: 'item',
-              url: '/pages/login/login1',
-              target: true,
-            },
-            {
-              id: 'register1',
-              title: <FormattedMessage id="register" />,
-              type: 'item',
-              url: '/pages/register/register1',
-              target: true,
-            },
-            {
-              id: 'forgot-password1',
-              title: <FormattedMessage id="forgot-password" />,
-              type: 'item',
-              url: '/pages/forgot-password/forgot-password1',
-              target: true,
-            },
-            {
-              id: 'check-mail1',
-              title: <FormattedMessage id="check-mail" />,
-              type: 'item',
-              url: '/pages/check-mail/check-mail1',
-              target: true,
-            },
-            {
-              id: 'reset-password1',
-              title: <FormattedMessage id="reset-password" />,
-              type: 'item',
-              url: '/pages/reset-password/reset-password1',
-              target: true,
-            },
-            {
-              id: 'code-verification1',
-              title: <FormattedMessage id="code-verification" />,
-              type: 'item',
-              url: '/pages/code-verification/code-verification1',
-              target: true,
-            },
-          ],
+          type: 'item',
+          url: '/pages/home',
         },
         {
-          id: 'authentication2',
+          id: 'about',
           title: (
             <>
-              <FormattedMessage id="authentication" /> 2
+              <FormattedMessage id="About" />
             </>
           ),
-          type: 'collapse',
-          children: [
-            {
-              id: 'login2',
-              title: <FormattedMessage id="login" />,
-              type: 'item',
-              url: '/pages/login/login2',
-              target: true,
-            },
-            {
-              id: 'register2',
-              title: <FormattedMessage id="register" />,
-              type: 'item',
-              url: '/pages/register/register2',
-              target: true,
-            },
-            {
-              id: 'forgot-password2',
-              title: <FormattedMessage id="forgot-password" />,
-              type: 'item',
-              url: '/pages/forgot-password/forgot-password2',
-              target: true,
-            },
-            {
-              id: 'check-mail2',
-              title: <FormattedMessage id="check-mail" />,
-              type: 'item',
-              url: '/pages/check-mail/check-mail2',
-              target: true,
-            },
-            {
-              id: 'reset-password2',
-              title: <FormattedMessage id="reset-password" />,
-              type: 'item',
-              url: '/pages/reset-password/reset-password2',
-              target: true,
-            },
-            {
-              id: 'code-verification2',
-              title: <FormattedMessage id="code-verification" />,
-              type: 'item',
-              url: '/pages/code-verification/code-verification2',
-              target: true,
-            },
-          ],
+          type: 'item',
+          url: '/pages/about',
         },
         {
-          id: 'authentication3',
+          id: 'services',
           title: (
             <>
-              <FormattedMessage id="authentication" /> 3
+              <FormattedMessage id="Services" />
             </>
           ),
-          type: 'collapse',
-          children: [
-            {
-              id: 'login3',
-              title: <FormattedMessage id="login" />,
-              type: 'item',
-              url: '/pages/login/login3',
-              target: true,
-            },
-            {
-              id: 'register3',
-              title: <FormattedMessage id="register" />,
-              type: 'item',
-              url: '/pages/register/register3',
-              target: true,
-            },
-            {
-              id: 'forgot-password3',
-              title: <FormattedMessage id="forgot-password" />,
-              type: 'item',
-              url: '/pages/forgot-password/forgot-password3',
-              target: true,
-            },
-            {
-              id: 'check-mail3',
-              title: <FormattedMessage id="check-mail" />,
-              type: 'item',
-              url: '/pages/check-mail/check-mail3',
-              target: true,
-            },
-            {
-              id: 'reset-password3',
-              title: <FormattedMessage id="reset-password" />,
-              type: 'item',
-              url: '/pages/reset-password/reset-password3',
-              target: true,
-            },
-            {
-              id: 'code-verification3',
-              title: <FormattedMessage id="code-verification" />,
-              type: 'item',
-              url: '/pages/code-verification/code-verification3',
-              target: true,
-            },
-          ],
+          type: 'item',
+          url: '/pages/services',
+        },
+        {
+          id: 'contact',
+          title: (
+            <>
+              <FormattedMessage id="Contact" />
+            </>
+          ),
+          type: 'item',
+          url: '/admin/contact',
+          breadcrumbs: false,
         },
       ],
     },
     {
-      id: 'price',
-      title: <FormattedMessage id="pricing" />,
+      id: 'policy',
+      title: <FormattedMessage id="Policy & Terms" />,
       type: 'collapse',
-      icon: icons.IconReceipt2,
+      icon: icons.IconShieldLock,
       children: [
         {
-          id: 'price1',
+          id: 'privacy-policy',
           title: (
             <>
-              <FormattedMessage id="price" /> 01
+              <FormattedMessage id="privacy-policy" />
             </>
           ),
           type: 'item',
-          url: '/pages/price/price1',
+          url: '/admin/privacy-policy',
+          breadcrumbs: false,
         },
         {
-          id: 'price2',
+          id: 'refund-policy',
           title: (
             <>
-              <FormattedMessage id="price" /> 02
+              <FormattedMessage id="Refund Policy" />
             </>
           ),
           type: 'item',
-          url: '/pages/price/price2',
+          url: '/admin/refund-policy',
+          breadcrumbs: false,
+        },
+        {
+          id: 'terms-and-conditions',
+          title: (
+            <>
+              <FormattedMessage id="Terms & Conditions" />
+            </>
+          ),
+          type: 'item',
+          url: '/admin/terms-and-conditions',
+          breadcrumbs: false,
         },
       ],
     },
@@ -283,32 +182,27 @@ const pages = {
       title: <FormattedMessage id="landing" />,
       type: 'item',
       icon: icons.IconBellRinging,
-      url: '/pages/landing',
+      url: '/admin/landing',
       target: true,
+      breadcrumbs: false,
     },
     {
-      id: 'contact-us',
-      title: <FormattedMessage id="contact-us" />,
+      id: 'reviews',
+      title: <FormattedMessage id="Reviews" />,
       type: 'item',
-      icon: icons.IconPhoneCall,
-      url: '/pages/contact-us',
-      target: true,
+      icon: icons.IconUserCheck,
+      url: '/tables/review',
+      target: false,
+      breadcrumbs: false,
     },
     {
       id: 'faqs',
       title: <FormattedMessage id="faqs" />,
       type: 'item',
       icon: icons.IconQuestionMark,
-      url: '/pages/faqs',
-      target: true,
-    },
-    {
-      id: 'privacy-policy',
-      title: <FormattedMessage id="privacy-policy" />,
-      type: 'item',
-      icon: icons.IconShieldLock,
-      url: '/pages/privacy-policy',
-      target: true,
+      url: '/tables/faq',
+      target: false,
+      breadcrumbs: false,
     },
   ],
 };

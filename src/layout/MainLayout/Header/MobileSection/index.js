@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 
 // project imports
-import LocalizationSection from '../LocalizationSection';
 import Transitions from 'ui-component/extended/Transitions';
 
 // assets
@@ -117,9 +116,7 @@ const MobileSection = () => {
                           matchMobile ? 'space-between' : 'flex-end'
                         }
                         alignItems="center"
-                      >
-                        <LocalizationSection />
-                      </Grid>
+                      ></Grid>
                     </Toolbar>
                   </AppBar>
                 )}

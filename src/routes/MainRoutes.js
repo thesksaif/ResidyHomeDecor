@@ -181,6 +181,25 @@ const TableCollapsible = Loadable(
   lazy(() => import('views/forms/tables/TableCollapsible'))
 );
 
+// leads table routing
+const ContactLeads = Loadable(
+  lazy(() => import('views/forms/tables/leads/ContactLeads'))
+);
+const QuickConsultLeads = Loadable(
+  lazy(() => import('views/forms/tables/leads/QuickConsultLeads'))
+);
+
+// quote table routing
+const QuoteTable = Loadable(
+  lazy(() => import('views/forms/tables/all_quote/QuoteTable'))
+);
+const KitchenQuoteTable = Loadable(
+  lazy(() => import('views/forms/tables/all_quote/KitchenQuoteTable'))
+);
+const WardrobeQuoteTable = Loadable(
+  lazy(() => import('views/forms/tables/all_quote/WardrobeQuoteTable'))
+);
+
 // forms validation
 const FrmFormsValidation = Loadable(
   lazy(() => import('views/forms/forms-validation'))
@@ -271,6 +290,43 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+
+const ReviewTable = Loadable(lazy(() => import('views/forms/tables/review')));
+const FaqTable = Loadable(lazy(() => import('views/forms/tables/faq/Faq')));
+
+const AdminPrivacyPolicyForm = Loadable(
+  lazy(() =>
+    import('views/forms/content-layouts/privacy-policy/PrivacyPolicyForm')
+  )
+);
+const AdminRefundPolicyForm = Loadable(
+  lazy(() =>
+    import('views/forms/content-layouts/refund-policy/RefundPolicyForm')
+  )
+);
+const AdminTermsAndConditionsForm = Loadable(
+  lazy(() =>
+    import(
+      'views/forms/content-layouts/terms-and-conditions/TermsAndConditionsForm'
+    )
+  )
+);
+const AdminContactForm = Loadable(
+  lazy(() => import('views/forms/content-layouts/contact/ContactForm'))
+);
+
+const HomeLayout = Loadable(
+  lazy(() => import('views/forms/content-layouts/home/HomeLayout'))
+);
+const AboutLayout = Loadable(
+  lazy(() => import('views/forms/content-layouts/about/AboutLayout'))
+);
+const ServiceLayout = Loadable(
+  lazy(() => import('views/forms/content-layouts/service/ServiceLayout'))
+);
+const LandingLayout = Loadable(
+  lazy(() => import('views/forms/content-layouts/landing/LandingLayout'))
+);
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -517,6 +573,34 @@ const MainRoutes = {
       path: '/tables/tbl-collapse',
       element: <TableCollapsible />,
     },
+    {
+      path: '/leads/contact',
+      element: <ContactLeads />,
+    },
+    {
+      path: '/leads/quick-consult',
+      element: <QuickConsultLeads />,
+    },
+    {
+      path: '/leads/quote',
+      element: <QuoteTable />,
+    },
+    {
+      path: '/leads/kitchen-quote',
+      element: <KitchenQuoteTable />,
+    },
+    {
+      path: '/leads/wardrobe-quote',
+      element: <WardrobeQuoteTable />,
+    },
+    {
+      path: '/tables/review',
+      element: <ReviewTable />,
+    },
+    {
+      path: '/tables/faq',
+      element: <FaqTable />,
+    },
 
     {
       path: 'forms/charts/apexchart',
@@ -621,6 +705,22 @@ const MainRoutes = {
       path: '/pages/price/price2',
       element: <PagesPrice2 />,
     },
+    {
+      path: '/pages/home',
+      element: <HomeLayout />,
+    },
+    {
+      path: '/pages/about',
+      element: <AboutLayout />,
+    },
+    {
+      path: '/pages/services',
+      element: <ServiceLayout />,
+    },
+    {
+      path: '/admin/landing',
+      element: <LandingLayout />,
+    },
 
     {
       path: '/utils/util-typography',
@@ -653,6 +753,22 @@ const MainRoutes = {
     {
       path: '/dashboard/analytics',
       element: <DashboardAnalytics />,
+    },
+    {
+      path: '/admin/privacy-policy',
+      element: <AdminPrivacyPolicyForm />,
+    },
+    {
+      path: '/admin/refund-policy',
+      element: <AdminRefundPolicyForm />,
+    },
+    {
+      path: '/admin/terms-and-conditions',
+      element: <AdminTermsAndConditionsForm />,
+    },
+    {
+      path: '/admin/contact',
+      element: <AdminContactForm />,
     },
   ],
 };

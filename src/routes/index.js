@@ -13,6 +13,9 @@ const AboutUsPage = Loadable(lazy(() => import('views/pages/about-us')));
 const ServicesPage = Loadable(lazy(() => import('views/pages/services')));
 const ContactUsPage = Loadable(lazy(() => import('views/pages/contact-us')));
 const QuotePage = Loadable(lazy(() => import('views/pages/quote')));
+const TermsAndCondition = Loadable(
+  lazy(() => import('views/pages/terms-and-conditions'))
+);
 const WardrobeQuotePage = Loadable(
   lazy(() => import('views/pages/wardrobe-quote'))
 );
@@ -21,14 +24,12 @@ const KitchenQuotePage = Loadable(
 );
 const PagesFaqs = Loadable(lazy(() => import('views/pages/Faqs')));
 const PagesPrivacyPolicy = Loadable(
-  lazy(() => import('views/pages/privacy-policy'))
+  lazy(() => import('views/pages/PrivacyPolicy'))
 );
 const PagesRefundPolicy = Loadable(
   lazy(() => import('views/pages/RefundPolicy'))
 );
-const PagesTermsAndConditions = Loadable(
-  lazy(() => import('views/pages/terms-and-conditions'))
-);
+
 //// ==============================|| ROUTING RENDER ||============================== ///
 
 export default function ThemeRoutes() {
@@ -47,7 +48,7 @@ export default function ThemeRoutes() {
         { path: 'faqs', element: <PagesFaqs /> },
         { path: 'privacy-policy', element: <PagesPrivacyPolicy /> },
         { path: 'refund-policy', element: <PagesRefundPolicy /> },
-        { path: 'terms-and-conditions', element: <PagesTermsAndConditions /> },
+        { path: 'terms-and-conditions', element: <TermsAndCondition /> },
       ],
     },
     AuthenticationRoutes,

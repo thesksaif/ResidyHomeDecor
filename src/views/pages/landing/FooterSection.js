@@ -152,6 +152,13 @@ const FooterSection = () => {
                         >
                           Refund Policy
                         </FooterLink>
+                        <FooterLink
+                          component={RouterLink}
+                          to="/terms-and-conditions"
+                          underline="none"
+                        >
+                          Terms & Conditions
+                        </FooterLink>
                       </Stack>
                     </Stack>
                   </Grid>
