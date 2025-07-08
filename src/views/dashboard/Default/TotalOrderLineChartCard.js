@@ -144,7 +144,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                               mb: 0.75,
                             }}
                           >
-                            $108
+                            108
                           </Typography>
                         ) : (
                           <Typography
@@ -156,7 +156,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                               mb: 0.75,
                             }}
                           >
-                            $961
+                            961
                           </Typography>
                         )}
                       </Grid>

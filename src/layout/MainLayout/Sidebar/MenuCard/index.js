@@ -137,19 +137,15 @@ const MenuCard = () => {
             <ListItemText
               sx={{ mt: 0 }}
               primary={
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    color:
-                      theme.palette.mode === 'dark'
-                        ? theme.palette.dark.light
-                        : theme.palette.primary[800],
-                  }}
-                >
+                <Typography variant="subtitle1" sx={{ color: '#fff' }}>
                   Get Extra Space
                 </Typography>
               }
-              secondary={<Typography variant="caption"> 28/23 GB</Typography>}
+              secondary={
+                <Typography variant="caption" sx={{ color: '#fff' }}>
+                  28/23 GB
+                </Typography>
+              }
             />
           </ListItem>
         </List>

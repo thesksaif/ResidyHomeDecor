@@ -81,19 +81,32 @@ export const JWTProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', {
-      email,
-      password,
-    });
-    const { serviceToken, user } = response.data;
-    setSession(serviceToken);
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLoggedIn: true,
-        user,
-      },
-    });
+    // Static credentials for testing
+    const validEmail = 'info@residyhomedecor.com';
+    const validPassword = 'Residy@123';
+
+    if (email === validEmail && password === validPassword) {
+      const serviceToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZTg2ODA5MjgzZTI4Yjk2ZDJkMzg1MzciLCJpYXQiOjE3NTE5NjYzMzEsImV4cCI6MTc1MjA1MjczMX0.u5OKykNggqNztVY4Xk5dXFOjzvUVyZq_fHk0aWk8-to';
+      const user = {
+        id: '5e86809283e28b96d2d38537',
+        email: validEmail,
+        name: 'Srikant Singh',
+        role: 'Admin',
+      };
+
+      setSession(serviceToken);
+      dispatch({
+        type: LOGIN,
+        payload: {
+          isLoggedIn: true,
+          user,
+        },
+      });
+    } else {
+      // Throw error if credentials do not match
+      throw new Error('Invalid email or password');
+    }
   };
 
   const register = async (email, password, firstName, lastName) => {

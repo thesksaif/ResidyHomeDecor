@@ -54,7 +54,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Bitcoin</span>
-                  <Typography sx={successSX}>+ $145.85</Typography>
+                  <Typography sx={successSX}>+ 145.85</Typography>
                 </Stack>
               }
             />
@@ -72,7 +72,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Ethereum</span>
-                  <Typography sx={errorSX}>- $6.368</Typography>
+                  <Typography sx={errorSX}>- 6.368</Typography>
                 </Stack>
               }
             />
@@ -90,7 +90,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Ripple</span>
-                  <Typography sx={successSX}>+ $458.63</Typography>
+                  <Typography sx={successSX}>+ 458.63</Typography>
                 </Stack>
               }
             />
@@ -108,7 +108,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Neo</span>
-                  <Typography sx={errorSX}>- $5.631</Typography>
+                  <Typography sx={errorSX}>- 5.631</Typography>
                 </Stack>
               }
             />
@@ -126,7 +126,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Ethereum</span>
-                  <Typography sx={errorSX}>- $6.368</Typography>
+                  <Typography sx={errorSX}>- 6.368</Typography>
                 </Stack>
               }
             />
@@ -144,7 +144,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Ripple</span>
-                  <Typography sx={successSX}>+ $458.63</Typography>
+                  <Typography sx={successSX}>+ 458.63</Typography>
                 </Stack>
               }
             />
@@ -162,7 +162,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Neo</span>
-                  <Typography sx={errorSX}>- $5.631</Typography>
+                  <Typography sx={errorSX}>- 5.631</Typography>
                 </Stack>
               }
             />
@@ -180,7 +180,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Ethereum</span>
-                  <Typography sx={errorSX}>- $6.368</Typography>
+                  <Typography sx={errorSX}>- 6.368</Typography>
                 </Stack>
               }
             />
@@ -198,7 +198,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Ripple</span>
-                  <Typography sx={successSX}>+ $458.63</Typography>
+                  <Typography sx={successSX}>+ 458.63</Typography>
                 </Stack>
               }
             />
@@ -216,7 +216,7 @@ const TotalRevenue = ({ title }) => {
                   alignItems="center"
                 >
                   <span>Neo</span>
-                  <Typography sx={errorSX}>- $5.631</Typography>
+                  <Typography sx={errorSX}>- 5.631</Typography>
                 </Stack>
               }
             />

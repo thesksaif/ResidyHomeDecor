@@ -45,12 +45,11 @@ const Palette = (navType, presetColor) => {
         black: colors.darkPaper,
       },
       primary: {
-        light:
-          navType === 'dark' ? colors.darkPrimaryLight : colors.primaryLight,
-        main: navType === 'dark' ? colors.darkPrimaryMain : colors.primaryMain,
-        dark: navType === 'dark' ? colors.darkPrimaryDark : colors.primaryDark,
-        200: navType === 'dark' ? colors.darkPrimary200 : colors.primary200,
-        800: navType === 'dark' ? colors.darkPrimary800 : colors.primary800,
+        light: colors.errorLight,
+        main: colors.errorMain,
+        dark: colors.errorDark,
+        200: colors.errorLight,
+        800: colors.errorDark,
       },
       secondary: {
         light:
