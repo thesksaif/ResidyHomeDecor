@@ -15,74 +15,71 @@ import banner from 'assets/images/about/banner.avif';
 
 // Styled Components
 const SectionWrapper = styled('div')(({ theme }) => ({
-  paddingTop: 100,
-  marginTop: 0,
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? theme.palette.background.default
-      : theme.palette.grey[900],
-  marginBottom: 0,
-  marginLeft: 0,
-  marginRight: 0,
+    paddingTop: 100,
+    marginTop: 0,
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[900],
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: 0
 }));
 
 const BannerWrapper = styled('div')(() => ({
-  position: 'relative',
-  width: '100vw',
-  height: '280px',
-  backgroundImage: `url(${banner})`,
-  backgroundSize: 'cover',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: 0,
-  color: '#fff',
-  marginTop: '80px',
+    position: 'relative',
+    width: '100vw',
+    height: '280px',
+    backgroundImage: `url(${banner})`,
+    backgroundSize: 'cover',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 0,
+    color: '#fff',
+    marginTop: '80px'
 }));
 
 const BannerText = styled('h1')(() => ({
-  fontSize: '3rem',
-  fontWeight: 'bold',
-  textAlign: 'center',
-  zIndex: 1,
-  color: '#fff',
+    fontSize: '3rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    zIndex: 1,
+    color: '#fff'
 }));
 
 const AboutUsPage = () => {
-  return (
-    <>
-      {/* header */}
-      <AppBar />
+    return (
+        <>
+            {/* header */}
+            <AppBar />
 
-      {/* BannerWrapper */}
-      <BannerWrapper>
-        <BannerText>About Us</BannerText>
-      </BannerWrapper>
+            {/* BannerWrapper */}
+            <BannerWrapper>
+                <BannerText>About Us</BannerText>
+            </BannerWrapper>
 
-      {/* About Us */}
-      <SectionWrapper sx={{ bgcolor: 'white', paddingBottom: '100px' }}>
-        <AboutThree />
-      </SectionWrapper>
+            {/* About Us */}
+            <SectionWrapper sx={{ bgcolor: 'white', paddingBottom: '100px' }}>
+                <AboutThree />
+            </SectionWrapper>
 
-      {/* About Us */}
-      <SectionWrapper sx={{ bgcolor: 'white', paddingBottom: '100px' }}>
-        <AboutUs />
-      </SectionWrapper>
+            {/* About Us */}
+            <SectionWrapper sx={{ bgcolor: 'white', paddingBottom: '100px' }}>
+                <AboutUs />
+            </SectionWrapper>
 
-      {/* Testimonials */}
-      <SectionWrapper sx={{ bgcolor: '#f8f9fa', paddingBottom: '100px' }}>
-        <TestimonialSlider />
-      </SectionWrapper>
+            {/* Testimonials */}
+            <SectionWrapper sx={{ bgcolor: '#f8f9fa', paddingBottom: '100px' }}>
+                <TestimonialSlider />
+            </SectionWrapper>
 
-      {/* CardSection */}
-      <CardSection />
+            {/* CardSection */}
+            <CardSection />
 
-      {/* SectionWrapper */}
-      <SectionWrapper>
-        <FooterSection />
-      </SectionWrapper>
-    </>
-  );
+            {/* SectionWrapper */}
+            <SectionWrapper>
+                <FooterSection />
+            </SectionWrapper>
+        </>
+    );
 };
 
 export default AboutUsPage;

@@ -13,20 +13,20 @@ import FeedbackSection from './FeedbackSection';
 // import ServiceCard from "./ServiceCard";
 
 const Main = () => {
-  return (
-    <div>
-      <HeroSection />
-      <AboutCompany />
-      <CompanyServices />
-      <InteriorCarousel />
-      <ServiceCard />
-      <Gallery />
-      <InteriorSection />
-      <StepCarousel />
-      <FeedbackSection />
-      <Footer />
-    </div>
-  );
+    return (
+        <div>
+            <HeroSection />
+            <AboutCompany />
+            <CompanyServices />
+            <InteriorCarousel />
+            <ServiceCard />
+            <Gallery />
+            <InteriorSection />
+            <StepCarousel />
+            <FeedbackSection />
+            <Footer />
+        </div>
+    );
 };
 
 export default Main;

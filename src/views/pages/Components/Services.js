@@ -18,36 +18,33 @@ import diningRoom from '../assets/icons/dining-room.svg';
 // ... import other icons
 
 const services = [
-  { icon: kitchenIcon, title: 'Modular Kitchen' },
-  { icon: wardrobeIcon, title: 'Wardrobes' },
-  { icon: masterBedRoom, title: 'Master Bed Room' },
-  { icon: tvUnit, title: 'TV Units' },
-  { icon: livingRoom, title: 'Living Room' },
-  { icon: kitchenFalseCeiling, title: 'kitchen False Ceiling' },
-  { icon: bathroom, title: 'Bathroom' },
-  { icon: kidsRoom, title: 'Kids Room' },
-  { icon: kitchenWall, title: 'kitchen Wall' },
-  { icon: balCony, title: 'Balcony' },
-  { icon: poojaMandir, title: 'Pooja Mandir' },
-  { icon: diningRoom, title: 'Dining Room' },
+    { icon: kitchenIcon, title: 'Modular Kitchen' },
+    { icon: wardrobeIcon, title: 'Wardrobes' },
+    { icon: masterBedRoom, title: 'Master Bed Room' },
+    { icon: tvUnit, title: 'TV Units' },
+    { icon: livingRoom, title: 'Living Room' },
+    { icon: kitchenFalseCeiling, title: 'kitchen False Ceiling' },
+    { icon: bathroom, title: 'Bathroom' },
+    { icon: kidsRoom, title: 'Kids Room' },
+    { icon: kitchenWall, title: 'kitchen Wall' },
+    { icon: balCony, title: 'Balcony' },
+    { icon: poojaMandir, title: 'Pooja Mandir' },
+    { icon: diningRoom, title: 'Dining Room' }
 ];
 
 const Services = () => {
-  return (
-    <div className="services-container">
-      <h2 className="mt-5">Interior Design Services Under One Roof</h2>
-      <p className="mb-5">
-        From ideation to execution, we offer functional design solutions for
-        your home.
-      </p>
-      <div className="services-grid">
-        {services.map((service, index) => (
-          <ServiceCard key={index} icon={service.icon} title={service.title} />
-        ))}
-      </div>
-      <button className="consultation-button">Book Free Consultation</button>
-    </div>
-  );
+    return (
+        <div className="services-container">
+            <h2 className="mt-5">Interior Design Services Under One Roof</h2>
+            <p className="mb-5">From ideation to execution, we offer functional design solutions for your home.</p>
+            <div className="services-grid">
+                {services.map((service, index) => (
+                    <ServiceCard key={index} icon={service.icon} title={service.title} />
+                ))}
+            </div>
+            <button className="consultation-button">Book Free Consultation</button>
+        </div>
+    );
 };
 
 export default Services;

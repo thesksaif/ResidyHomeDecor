@@ -46,99 +46,91 @@ import balcony1 from '../assets/images/gallery/balcony-1.jpg';
 import balcony2 from '../assets/images/gallery/balcony-2.jpg';
 
 const categories = [
-  'Living Room',
-  'Modular Kitchen',
-  'Wardrobe',
-  'Master Bedroom',
-  'Kids Room',
-  'Kitchen Wall Tiles',
-  'Kitchen False Ceiling',
-  'Balcony',
+    'Living Room',
+    'Modular Kitchen',
+    'Wardrobe',
+    'Master Bedroom',
+    'Kids Room',
+    'Kitchen Wall Tiles',
+    'Kitchen False Ceiling',
+    'Balcony'
 ];
 
 const services = {
-  'Living Room': [
-    { image: livingRoom1, title: 'Modern Cosy Living Room' },
-    { image: livingRoom2, title: 'Opulent Art-deco Living Room' },
-    { image: livingRoom3, title: 'Opulent Art-deco Living Room' },
-    { image: livingRoom4, title: 'Opulent Art-deco Living Room' },
-    { image: livingRoom5, title: 'Opulent Art-deco Living Room' },
-    { image: livingRoom6, title: 'Opulent Art-deco Living Room' },
-  ],
-  'Modular Kitchen': [
-    { image: kitchen1, title: 'Modern Kitchen' },
-    { image: kitchen2, title: 'Opulent Kitchen' },
-    { image: kitchen3, title: 'Opulent Kitchen' },
-    { image: kitchen4, title: 'Opulent Kitchen' },
-    { image: kitchen5, title: 'Opulent Kitchen' },
-    { image: kitchen6, title: 'Opulent Kitchen' },
-    { image: kitchen7, title: 'Opulent Kitchen' },
-  ],
-  Wardrobe: [
-    { image: wardrobe1, title: 'Spacious Wardrobe' },
-    { image: wardrobe2, title: 'Elegant Wardrobe' },
-    { image: wardrobe3, title: 'Elegant Wardrobe' },
-    { image: wardrobe4, title: 'Elegant Wardrobe' },
-    { image: wardrobe5, title: 'Elegant Wardrobe' },
-    { image: wardrobe6, title: 'Elegant Wardrobe' },
-    { image: wardrobe7, title: 'Elegant Wardrobe' },
-  ],
-  'Master Bedroom': [
-    { image: masterBedroom1, title: 'Luxurious Master Bedroom' },
-    { image: masterBedroom2, title: 'Comfortable Master Bedroom' },
-    { image: masterBedroom3, title: 'Comfortable Master Bedroom' },
-    { image: masterBedroom4, title: 'Comfortable Master Bedroom' },
-    { image: masterBedroom5, title: 'Comfortable Master Bedroom' },
-    { image: masterBedroom6, title: 'Comfortable Master Bedroom' },
-    { image: masterBedroom7, title: 'Comfortable Master Bedroom' },
-  ],
-  'Kids Room': [
-    { image: kidsRoom1, title: 'Fun Kids Room' },
-    { image: kidsRoom2, title: 'Colorful Kids Room' },
-    { image: kidsRoom3, title: 'Fun Kids Room' },
-    { image: kidsRoom4, title: 'Fun Kids Room' },
-    { image: kidsRoom5, title: 'Fun Kids Room' },
-    { image: kidsRoom6, title: 'Fun Kids Room' },
-    { image: kidsRoom7, title: 'Fun Kids Room' },
-  ],
-  'Kitchen Wall Tiles': [
-    { image: kitchenWallTiles1, title: 'Stylish Kitchen Wall Tiles' },
-    { image: kitchenWallTiles2, title: 'Modern Kitchen Wall Tiles' },
-  ],
-  'Kitchen False Ceiling': [
-    { image: kitchenFalseCeiling1, title: 'Elegant Kitchen False Ceiling' },
-    { image: kitchenFalseCeiling2, title: 'Modern Kitchen False Ceiling' },
-  ],
-  Balcony: [
-    { image: balcony1, title: 'Cozy Balcony' },
-    { image: balcony2, title: 'Spacious Balcony' },
-  ],
+    'Living Room': [
+        { image: livingRoom1, title: 'Modern Cosy Living Room' },
+        { image: livingRoom2, title: 'Opulent Art-deco Living Room' },
+        { image: livingRoom3, title: 'Opulent Art-deco Living Room' },
+        { image: livingRoom4, title: 'Opulent Art-deco Living Room' },
+        { image: livingRoom5, title: 'Opulent Art-deco Living Room' },
+        { image: livingRoom6, title: 'Opulent Art-deco Living Room' }
+    ],
+    'Modular Kitchen': [
+        { image: kitchen1, title: 'Modern Kitchen' },
+        { image: kitchen2, title: 'Opulent Kitchen' },
+        { image: kitchen3, title: 'Opulent Kitchen' },
+        { image: kitchen4, title: 'Opulent Kitchen' },
+        { image: kitchen5, title: 'Opulent Kitchen' },
+        { image: kitchen6, title: 'Opulent Kitchen' },
+        { image: kitchen7, title: 'Opulent Kitchen' }
+    ],
+    Wardrobe: [
+        { image: wardrobe1, title: 'Spacious Wardrobe' },
+        { image: wardrobe2, title: 'Elegant Wardrobe' },
+        { image: wardrobe3, title: 'Elegant Wardrobe' },
+        { image: wardrobe4, title: 'Elegant Wardrobe' },
+        { image: wardrobe5, title: 'Elegant Wardrobe' },
+        { image: wardrobe6, title: 'Elegant Wardrobe' },
+        { image: wardrobe7, title: 'Elegant Wardrobe' }
+    ],
+    'Master Bedroom': [
+        { image: masterBedroom1, title: 'Luxurious Master Bedroom' },
+        { image: masterBedroom2, title: 'Comfortable Master Bedroom' },
+        { image: masterBedroom3, title: 'Comfortable Master Bedroom' },
+        { image: masterBedroom4, title: 'Comfortable Master Bedroom' },
+        { image: masterBedroom5, title: 'Comfortable Master Bedroom' },
+        { image: masterBedroom6, title: 'Comfortable Master Bedroom' },
+        { image: masterBedroom7, title: 'Comfortable Master Bedroom' }
+    ],
+    'Kids Room': [
+        { image: kidsRoom1, title: 'Fun Kids Room' },
+        { image: kidsRoom2, title: 'Colorful Kids Room' },
+        { image: kidsRoom3, title: 'Fun Kids Room' },
+        { image: kidsRoom4, title: 'Fun Kids Room' },
+        { image: kidsRoom5, title: 'Fun Kids Room' },
+        { image: kidsRoom6, title: 'Fun Kids Room' },
+        { image: kidsRoom7, title: 'Fun Kids Room' }
+    ],
+    'Kitchen Wall Tiles': [
+        { image: kitchenWallTiles1, title: 'Stylish Kitchen Wall Tiles' },
+        { image: kitchenWallTiles2, title: 'Modern Kitchen Wall Tiles' }
+    ],
+    'Kitchen False Ceiling': [
+        { image: kitchenFalseCeiling1, title: 'Elegant Kitchen False Ceiling' },
+        { image: kitchenFalseCeiling2, title: 'Modern Kitchen False Ceiling' }
+    ],
+    Balcony: [
+        { image: balcony1, title: 'Cozy Balcony' },
+        { image: balcony2, title: 'Spacious Balcony' }
+    ]
 };
 
 const Gallery = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Living Room');
+    const [selectedCategory, setSelectedCategory] = useState('Living Room');
 
-  return (
-    <div className="services-container">
-      <h2>Design Ideas for Every Space</h2>
-      <p>Because every corner holds a unique design potential.</p>
-      <TabNavigation
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-      <div className="services-grid">
-        {services[selectedCategory].map((service, index) => (
-          <GalleryCard
-            key={index}
-            image={service.image}
-            title={service.title}
-          />
-        ))}
-      </div>
-      <button className="consultation-button">Explore More Designs</button>
-    </div>
-  );
+    return (
+        <div className="services-container">
+            <h2>Design Ideas for Every Space</h2>
+            <p>Because every corner holds a unique design potential.</p>
+            <TabNavigation categories={categories} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+            <div className="services-grid">
+                {services[selectedCategory].map((service, index) => (
+                    <GalleryCard key={index} image={service.image} title={service.title} />
+                ))}
+            </div>
+            <button className="consultation-button">Explore More Designs</button>
+        </div>
+    );
 };
 
 export default Gallery;

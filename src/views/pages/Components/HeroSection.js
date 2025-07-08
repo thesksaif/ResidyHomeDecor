@@ -10,69 +10,61 @@ import Header from './Header';
 const videos = [bGVideo, v2, v3, v4, v5];
 
 const HeroSection = () => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+    const videoRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
 
-  const handleVideoEnd = () => {
-    const nextVideoIndex = (currentVideoIndex + 1) % videos.length;
-    setCurrentVideoIndex(nextVideoIndex);
-  };
-
-  useEffect(() => {
-    const videoElement = videoRef.current;
-
-    const handleCanPlayThrough = () => {
-      if (!isPlaying) {
-        videoElement.play();
-        setIsPlaying(true);
-      }
+    const handleVideoEnd = () => {
+        const nextVideoIndex = (currentVideoIndex + 1) % videos.length;
+        setCurrentVideoIndex(nextVideoIndex);
     };
 
-    const handleEnded = () => {
-      handleVideoEnd();
-      setIsPlaying(false); // Reset isPlaying state to prepare for next video
-    };
+    useEffect(() => {
+        const videoElement = videoRef.current;
 
-    videoElement.addEventListener('canplaythrough', handleCanPlayThrough);
-    videoElement.addEventListener('ended', handleEnded);
+        const handleCanPlayThrough = () => {
+            if (!isPlaying) {
+                videoElement.play();
+                setIsPlaying(true);
+            }
+        };
 
-    return () => {
-      videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
-      videoElement.removeEventListener('ended', handleEnded);
-    };
-  }, [currentVideoIndex, isPlaying]);
+        const handleEnded = () => {
+            handleVideoEnd();
+            setIsPlaying(false); // Reset isPlaying state to prepare for next video
+        };
 
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    videoElement.src = videos[currentVideoIndex];
-    videoElement.load();
-  }, [currentVideoIndex]);
+        videoElement.addEventListener('canplaythrough', handleCanPlayThrough);
+        videoElement.addEventListener('ended', handleEnded);
 
-  return (
-    <div className="hero-container">
-      <video
-        ref={videoRef}
-        className="video-background"
-        autoPlay
-        loop={false}
-        muted
-      >
-        <source src={videos[currentVideoIndex]} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <Header />
-      <div className="overlay">
-        <div className="content">
-          <h1 className="heading-title">Welcome to Our Interior Design Shop</h1>
-          <p className="title-desc">
-            Your one-stop shop for all things interiors
-          </p>
-          <button className="contact-button">Contact Us</button>
+        return () => {
+            videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
+            videoElement.removeEventListener('ended', handleEnded);
+        };
+    }, [currentVideoIndex, isPlaying]);
+
+    useEffect(() => {
+        const videoElement = videoRef.current;
+        videoElement.src = videos[currentVideoIndex];
+        videoElement.load();
+    }, [currentVideoIndex]);
+
+    return (
+        <div className="hero-container">
+            <video ref={videoRef} className="video-background" autoPlay loop={false} muted>
+                <source src={videos[currentVideoIndex]} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <Header />
+            <div className="overlay">
+                <div className="content">
+                    <h1 className="heading-title">Welcome to Our Interior Design Shop</h1>
+                    <p className="title-desc">Your one-stop shop for all things interiors</p>
+                    <button className="contact-button">Contact Us</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default HeroSection;

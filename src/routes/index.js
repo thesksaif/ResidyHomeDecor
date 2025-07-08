@@ -13,46 +13,36 @@ const AboutUsPage = Loadable(lazy(() => import('views/pages/about-us')));
 const ServicesPage = Loadable(lazy(() => import('views/pages/services')));
 const ContactUsPage = Loadable(lazy(() => import('views/pages/contact-us')));
 const QuotePage = Loadable(lazy(() => import('views/pages/quote')));
-const TermsAndCondition = Loadable(
-  lazy(() => import('views/pages/terms-and-conditions'))
-);
-const WardrobeQuotePage = Loadable(
-  lazy(() => import('views/pages/wardrobe-quote'))
-);
-const KitchenQuotePage = Loadable(
-  lazy(() => import('views/pages/kitchen-quote'))
-);
+const TermsAndCondition = Loadable(lazy(() => import('views/pages/terms-and-conditions')));
+const WardrobeQuotePage = Loadable(lazy(() => import('views/pages/wardrobe-quote')));
+const KitchenQuotePage = Loadable(lazy(() => import('views/pages/kitchen-quote')));
 const PagesFaqs = Loadable(lazy(() => import('views/pages/Faqs')));
-const PagesPrivacyPolicy = Loadable(
-  lazy(() => import('views/pages/PrivacyPolicy'))
-);
-const PagesRefundPolicy = Loadable(
-  lazy(() => import('views/pages/RefundPolicy'))
-);
+const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/PrivacyPolicy')));
+const PagesRefundPolicy = Loadable(lazy(() => import('views/pages/RefundPolicy')));
 
 //// ==============================|| ROUTING RENDER ||============================== ///
 
 export default function ThemeRoutes() {
-  return useRoutes([
-    {
-      path: '/',
-      element: <MinimalLayout />,
-      children: [
-        { path: '', element: <PagesLanding /> },
-        { path: 'about-us', element: <AboutUsPage /> },
-        { path: 'services', element: <ServicesPage /> },
-        { path: 'contact-us', element: <ContactUsPage /> },
-        { path: 'quote', element: <QuotePage /> },
-        { path: 'wardrobe-quote', element: <WardrobeQuotePage /> },
-        { path: 'kitchen-quote', element: <KitchenQuotePage /> },
-        { path: 'faqs', element: <PagesFaqs /> },
-        { path: 'privacy-policy', element: <PagesPrivacyPolicy /> },
-        { path: 'refund-policy', element: <PagesRefundPolicy /> },
-        { path: 'terms-and-conditions', element: <TermsAndCondition /> },
-      ],
-    },
-    AuthenticationRoutes,
-    LoginRoutes,
-    MainRoutes,
-  ]);
+    return useRoutes([
+        {
+            path: '/',
+            element: <MinimalLayout />,
+            children: [
+                { path: '', element: <PagesLanding /> },
+                { path: 'about-us', element: <AboutUsPage /> },
+                { path: 'services', element: <ServicesPage /> },
+                { path: 'contact-us', element: <ContactUsPage /> },
+                { path: 'quote', element: <QuotePage /> },
+                { path: 'wardrobe-quote', element: <WardrobeQuotePage /> },
+                { path: 'kitchen-quote', element: <KitchenQuotePage /> },
+                { path: 'faqs', element: <PagesFaqs /> },
+                { path: 'privacy-policy', element: <PagesPrivacyPolicy /> },
+                { path: 'refund-policy', element: <PagesRefundPolicy /> },
+                { path: 'terms-and-conditions', element: <TermsAndCondition /> }
+            ]
+        },
+        AuthenticationRoutes,
+        LoginRoutes,
+        MainRoutes
+    ]);
 }

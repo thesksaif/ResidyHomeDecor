@@ -13,21 +13,21 @@ import settings from './settings';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [
-    dashboard,
-    leads,
-    pages,
-    settings,
-    // forms,
-    // application,
+    items: [
+        dashboard,
+        leads,
+        pages,
+        settings
+        // forms,
+        // application,
 
-    // elements,
-    // samplePage,
+        // elements,
+        // samplePage,
 
-    // utilities,
-    // support,
-    // other,
-  ],
+        // utilities,
+        // support,
+        // other,
+    ]
 };
 
 export default menuItems;

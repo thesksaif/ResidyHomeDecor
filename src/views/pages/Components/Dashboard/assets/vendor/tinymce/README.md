@@ -24,9 +24,9 @@ TinyMCE provides a range of configuration options that allow you to integrate it
 
 Configure it for one of three modes of editing:
 
-- [TinyMCE classic editing mode](https://www.tiny.cloud/docs/tinymce/6/use-tinymce-classic/).
-- [TinyMCE inline editing mode](https://www.tiny.cloud/docs/tinymce/6/use-tinymce-inline/).
-- [TinyMCE distraction-free editing mode](https://www.tiny.cloud/docs/tinymce/6/use-tinymce-distraction-free/).
+-   [TinyMCE classic editing mode](https://www.tiny.cloud/docs/tinymce/6/use-tinymce-classic/).
+-   [TinyMCE inline editing mode](https://www.tiny.cloud/docs/tinymce/6/use-tinymce-inline/).
+-   [TinyMCE distraction-free editing mode](https://www.tiny.cloud/docs/tinymce/6/use-tinymce-distraction-free/).
 
 ## Features
 
@@ -34,9 +34,9 @@ Configure it for one of three modes of editing:
 
 TinyMCE is easily integrated into your projects with the help of components such as:
 
-- [tinymce-react](https://github.com/tinymce/tinymce-react)
-- [tinymce-vue](https://github.com/tinymce/tinymce-vue)
-- [tinymce-angular](https://github.com/tinymce/tinymce-angular)
+-   [tinymce-react](https://github.com/tinymce/tinymce-react)
+-   [tinymce-vue](https://github.com/tinymce/tinymce-vue)
+-   [tinymce-angular](https://github.com/tinymce/tinymce-angular)
 
 With over 29 integrations, and 400+ APIs, see the TinyMCE docs for a full list of editor [integrations](https://www.tiny.cloud/docs/tinymce/6/integrations/).
 
