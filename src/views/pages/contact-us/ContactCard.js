@@ -3,8 +3,13 @@ import { Container, Grid, Typography, Box, Paper, TextField, Button, FormControl
 import { LocationOn, Phone, Email } from '@mui/icons-material';
 import contactIllustration from 'assets/images/contact/contactIllustration.png';
 import './ContactForm.css';
+import useContact from 'hooks/useContact';
+import { useDispatch } from 'store';
+import { openSnackbar } from 'store/slices/snackbar';
 
 const ContactCard = () => {
+    const dispatch = useDispatch();
+    const { loading, error, submitContact, clearError } = useContact();
     const [form, setForm] = useState({
         name: '',
         phone: '',
@@ -20,12 +25,62 @@ const ContactCard = () => {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+        if (error) clearError();
     };
 
-    const handleSubmit = (e) => {
+    const validateForm = () => {
+        if (!form.name.trim()) return 'Full Name is required';
+        if (!form.phone.trim()) return 'Phone Number is required';
+        if (!form.email.trim()) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return 'Please enter a valid email address';
+        return null;
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Submit logic here
-        alert('Submitted!');
+        const validationError = validateForm();
+        if (validationError) {
+            dispatch(
+                openSnackbar({
+                    open: true,
+                    message: validationError,
+                    variant: 'alert',
+                    alert: { color: 'error' },
+                    close: false
+                })
+            );
+            return;
+        }
+        const result = await submitContact(form);
+        if (result.success) {
+            dispatch(
+                openSnackbar({
+                    open: true,
+                    message: result.message,
+                    variant: 'alert',
+                    alert: { color: 'success' },
+                    close: false
+                })
+            );
+            setForm({
+                name: '',
+                phone: '',
+                email: '',
+                service: '',
+                message: '',
+                whatsapp: true
+            });
+        } else {
+            dispatch(
+                openSnackbar({
+                    open: true,
+                    message: result.error,
+                    variant: 'alert',
+                    alert: { color: 'error' },
+                    close: false
+                })
+            );
+        }
     };
 
     return (
@@ -198,11 +253,17 @@ const ContactCard = () => {
                                 }
                                 sx={{ mb: 2, mt: 1 }}
                             />
+                            {error && (
+                                <Typography color="error" sx={{ mb: 1, textAlign: 'center' }}>
+                                    {error}
+                                </Typography>
+                            )}
                             <Button
                                 type="submit"
                                 variant="contained"
                                 color="error"
                                 fullWidth
+                                disabled={loading}
                                 sx={{
                                     fontWeight: 600,
                                     borderRadius: 2,
@@ -218,7 +279,7 @@ const ContactCard = () => {
                                     mt: 1
                                 }}
                             >
-                                SEND
+                                {loading ? 'Sending...' : 'SEND'}
                             </Button>
                             <Typography className="contact-policy" sx={{ mt: 2 }}>
                                 By submitting this form, you agree to the <a href="#">privacy policy</a> and <a href="#">terms of use</a>

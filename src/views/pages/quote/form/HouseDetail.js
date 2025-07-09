@@ -15,13 +15,11 @@ const subOptions = [
     { label: 'Large', description: 'Above 1200 sq ft' }
 ];
 
-const HouseDetail = ({ handleNext }) => {
-    const [selectedBHK, setSelectedBHK] = useState('');
+const HouseDetail = ({ handleNext, bhkType, setBhkType, bhkSize, setBhkSize }) => {
     const [expanded, setExpanded] = useState('');
-    const [selectedSub, setSelectedSub] = useState('Small');
 
     const handleBHKChange = (event) => {
-        setSelectedBHK(event.target.value);
+        setBhkType(event.target.value);
         if (['2 BHK', '3 BHK', '4 BHK'].includes(event.target.value)) {
             setExpanded(event.target.value);
         } else {
@@ -38,7 +36,7 @@ const HouseDetail = ({ handleNext }) => {
                 To know more about this, <span style={{ color: '#dc4545', cursor: 'pointer' }}>click here</span>
             </Typography>
             <FormControl component="fieldset" fullWidth>
-                <RadioGroup value={selectedBHK} onChange={handleBHKChange}>
+                <RadioGroup value={bhkType} onChange={handleBHKChange}>
                     {bhkOptions.map((option) => (
                         <Box key={option.label} sx={{ mb: 2 }}>
                             <Paper
@@ -64,23 +62,21 @@ const HouseDetail = ({ handleNext }) => {
                                                     key={sub.label}
                                                     variant="outlined"
                                                     sx={{
-                                                        borderColor:
-                                                            selectedSub === sub.label && selectedBHK === option.label ? '#dc4545' : '#eee',
+                                                        borderColor: bhkType === option.label && bhkSize === sub.label ? '#dc4545' : '#eee',
                                                         borderRadius: 2,
                                                         p: 2,
                                                         cursor: 'pointer',
-                                                        background:
-                                                            selectedSub === sub.label && selectedBHK === option.label ? '#fff5f5' : '#fff',
+                                                        background: bhkType === option.label && bhkSize === sub.label ? '#fff5f5' : '#fff',
                                                         transition: 'all 0.2s',
                                                         flex: 1
                                                     }}
                                                     onClick={() => {
-                                                        setSelectedBHK(option.label);
-                                                        setSelectedSub(sub.label);
+                                                        setBhkType(option.label);
+                                                        setBhkSize(sub.label);
                                                     }}
                                                 >
                                                     <Radio
-                                                        checked={selectedSub === sub.label && selectedBHK === option.label}
+                                                        checked={bhkType === option.label && bhkSize === sub.label}
                                                         color="error"
                                                         value={sub.label}
                                                         sx={{ p: 0, mr: 1 }}
@@ -108,7 +104,7 @@ const HouseDetail = ({ handleNext }) => {
                     color="error"
                     sx={{ fontWeight: 600, borderRadius: 8, px: 5 }}
                     onClick={handleNext}
-                    disabled={!selectedBHK || (['2 BHK', '3 BHK', '4 BHK'].includes(selectedBHK) && !selectedSub)}
+                    disabled={!bhkType || (['2 BHK', '3 BHK', '4 BHK'].includes(bhkType) && !bhkSize)}
                 >
                     NEXT
                 </Button>
@@ -118,7 +114,11 @@ const HouseDetail = ({ handleNext }) => {
 };
 
 HouseDetail.propTypes = {
-    handleNext: PropTypes.func
+    handleNext: PropTypes.func,
+    bhkType: PropTypes.string,
+    setBhkType: PropTypes.func,
+    bhkSize: PropTypes.string,
+    setBhkSize: PropTypes.func
 };
 
 export default HouseDetail;

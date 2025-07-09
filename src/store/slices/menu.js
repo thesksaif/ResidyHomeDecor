@@ -1,59 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// project imports
-import { dispatch } from '../index';
-import axios from 'utils/axios';
-
-// initial state
 const initialState = {
-    selectedItem: ['dashboard'],
-    selectedID: null,
-    drawerOpen: false,
-    error: null,
-    menu: {}
+    isOpen: [], // array of menu ids that are open
+    defaultId: '', // default selected menu id
+    openItem: '', // currently open menu item
+    drawerOpen: false, // controls sidebar drawer open/close
+    selectedItem: [], // array of selected menu item ids
+    selectedID: '' // active parent/group id
 };
-
-// ==============================|| SLICE - MENU ||============================== //
 
 const menu = createSlice({
     name: 'menu',
     initialState,
     reducers: {
-        activeItem(state, action) {
-            state.selectedItem = action.payload;
+        openMenu(state, action) {
+            state.isOpen = [action.payload];
+            state.openItem = action.payload;
         },
-
-        activeID(state, action) {
-            state.selectedID = action.payload;
+        closeMenu(state) {
+            state.isOpen = [];
+            state.openItem = '';
         },
-
+        setDefaultId(state, action) {
+            state.defaultId = action.payload;
+        },
         openDrawer(state, action) {
             state.drawerOpen = action.payload;
         },
-
-        // has error
-        hasError(state, action) {
-            state.error = action.payload;
+        activeItem(state, action) {
+            state.selectedItem = action.payload;
         },
-
-        // get dashboard menu
-        getMenuSuccess(state, action) {
-            state.menu = action.payload;
+        activeID(state, action) {
+            state.selectedID = action.payload;
         }
     }
 });
 
+export const { openMenu, closeMenu, setDefaultId, openDrawer, activeItem, activeID } = menu.actions;
 export default menu.reducer;
-
-export const { activeItem, openDrawer, activeID } = menu.actions;
-
-export function getMenu() {
-    return async () => {
-        try {
-            const response = await axios.get('/api/menu/widget');
-            dispatch(menu.actions.getMenuSuccess(response.data.widget));
-        } catch (error) {
-            dispatch(menu.actions.hasError(error));
-        }
-    };
-}

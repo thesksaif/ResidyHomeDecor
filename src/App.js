@@ -12,8 +12,6 @@ import Loader from 'ui-component/Loader';
 import Notistack from 'ui-component/third-party/Notistack';
 
 import ThemeCustomization from 'themes';
-import { dispatch } from 'store';
-import { getMenu } from 'store/slices/menu';
 
 // auth provider
 import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
@@ -21,36 +19,51 @@ import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
 // import { Auth0Provider as AuthProvider } from 'contexts/Auth0Context';
 
+// quick consult provider
+import { QuickConsultProvider } from 'contexts/QuickConsultContext';
+import { ContactProvider } from 'contexts/ContactContext';
+import { QuoteProvider } from 'contexts/QuoteContext';
+import { KitchenQuoteProvider } from 'contexts/KitchenQuoteContext';
+import { WardrobeQuoteProvider } from 'contexts/WardrobeQuoteContext';
+
 // ==============================|| APP ||============================== //
 
 const App = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        dispatch(getMenu()).then(() => {
-            setLoading(true);
-        });
+        setLoading(true);
     }, []);
 
     if (!loading) return <Loader />;
 
     return (
-        <ThemeCustomization>
-            <RTLLayout>
-                <Locales>
-                    <NavigationScroll>
-                        <AuthProvider>
-                            <>
-                                <Notistack>
-                                    <Routes />
-                                    <Snackbar />
-                                </Notistack>
-                            </>
-                        </AuthProvider>
-                    </NavigationScroll>
-                </Locales>
-            </RTLLayout>
-        </ThemeCustomization>
+        <WardrobeQuoteProvider>
+            <KitchenQuoteProvider>
+                <QuoteProvider>
+                    <ContactProvider>
+                        <ThemeCustomization>
+                            <RTLLayout>
+                                <Locales>
+                                    <NavigationScroll>
+                                        <AuthProvider>
+                                            <QuickConsultProvider>
+                                                <>
+                                                    <Notistack>
+                                                        <Routes />
+                                                        <Snackbar />
+                                                    </Notistack>
+                                                </>
+                                            </QuickConsultProvider>
+                                        </AuthProvider>
+                                    </NavigationScroll>
+                                </Locales>
+                            </RTLLayout>
+                        </ThemeCustomization>
+                    </ContactProvider>
+                </QuoteProvider>
+            </KitchenQuoteProvider>
+        </WardrobeQuoteProvider>
     );
 };
 

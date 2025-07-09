@@ -98,6 +98,18 @@ const CardWrapper = styled(Paper)(() => ({
 
 const QuotePage = () => {
     const [activeStep, setActiveStep] = useState(0);
+    const [height, setHeight] = useState('');
+    const [type, setType] = useState('');
+    const [finish, setFinish] = useState('');
+    const [material, setMaterial] = useState([]);
+    const [accessories, setAccessories] = useState([]);
+    const [reviewForm, setReviewForm] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        propertyName: '',
+        sendWhatsapp: true
+    });
 
     // Navigation handlers
     const handleNext = () => setActiveStep((prev) => Math.min(prev + 1, steps.length - 1));
@@ -123,12 +135,41 @@ const QuotePage = () => {
                                 mx: 'auto'
                             }}
                         >
-                            {activeStep === 0 && <Step1Length handleNext={handleNext} />}
-                            {activeStep === 1 && <Step2Type handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 2 && <Step3Finish handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 3 && <Step4Material handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 4 && <Step5Accessories handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 5 && <Step6GetQuote handleBack={handleBack} />}
+                            {activeStep === 0 && <Step1Length handleNext={handleNext} height={height} setHeight={setHeight} />}
+                            {activeStep === 1 && (
+                                <Step2Type handleNext={handleNext} handleBack={handleBack} type={type} setType={setType} />
+                            )}
+                            {activeStep === 2 && (
+                                <Step3Finish handleNext={handleNext} handleBack={handleBack} finish={finish} setFinish={setFinish} />
+                            )}
+                            {activeStep === 3 && (
+                                <Step4Material
+                                    handleNext={handleNext}
+                                    handleBack={handleBack}
+                                    material={material}
+                                    setMaterial={setMaterial}
+                                />
+                            )}
+                            {activeStep === 4 && (
+                                <Step5Accessories
+                                    handleNext={handleNext}
+                                    handleBack={handleBack}
+                                    accessories={accessories}
+                                    setAccessories={setAccessories}
+                                />
+                            )}
+                            {activeStep === 5 && (
+                                <Step6GetQuote
+                                    handleBack={handleBack}
+                                    reviewForm={reviewForm}
+                                    setReviewForm={setReviewForm}
+                                    height={height}
+                                    type={type}
+                                    finish={finish}
+                                    material={material}
+                                    accessories={accessories}
+                                />
+                            )}
                         </Box>
                     </Box>
                 </CardWrapper>

@@ -28,7 +28,6 @@ import NavItem from '../NavItem';
 import useConfig from 'hooks/useConfig';
 import Transitions from 'ui-component/extended/Transitions';
 import { dispatch, useSelector } from 'store';
-import { activeID } from 'store/slices/menu';
 
 // assets
 import { IconChevronDown, IconChevronRight, IconMinusVertical } from '@tabler/icons';

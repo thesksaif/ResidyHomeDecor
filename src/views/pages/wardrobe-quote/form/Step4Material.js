@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { Box, Typography, Button, Paper, Checkbox, FormControlLabel, CardMedia, Alert, Stack } from '@mui/material';
 import laminate from 'assets/images/quote/wardrobe/laminate.jpg';
 import membrane from 'assets/images/quote/wardrobe/membrane.jpg';
@@ -21,11 +20,9 @@ const materialOptions = [
     }
 ];
 
-const MaterialStep = ({ handleNext, handleBack }) => {
-    const [selected, setSelected] = useState([]);
-
+const Step4Material = ({ handleNext, handleBack, material, setMaterial }) => {
     const handleToggle = (value) => {
-        setSelected((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
+        setMaterial((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
     };
 
     return (
@@ -52,11 +49,11 @@ const MaterialStep = ({ handleNext, handleBack }) => {
                         key={option.value}
                         variant="outlined"
                         sx={{
-                            borderColor: selected.includes(option.value) ? '#dc4545' : '#eee',
+                            borderColor: material.includes(option.value) ? '#dc4545' : '#eee',
                             borderRadius: 2,
                             p: 2,
                             mb: 2,
-                            background: selected.includes(option.value) ? '#fff5f5' : '#fff',
+                            background: material.includes(option.value) ? '#fff5f5' : '#fff',
                             boxShadow: 'none',
                             position: 'relative',
                             transition: 'all 0.2s',
@@ -69,7 +66,7 @@ const MaterialStep = ({ handleNext, handleBack }) => {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={selected.includes(option.value)}
+                                    checked={material.includes(option.value)}
                                     onChange={() => handleToggle(option.value)}
                                     color="error"
                                 />
@@ -101,7 +98,7 @@ const MaterialStep = ({ handleNext, handleBack }) => {
                     color="error"
                     sx={{ fontWeight: 600, borderRadius: 8, px: 5 }}
                     onClick={handleNext}
-                    disabled={selected.length === 0}
+                    disabled={material.length === 0}
                 >
                     NEXT
                 </Button>
@@ -110,9 +107,11 @@ const MaterialStep = ({ handleNext, handleBack }) => {
     );
 };
 
-MaterialStep.propTypes = {
+Step4Material.propTypes = {
     handleNext: PropTypes.func,
-    handleBack: PropTypes.func
+    handleBack: PropTypes.func,
+    material: PropTypes.array,
+    setMaterial: PropTypes.func
 };
 
-export default MaterialStep;
+export default Step4Material;

@@ -11,9 +11,6 @@ import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
 
-import { useDispatch, useSelector } from 'store';
-import { openDrawer } from 'store/slices/menu';
-
 // assets
 import { IconMenu2 } from '@tabler/icons';
 
@@ -22,7 +19,6 @@ import { IconMenu2 } from '@tabler/icons';
 const Header = () => {
     const theme = useTheme();
 
-    const dispatch = useDispatch();
     const { drawerOpen } = useSelector((state) => state.menu);
 
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));

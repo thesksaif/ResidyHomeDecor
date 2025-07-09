@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import {
     Box,
     Typography,
@@ -53,9 +52,7 @@ const packages = [
     }
 ];
 
-const PackageStep = ({ handleNext, handleBack }) => {
-    const [selected, setSelected] = useState('');
-
+const Step2Type = ({ handleNext, handleBack, type, setType }) => {
     return (
         <Box sx={{ maxWidth: '100%', mx: 'auto' }}>
             <Typography variant="h5" align="center" sx={{ fontWeight: 600, mb: 2 }}>
@@ -67,11 +64,11 @@ const PackageStep = ({ handleNext, handleBack }) => {
                         <Paper
                             variant="outlined"
                             sx={{
-                                borderColor: selected === pkg.value ? '#dc4545' : '#eee',
+                                borderColor: type === pkg.value ? '#dc4545' : '#eee',
                                 borderRadius: 2,
                                 p: 2,
                                 mb: 2,
-                                background: selected === pkg.value ? '#fff5f5' : '#fff',
+                                background: type === pkg.value ? '#fff5f5' : '#fff',
                                 boxShadow: 'none',
                                 position: 'relative',
                                 transition: 'all 0.2s',
@@ -81,11 +78,11 @@ const PackageStep = ({ handleNext, handleBack }) => {
                                 flexDirection: 'column',
                                 alignItems: 'center'
                             }}
-                            onClick={() => setSelected(pkg.value)}
+                            onClick={() => setType(pkg.value)}
                         >
                             <FormControlLabel
                                 value={pkg.value}
-                                control={<Radio color="error" checked={selected === pkg.value} />}
+                                control={<Radio color="error" checked={type === pkg.value} />}
                                 label={<Typography sx={{ fontWeight: 600 }}>{pkg.label}</Typography>}
                                 sx={{ flex: 1, m: 0 }}
                             />
@@ -125,7 +122,7 @@ const PackageStep = ({ handleNext, handleBack }) => {
                     color="error"
                     sx={{ fontWeight: 600, borderRadius: 8, px: 5 }}
                     onClick={handleNext}
-                    disabled={!selected}
+                    disabled={!type}
                 >
                     NEXT
                 </Button>
@@ -134,9 +131,11 @@ const PackageStep = ({ handleNext, handleBack }) => {
     );
 };
 
-PackageStep.propTypes = {
+Step2Type.propTypes = {
     handleNext: PropTypes.func.isRequired,
-    handleBack: PropTypes.func.isRequired
+    handleBack: PropTypes.func.isRequired,
+    type: PropTypes.string,
+    setType: PropTypes.func
 };
 
-export default PackageStep;
+export default Step2Type;

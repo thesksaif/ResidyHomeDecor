@@ -98,6 +98,14 @@ const QuotePage = () => {
     const [activeStep, setActiveStep] = useState(0);
     const [layout, setLayout] = useState('');
     const [measurements, setMeasurements] = useState({});
+    const [selectedPackage, setSelectedPackage] = useState('essentials');
+    const [reviewForm, setReviewForm] = useState({
+        name: '',
+        email: '',
+        phoneNumber: '',
+        whatsapp: true,
+        propertyName: ''
+    });
 
     // Navigation handlers
     const handleNext = () => setActiveStep((prev) => Math.min(prev + 1, steps.length - 1));
@@ -133,8 +141,24 @@ const QuotePage = () => {
                                     setMeasurements={setMeasurements}
                                 />
                             )}
-                            {activeStep === 2 && <Step3Package handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 3 && <Step4GetQuote handleBack={handleBack} />}
+                            {activeStep === 2 && (
+                                <Step3Package
+                                    handleNext={handleNext}
+                                    handleBack={handleBack}
+                                    selectedPackage={selectedPackage}
+                                    setSelectedPackage={setSelectedPackage}
+                                />
+                            )}
+                            {activeStep === 3 && (
+                                <Step4GetQuote
+                                    handleBack={handleBack}
+                                    reviewForm={reviewForm}
+                                    setReviewForm={setReviewForm}
+                                    layout={layout}
+                                    measurements={measurements}
+                                    selectedPackage={selectedPackage}
+                                />
+                            )}
                         </Box>
                     </Box>
                 </CardWrapper>

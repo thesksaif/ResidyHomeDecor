@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { Box, Typography, Button, IconButton, Paper } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 
@@ -11,15 +10,7 @@ const roomList = [
     { label: 'Dining', key: 'dining' }
 ];
 
-const ScopeWork = ({ handleNext, handleBack }) => {
-    const [rooms, setRooms] = useState({
-        living: 2,
-        kitchen: 2,
-        bedroom: 3,
-        bathroom: 3,
-        dining: 1
-    });
-
+const ScopeWork = ({ handleNext, handleBack, rooms, setRooms }) => {
     const handleChange = (key, delta) => {
         setRooms((prev) => {
             const value = Math.max(0, (prev[key] || 0) + delta);
@@ -85,8 +76,10 @@ const ScopeWork = ({ handleNext, handleBack }) => {
 };
 
 ScopeWork.propTypes = {
-    handleNext: PropTypes.func.isRequired,
-    handleBack: PropTypes.func.isRequired
+    handleNext: PropTypes.func,
+    handleBack: PropTypes.func,
+    rooms: PropTypes.object,
+    setRooms: PropTypes.func
 };
 
 export default ScopeWork;

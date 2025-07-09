@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import { Box, Typography, Radio, RadioGroup, FormControlLabel, FormControl, Button, Alert, Link, Paper } from '@mui/material';
 import PropTypes from 'prop-types';
 
 const heightOptions = [{ label: '4 ft' }, { label: '6 ft' }, { label: '7 ft' }, { label: '9 ft' }];
 
-const HouseDetail = ({ handleNext }) => {
-    const [selectedHeight, setSelectedHeight] = useState('');
-
+const Step1Length = ({ handleNext, height, setHeight }) => {
     return (
         <Box sx={{ maxWidth: '100%', mx: 'auto' }}>
             <Typography variant="h5" align="center" sx={{ fontWeight: 600, mb: 2 }}>
@@ -31,7 +28,7 @@ const HouseDetail = ({ handleNext }) => {
                 Standard size has 7ft height. <b>Choose as per your need.</b>
             </Alert>
             <FormControl component="fieldset" fullWidth>
-                <RadioGroup value={selectedHeight} onChange={(e) => setSelectedHeight(e.target.value)}>
+                <RadioGroup value={height} onChange={(e) => setHeight(e.target.value)}>
                     {heightOptions.map((option) => (
                         <Paper
                             key={option.label}
@@ -41,7 +38,7 @@ const HouseDetail = ({ handleNext }) => {
                                 boxShadow: 'none',
                                 p: 1,
                                 mb: 2,
-                                borderColor: selectedHeight === option.label ? '#dc4545' : '#eee'
+                                borderColor: height === option.label ? '#dc4545' : '#eee'
                             }}
                         >
                             <FormControlLabel
@@ -63,7 +60,7 @@ const HouseDetail = ({ handleNext }) => {
                     color="error"
                     sx={{ fontWeight: 600, borderRadius: 8, px: 5 }}
                     onClick={handleNext}
-                    disabled={!selectedHeight}
+                    disabled={!height}
                 >
                     NEXT
                 </Button>
@@ -72,8 +69,10 @@ const HouseDetail = ({ handleNext }) => {
     );
 };
 
-HouseDetail.propTypes = {
-    handleNext: PropTypes.func
+Step1Length.propTypes = {
+    handleNext: PropTypes.func,
+    height: PropTypes.string,
+    setHeight: PropTypes.func
 };
 
-export default HouseDetail;
+export default Step1Length;

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { Box, Typography, Button, Paper, Radio, FormControlLabel, CardMedia, Grid } from '@mui/material';
 import laminate from 'assets/images/quote/wardrobe/laminate.jpg';
 import membrane from 'assets/images/quote/wardrobe/membrane.jpg';
@@ -29,9 +28,7 @@ const finishOptions = [
     }
 ];
 
-const PaymentForm = ({ handleNext, handleBack }) => {
-    const [selected, setSelected] = useState('');
-
+const Step3Finish = ({ handleNext, handleBack, finish, setFinish }) => {
     return (
         <Box sx={{ maxWidth: '100%', mx: 'auto' }}>
             <Typography variant="h5" align="center" sx={{ fontWeight: 600, mb: 2 }}>
@@ -43,11 +40,11 @@ const PaymentForm = ({ handleNext, handleBack }) => {
                         <Paper
                             variant="outlined"
                             sx={{
-                                borderColor: selected === option.value ? '#dc4545' : '#eee',
+                                borderColor: finish === option.value ? '#dc4545' : '#eee',
                                 borderRadius: 2,
                                 p: 2,
                                 mb: 2,
-                                background: selected === option.value ? '#fff5f5' : '#fff',
+                                background: finish === option.value ? '#fff5f5' : '#fff',
                                 boxShadow: 'none',
                                 position: 'relative',
                                 transition: 'all 0.2s',
@@ -57,13 +54,11 @@ const PaymentForm = ({ handleNext, handleBack }) => {
                                 flexDirection: 'column',
                                 alignItems: 'center'
                             }}
-                            onClick={() => setSelected(option.value)}
+                            onClick={() => setFinish(option.value)}
                         >
                             <FormControlLabel
                                 value={option.value}
-                                control={
-                                    <Radio color="error" checked={selected === option.value} onChange={() => setSelected(option.value)} />
-                                }
+                                control={<Radio color="error" checked={finish === option.value} onChange={() => setFinish(option.value)} />}
                                 label={<Typography sx={{ fontWeight: 600 }}>{option.label}</Typography>}
                                 sx={{ flex: 1, m: 0 }}
                             />
@@ -98,7 +93,7 @@ const PaymentForm = ({ handleNext, handleBack }) => {
                     color="error"
                     sx={{ fontWeight: 600, borderRadius: 8, px: 5 }}
                     onClick={handleNext}
-                    disabled={!selected}
+                    disabled={!finish}
                 >
                     NEXT
                 </Button>
@@ -107,9 +102,11 @@ const PaymentForm = ({ handleNext, handleBack }) => {
     );
 };
 
-PaymentForm.propTypes = {
+Step3Finish.propTypes = {
     handleNext: PropTypes.func,
-    handleBack: PropTypes.func
+    handleBack: PropTypes.func,
+    finish: PropTypes.string,
+    setFinish: PropTypes.func
 };
 
-export default PaymentForm;
+export default Step3Finish;

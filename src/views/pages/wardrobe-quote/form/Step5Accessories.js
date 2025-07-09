@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { Box, Typography, Button, Paper, Checkbox, FormControlLabel, CardMedia, Grid } from '@mui/material';
 import loft from 'assets/images/quote/wardrobe/loft-accessories.jpeg';
 import oneDrawer from 'assets/images/quote/wardrobe/1-drawer-accessories.jpg';
@@ -35,11 +34,9 @@ const accessoriesOptions = [
     }
 ];
 
-const AccessoriesStep = ({ handleNext, handleBack }) => {
-    const [selected, setSelected] = useState([]);
-
+const Step5Accessories = ({ handleNext, handleBack, accessories, setAccessories }) => {
     const handleToggle = (value) => {
-        setSelected((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
+        setAccessories((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
     };
 
     return (
@@ -56,8 +53,8 @@ const AccessoriesStep = ({ handleNext, handleBack }) => {
                                 borderRadius: 2,
                                 boxShadow: 'none',
                                 p: 1,
-                                borderColor: selected.includes(option.value) ? '#dc4545' : '#eee',
-                                background: selected.includes(option.value) ? '#fff5f5' : '#fff',
+                                borderColor: accessories.includes(option.value) ? '#dc4545' : '#eee',
+                                background: accessories.includes(option.value) ? '#fff5f5' : '#fff',
                                 position: 'relative',
                                 transition: 'all 0.2s',
                                 textAlign: 'center'
@@ -66,7 +63,7 @@ const AccessoriesStep = ({ handleNext, handleBack }) => {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={selected.includes(option.value)}
+                                        checked={accessories.includes(option.value)}
                                         onChange={() => handleToggle(option.value)}
                                         color="error"
                                     />
@@ -102,9 +99,11 @@ const AccessoriesStep = ({ handleNext, handleBack }) => {
     );
 };
 
-AccessoriesStep.propTypes = {
+Step5Accessories.propTypes = {
     handleNext: PropTypes.func,
-    handleBack: PropTypes.func
+    handleBack: PropTypes.func,
+    accessories: PropTypes.array,
+    setAccessories: PropTypes.func
 };
 
-export default AccessoriesStep;
+export default Step5Accessories;

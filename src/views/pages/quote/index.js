@@ -96,6 +96,24 @@ const CardWrapper = styled(Paper)(() => ({
 
 const QuotePage = () => {
     const [activeStep, setActiveStep] = useState(0);
+    // Stepper state
+    const [bhkType, setBhkType] = useState('');
+    const [bhkSize, setBhkSize] = useState('Small');
+    const [rooms, setRooms] = useState({
+        living: 0,
+        kitchen: 0,
+        bedroom: 0,
+        bathroom: 0,
+        dining: 0
+    });
+    const [selectedPackage, setSelectedPackage] = useState('essentials');
+    const [reviewForm, setReviewForm] = useState({
+        name: '',
+        email: '',
+        phoneNumber: '',
+        whatsapp: true,
+        propertyName: ''
+    });
 
     // Navigation handlers
     const handleNext = () => setActiveStep((prev) => Math.min(prev + 1, steps.length - 1));
@@ -121,10 +139,37 @@ const QuotePage = () => {
                                 mx: 'auto'
                             }}
                         >
-                            {activeStep === 0 && <HouseDetail handleNext={handleNext} />}
-                            {activeStep === 1 && <ScopeWork handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 2 && <PaymentForm handleNext={handleNext} handleBack={handleBack} />}
-                            {activeStep === 3 && <Review handleBack={handleBack} />}
+                            {activeStep === 0 && (
+                                <HouseDetail
+                                    handleNext={handleNext}
+                                    bhkType={bhkType}
+                                    setBhkType={setBhkType}
+                                    bhkSize={bhkSize}
+                                    setBhkSize={setBhkSize}
+                                />
+                            )}
+                            {activeStep === 1 && (
+                                <ScopeWork handleNext={handleNext} handleBack={handleBack} rooms={rooms} setRooms={setRooms} />
+                            )}
+                            {activeStep === 2 && (
+                                <PaymentForm
+                                    handleNext={handleNext}
+                                    handleBack={handleBack}
+                                    selectedPackage={selectedPackage}
+                                    setSelectedPackage={setSelectedPackage}
+                                />
+                            )}
+                            {activeStep === 3 && (
+                                <Review
+                                    handleBack={handleBack}
+                                    reviewForm={reviewForm}
+                                    setReviewForm={setReviewForm}
+                                    bhkType={bhkType}
+                                    bhkSize={bhkSize}
+                                    rooms={rooms}
+                                    selectedPackage={selectedPackage}
+                                />
+                            )}
                         </Box>
                     </Box>
                 </CardWrapper>
