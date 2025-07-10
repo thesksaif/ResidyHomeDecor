@@ -186,15 +186,15 @@ const pages = {
         //         }
         //     ]
         // },
-        {
-            id: 'landing',
-            title: <FormattedMessage id="landing" />,
-            type: 'item',
-            icon: icons.IconBellRinging,
-            url: '/admin/landing',
-            target: true,
-            breadcrumbs: false
-        },
+        // {
+        //     id: 'landing',
+        //     title: <FormattedMessage id="landing" />,
+        //     type: 'item',
+        //     icon: icons.IconBellRinging,
+        //     url: '/admin/landing',
+        //     target: true,
+        //     breadcrumbs: false
+        // },
         {
             id: 'reviews',
             title: <FormattedMessage id="Reviews" />,

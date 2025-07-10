@@ -45,6 +45,8 @@ const PrivacyPolicyForm = () => {
         setSuccess('');
         setLoading(true);
         try {
+            await staticPagesApi.getPageByType('privacy_policy');
+            // If found, update
             await staticPagesApi.updatePageByType('privacy_policy', {
                 title: form.title,
                 bannerImage: form.bannerImage,
@@ -52,7 +54,22 @@ const PrivacyPolicyForm = () => {
             });
             setSuccess('Privacy Policy updated successfully!');
         } catch (err) {
-            setError('Failed to update Privacy Policy.');
+            // If not found, create
+            if (err && err.message && err.message.includes('not found')) {
+                try {
+                    await axiosServices.post('/api/pages', {
+                        type: 'privacy_policy',
+                        title: form.title,
+                        bannerImage: form.bannerImage,
+                        content: form.content
+                    });
+                    setSuccess('Privacy Policy created successfully!');
+                } catch (createErr) {
+                    setError('Failed to create Privacy Policy.');
+                }
+            } else {
+                setError('Failed to update Privacy Policy.');
+            }
         }
         setLoading(false);
     };

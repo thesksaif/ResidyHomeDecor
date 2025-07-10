@@ -99,7 +99,7 @@ const ForgotPassword = () => {
                             <Grid item xs={12}>
                                 <Stack direction="row" justifyContent={matchDownSM ? 'center' : 'flex-start'}>
                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                                        Enter your email address below and we&apos;ll send you password reset OTP.
+                                        Enter your email address below and we&apos;ll send you a new password.
                                     </Typography>
                                 </Stack>
                             </Grid>

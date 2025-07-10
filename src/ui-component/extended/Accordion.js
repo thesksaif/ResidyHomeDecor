@@ -44,7 +44,9 @@ const Accordion = ({ data, defaultExpandedId = null, expandIcon, square, toggle 
                         >
                             {item.title}
                         </MuiAccordionSummary>
-                        <MuiAccordionDetails>{item.content}</MuiAccordionDetails>
+                        <MuiAccordionDetails>
+                            <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                        </MuiAccordionDetails>
                     </MuiAccordion>
                 ))}
         </Box>

@@ -10,19 +10,17 @@ import { Formik } from 'formik';
 
 // project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
-import useAuth from 'hooks/useAuth';
 import useScriptRef from 'hooks/useScriptRef';
 import { openSnackbar } from 'store/slices/snackbar';
+import axiosServices from 'utils/axios';
 
-// ========================|| FIREBASE - FORGOT PASSWORD ||======================== //
+// ========================|| CUSTOM API - FORGOT PASSWORD ||======================== //
 
 const AuthForgotPassword = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const { isLoggedIn, resetPassword } = useAuth();
 
     return (
         <Formik
@@ -35,44 +33,77 @@ const AuthForgotPassword = ({ ...others }) => {
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                 try {
-                    await resetPassword(values.email).then(
-                        () => {
-                            setStatus({ success: true });
-                            setSubmitting(false);
-                            dispatch(
-                                openSnackbar({
-                                    open: true,
-                                    message: 'Check mail for reset password link',
-                                    variant: 'alert',
-                                    alert: {
-                                        color: 'success'
-                                    },
-                                    close: false
-                                })
-                            );
-                            setTimeout(() => {
-                                navigate(isLoggedIn ? '/auth/check-mail' : '/check-mail', {
-                                    replace: true
-                                });
-                            }, 1500);
+                    // Call the custom forgot password API
+                    const response = await axiosServices.post('/api/account/forgot-password', {
+                        email: values.email
+                    });
 
-                            // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                            // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                            // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                            // github issue: https://github.com/formium/formik/issues/2430
-                        },
-                        (err) => {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                        }
-                    );
+                    if (scriptedRef.current) {
+                        setStatus({ success: true });
+                        setSubmitting(false);
+
+                        // Show success message
+                        dispatch(
+                            openSnackbar({
+                                open: true,
+                                message: response.data.message || 'A new password has been sent to your email address.',
+                                variant: 'alert',
+                                alert: {
+                                    color: 'success'
+                                },
+                                close: false
+                            })
+                        );
+
+                        // Navigate to login page after a delay
+                        setTimeout(() => {
+                            navigate('/login', {
+                                replace: true
+                            });
+                        }, 2000);
+                    }
                 } catch (err) {
-                    console.error(err);
+                    console.error('Forgot password error:', err);
+
                     if (scriptedRef.current) {
                         setStatus({ success: false });
-                        setErrors({ submit: err.message });
                         setSubmitting(false);
+
+                        // Handle different error cases
+                        let errorMessage = 'An error occurred while processing your request.';
+
+                        if (err.response) {
+                            switch (err.response.status) {
+                                case 400:
+                                    errorMessage = 'Email is required.';
+                                    break;
+                                case 404:
+                                    errorMessage = 'User not found with this email address.';
+                                    break;
+                                case 500:
+                                    errorMessage = 'Failed to send email. Please try again later.';
+                                    break;
+                                default:
+                                    errorMessage = err.response.data?.message || errorMessage;
+                            }
+                        } else if (err.request) {
+                            errorMessage = 'Network error. Please check your connection.';
+                        }
+
+                        setErrors({ submit: errorMessage });
+
+                        // Show error message
+                        dispatch(
+                            openSnackbar({
+                                open: true,
+                                message: errorMessage,
+                                variant: 'alert',
+                                alert: {
+                                    color: 'error'
+                                },
+                                close: false
+                            })
+                        );
                     }
                 }
             }}
@@ -115,7 +146,7 @@ const AuthForgotPassword = ({ ...others }) => {
                                 variant="contained"
                                 color="secondary"
                             >
-                                Send Mail
+                                {isSubmitting ? 'Sending...' : 'Reset Password'}
                             </Button>
                         </AnimateButton>
                     </Box>

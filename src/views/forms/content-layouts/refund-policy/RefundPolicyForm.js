@@ -64,6 +64,8 @@ const RefundPolicyForm = () => {
         setSuccess('');
         setLoading(true);
         try {
+            await staticPagesApi.getPageByType('refund_policy');
+            // If found, update
             await staticPagesApi.updatePageByType('refund_policy', {
                 title: form.title,
                 bannerImage: form.bannerImage,
@@ -71,7 +73,22 @@ const RefundPolicyForm = () => {
             });
             setSuccess('Refund Policy updated successfully!');
         } catch (err) {
-            setError('Failed to update Refund Policy.');
+            // If not found, create
+            if (err && err.message && err.message.includes('not found')) {
+                try {
+                    await axiosServices.post('/api/pages', {
+                        type: 'refund_policy',
+                        title: form.title,
+                        bannerImage: form.bannerImage,
+                        content: form.content
+                    });
+                    setSuccess('Refund Policy created successfully!');
+                } catch (createErr) {
+                    setError('Failed to create Refund Policy.');
+                }
+            } else {
+                setError('Failed to update Refund Policy.');
+            }
         }
         setLoading(false);
     };
