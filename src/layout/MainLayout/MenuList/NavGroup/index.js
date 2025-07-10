@@ -27,7 +27,9 @@ import NavCollapse from '../NavCollapse';
 import NavItem from '../NavItem';
 import useConfig from 'hooks/useConfig';
 import Transitions from 'ui-component/extended/Transitions';
-import { dispatch, useSelector } from 'store';
+import { useSelector } from 'store';
+import { useDispatch } from 'react-redux';
+import { activeID } from 'store/slices/menu';
 
 // assets
 import { IconChevronDown, IconChevronRight, IconMinusVertical } from '@tabler/icons';
@@ -57,6 +59,7 @@ const PopperStyled = styled(Popper)(({ theme }) => ({
 
 const NavGroup = ({ item, lastItem, remItems, lastItemId }) => {
     const theme = useTheme();
+    const dispatch = useDispatch();
 
     const { pathname } = useLocation();
     const { drawerOpen, selectedID } = useSelector((state) => state.menu);

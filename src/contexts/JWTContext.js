@@ -26,11 +26,18 @@ const verifyToken = (serviceToken) => {
     if (!serviceToken) {
         return false;
     }
-    const decoded = jwtDecode(serviceToken);
-    /**
-     * Property 'exp' does not exist on type '<T = unknown>(token, options?: JwtDecodeOptions | undefined) => T'.
-     */
-    return decoded.exp > Date.now() / 1000;
+    try {
+        const decoded = jwtDecode(serviceToken);
+        // Check if token has expiration
+        if (decoded.exp) {
+            return decoded.exp > Date.now() / 1000;
+        }
+        // If no expiration, assume token is valid
+        return true;
+    } catch (error) {
+        console.error('Token verification failed:', error);
+        return false;
+    }
 };
 
 const setSession = (serviceToken) => {
@@ -52,25 +59,61 @@ export const JWTProvider = ({ children }) => {
     useEffect(() => {
         const init = async () => {
             try {
+                console.log('Initializing authentication...');
                 const serviceToken = window.localStorage.getItem('serviceToken');
+                console.log('Token found in localStorage:', !!serviceToken);
+
                 if (serviceToken && verifyToken(serviceToken)) {
+                    console.log('Token is valid, setting session...');
                     setSession(serviceToken);
-                    const response = await axios.get('/api/account/me');
-                    const { user } = response.data;
-                    dispatch({
-                        type: LOGIN,
-                        payload: {
-                            isLoggedIn: true,
-                            user
+                    // Try to verify token with backend, but don't logout if endpoint doesn't exist
+                    try {
+                        console.log('Attempting to verify token with backend...');
+                        const response = await axios.get('/api/account/me');
+                        const { user } = response.data;
+                        console.log('Backend verification successful:', user);
+                        dispatch({
+                            type: LOGIN,
+                            payload: {
+                                isLoggedIn: true,
+                                user
+                            }
+                        });
+                    } catch (error) {
+                        console.warn('Token verification endpoint not available, using local verification:', error);
+                        // If the endpoint doesn't exist, just use the token from localStorage
+                        // Extract user info from token if possible
+                        try {
+                            const decoded = jwtDecode(serviceToken);
+                            const user = {
+                                id: decoded.id || decoded.sub || 'user',
+                                email: decoded.email || 'user@example.com',
+                                name: decoded.name || decoded.firstName || 'User'
+                            };
+                            console.log('Using local token verification, user:', user);
+                            dispatch({
+                                type: LOGIN,
+                                payload: {
+                                    isLoggedIn: true,
+                                    user
+                                }
+                            });
+                        } catch (decodeError) {
+                            console.error('Failed to decode token:', decodeError);
+                            setSession(null);
+                            dispatch({
+                                type: LOGOUT
+                            });
                         }
-                    });
+                    }
                 } else {
+                    console.log('No valid token found, logging out...');
                     dispatch({
                         type: LOGOUT
                     });
                 }
             } catch (err) {
-                console.error(err);
+                console.error('Authentication initialization error:', err);
                 dispatch({
                     type: LOGOUT
                 });
@@ -81,31 +124,38 @@ export const JWTProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        // Static credentials for testing
-        const validEmail = 'info@residyhomedecor.com';
-        const validPassword = 'Residy@123';
-
-        if (email === validEmail && password === validPassword) {
-            const serviceToken =
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZTg2ODA5MjgzZTI4Yjk2ZDJkMzg1MzciLCJpYXQiOjE3NTE5NjYzMzEsImV4cCI6MTc1MjA1MjczMX0.u5OKykNggqNztVY4Xk5dXFOjzvUVyZq_fHk0aWk8-to';
-            const user = {
-                id: '5e86809283e28b96d2d38537',
-                email: validEmail,
-                name: 'Srikant Singh',
-                role: 'Admin'
-            };
-
-            setSession(serviceToken);
-            dispatch({
-                type: LOGIN,
-                payload: {
-                    isLoggedIn: true,
-                    user
-                }
+        try {
+            console.log('Attempting login with email:', email);
+            const response = await axios.post('/api/account/login', {
+                email,
+                password
             });
-        } else {
-            // Throw error if credentials do not match
-            throw new Error('Invalid email or password');
+
+            console.log('Login response:', response.data);
+            const { serviceToken, user } = response.data;
+
+            if (serviceToken && user) {
+                console.log('Login successful, setting session...');
+                setSession(serviceToken);
+                dispatch({
+                    type: LOGIN,
+                    payload: {
+                        isLoggedIn: true,
+                        user
+                    }
+                });
+            } else {
+                throw new Error('Invalid response from server');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            if (error.response && error.response.data && error.response.data.message) {
+                throw new Error(error.response.data.message);
+            } else if (error.message) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Login failed. Please try again.');
+            }
         }
     };
 
@@ -148,7 +198,8 @@ export const JWTProvider = ({ children }) => {
 
     const updateProfile = () => {};
 
-    if (state.isInitialized !== undefined && !state.isInitialized) {
+    // Only show loader if not initialized yet
+    if (!state.isInitialized) {
         return <Loader />;
     }
 

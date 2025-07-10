@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import axios from 'utils/axios';
 
 // material-ui
 import {
@@ -23,7 +25,6 @@ import {
 } from '@mui/material';
 
 // project imports
-import useAuth from 'hooks/useAuth';
 import Avatar from 'ui-component/extended/Avatar';
 import SubCard from 'ui-component/cards/SubCard';
 import { gridSpacing } from 'store/constant';
@@ -73,16 +74,47 @@ function createData(name, calories, fat, carbs, protein) {
 // ==============================|| PROFILE 1 - PROFILE ||============================== //
 
 const Profile = () => {
-    const { user } = useAuth();
+    // const { user } = useAuth();
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('/api/account/me')
+            .then((res) => {
+                setProfile(res.data.user);
+                setLoading(false);
+            })
+            .catch(() => {
+                setError('Failed to load profile');
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading)
+        return (
+            <Typography align="center" sx={{ my: 4 }}>
+                Loading...
+            </Typography>
+        );
+    if (error)
+        return (
+            <Typography color="error" align="center" sx={{ my: 4 }}>
+                {error}
+            </Typography>
+        );
+    if (!profile) return null;
 
     const rows = [
-        createData('Full Name', ':', user?.name),
-        createData('Fathers Name', ':', 'Mr. Deepen Handgun'),
-        createData('Address', ':', 'Street 110-B Kalians Bag, Dewan, M.P. INDIA'),
-        createData('Zip Code', ':', '12345'),
-        createData('Phone', ':', '+0 123456789 , +0 123456789'),
-        createData('Email', ':', 'support@example.com'),
-        createData('Website', ':', 'http://example.com')
+        createData('Full Name', ':', profile.name || ''),
+        createData('Role', ':', profile.role || ''),
+        createData('Address', ':', profile.address || ''),
+        createData('Phone', ':', profile.contactPhone || ''),
+        createData('Email', ':', profile.email || ''),
+        createData('Website', ':', profile.portfolioUrl || ''),
+        createData('Location', ':', profile.location || '')
     ];
 
     return (
@@ -92,14 +124,14 @@ const Profile = () => {
                     title={
                         <Grid container spacing={2} alignItems="center">
                             <Grid item>
-                                <Avatar alt="User 1" src={Avatar3} />
+                                <Avatar alt={profile.name || 'User'} src={Avatar3} />
                             </Grid>
                             <Grid item xs zeroMinWidth>
                                 <Typography align="left" variant="subtitle1">
-                                    {user?.name}
+                                    {profile.name}
                                 </Typography>
                                 <Typography align="left" variant="subtitle2">
-                                    UI/UX Designer
+                                    {profile.role}
                                 </Typography>
                             </Grid>
                             <Grid item>
@@ -116,7 +148,7 @@ const Profile = () => {
                             <ListItemText primary={<Typography variant="subtitle1">Email</Typography>} />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
-                                    demo@sample.com
+                                    {profile.email}
                                 </Typography>
                             </ListItemSecondaryAction>
                         </ListItemButton>
@@ -128,7 +160,7 @@ const Profile = () => {
                             <ListItemText primary={<Typography variant="subtitle1">Phone</Typography>} />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
-                                    (+99) 9999 999 999
+                                    {profile.contactPhone}
                                 </Typography>
                             </ListItemSecondaryAction>
                         </ListItemButton>
@@ -140,7 +172,7 @@ const Profile = () => {
                             <ListItemText primary={<Typography variant="subtitle1">Location</Typography>} />
                             <ListItemSecondaryAction>
                                 <Typography variant="subtitle2" align="right">
-                                    Melbourne
+                                    {profile.location}
                                 </Typography>
                             </ListItemSecondaryAction>
                         </ListItemButton>
@@ -188,10 +220,7 @@ const Profile = () => {
                         >
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                    <Typography variant="body2">
-                                        Hello,I’m Anshan Handgun Creative Graphic Designer & User Experience Designer based in Website, I
-                                        create digital Products a more Beautiful and usable place. Morbid accusant ipsum. Nam nec tellus at.
-                                    </Typography>
+                                    <Typography variant="body2">{profile.bio || 'No bio available.'}</Typography>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography variant="subtitle1">Personal Details</Typography>
@@ -218,150 +247,6 @@ const Profile = () => {
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
-                                </Grid>
-                            </Grid>
-                        </SubCard>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SubCard title="Education">
-                            <Grid container spacing={1}>
-                                <Grid item xs={12}>
-                                    <Grid container>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography variant="subtitle1">2014-2017</Typography>
-                                            <Typography variant="subtitle2">Master Degree</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={8}>
-                                            <Typography variant="subtitle1">Master Degree in Computer Application</Typography>
-                                            <Typography variant="subtitle2">University of Oxford, England</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} sx={{ display: { xs: 'block', sm: 'none' } }}>
-                                    <Divider />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Grid container>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography variant="subtitle1">2011-2013</Typography>
-                                            <Typography variant="subtitle2">Bachelor</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={8}>
-                                            <Typography variant="subtitle1">Bachelor Degree in Computer Engineering</Typography>
-                                            <Typography variant="subtitle2">Imperial College London</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} sx={{ display: { xs: 'block', sm: 'none' } }}>
-                                    <Divider />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Grid container>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography variant="subtitle1">2009-2011</Typography>
-                                            <Typography variant="subtitle2">School</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={8}>
-                                            <Typography variant="subtitle1">Higher Secondary Education</Typography>
-                                            <Typography variant="subtitle2">School of London, England</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </SubCard>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SubCard title="Employment">
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Grid container>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography variant="subtitle1">Current</Typography>
-                                            <Typography variant="subtitle2">Senior</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={8}>
-                                            <Typography variant="subtitle1">Senior UI/UX designer</Typography>
-                                            <Typography variant="subtitle2">
-                                                Perform task related to project manager with the 100+ team under my observation. Team
-                                                management is key role in this company.
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} sx={{ display: { xs: 'block', sm: 'none' } }}>
-                                    <Divider />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Grid container>
-                                        <Grid item xs={12} sm={4}>
-                                            <Typography variant="subtitle1">2017-2019</Typography>
-                                            <Typography variant="subtitle2">Junior</Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={8}>
-                                            <Typography variant="subtitle1">Trainee cum Project Manager</Typography>
-                                            <Typography variant="subtitle2">Microsoft, TX, USA</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </SubCard>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SubCard title="Skills">
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="body2">Junior</Typography>
-                                    <LinearProgressWithLabel
-                                        color="primary"
-                                        variant="determinate"
-                                        value={70}
-                                        aria-label="junior skill progress"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="body2">UX Researcher</Typography>
-                                    <LinearProgressWithLabel
-                                        color="primary"
-                                        variant="determinate"
-                                        value={80}
-                                        aria-label="Researcher skill progress"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="body2">Wordpress</Typography>
-                                    <LinearProgressWithLabel
-                                        color="secondary"
-                                        variant="determinate"
-                                        value={25}
-                                        aria-label="Wordpress skill progress"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="body2">Graphic Designer</Typography>
-                                    <LinearProgressWithLabel
-                                        color="primary"
-                                        variant="determinate"
-                                        value={80}
-                                        aria-label="Graphic skill progress"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="body2">HTML</Typography>
-                                    <LinearProgressWithLabel
-                                        color="secondary"
-                                        variant="determinate"
-                                        value={45}
-                                        aria-label="HTML skill progress"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="body2">PHP</Typography>
-                                    <LinearProgressWithLabel
-                                        color="primary"
-                                        variant="determinate"
-                                        value={65}
-                                        aria-label="PHP skill progress"
-                                    />
                                 </Grid>
                             </Grid>
                         </SubCard>

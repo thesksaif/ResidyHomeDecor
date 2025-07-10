@@ -52,42 +52,42 @@ const settings = {
                 }
             ]
         },
-        {
-            id: 'cms',
-            title: <FormattedMessage id="CMS Settings" />,
-            type: 'collapse',
-            icon: icons.IconForms,
-            children: [
-                {
-                    id: 'frm-autocomplete',
-                    title: <FormattedMessage id="Website Settings" />,
-                    type: 'item',
-                    url: '/',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'frm-mask',
-                    title: <FormattedMessage id="General Settings" />,
-                    type: 'item',
-                    url: '/',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'frm-clipboard',
-                    title: <FormattedMessage id="SEO" />,
-                    type: 'item',
-                    url: '/',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'frm-recaptcha',
-                    title: <FormattedMessage id="Appearance" />,
-                    type: 'item',
-                    url: '/',
-                    breadcrumbs: false
-                }
-            ]
-        },
+        // {
+        //     id: 'cms',
+        //     title: <FormattedMessage id="CMS Settings" />,
+        //     type: 'collapse',
+        //     icon: icons.IconForms,
+        //     children: [
+        //         {
+        //             id: 'frm-autocomplete',
+        //             title: <FormattedMessage id="Website Settings" />,
+        //             type: 'item',
+        //             url: '/',
+        //             breadcrumbs: false
+        //         },
+        //         {
+        //             id: 'frm-mask',
+        //             title: <FormattedMessage id="General Settings" />,
+        //             type: 'item',
+        //             url: '/',
+        //             breadcrumbs: false
+        //         },
+        //         {
+        //             id: 'frm-clipboard',
+        //             title: <FormattedMessage id="SEO" />,
+        //             type: 'item',
+        //             url: '/',
+        //             breadcrumbs: false
+        //         },
+        //         {
+        //             id: 'frm-recaptcha',
+        //             title: <FormattedMessage id="Appearance" />,
+        //             type: 'item',
+        //             url: '/',
+        //             breadcrumbs: false
+        //         }
+        //     ]
+        // },
         {
             id: 'checkbox',
             title: <FormattedMessage id="Logout" />,

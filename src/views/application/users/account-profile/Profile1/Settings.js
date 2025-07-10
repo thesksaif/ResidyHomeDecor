@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Button, CardActions, Checkbox, Divider, FormControlLabel, Grid, Switch, Typography } from '@mui/material';
+import { Button, CardActions, Divider, FormControlLabel, Grid, Switch, Typography } from '@mui/material';
 
 import SubCard from 'ui-component/cards/SubCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -43,17 +43,6 @@ const Settings = () => {
     };
     const handleSwitchChange3 = (event) => {
         setState3({ ...state3, [event.target.name]: event.target.checked });
-    };
-
-    const [state, setState] = useState({
-        checkedA: true,
-        checkedB: true,
-        checkedC: false,
-        checkedD: false,
-        checkedE: false
-    });
-    const handleChangeState = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
     };
 
     return (
@@ -154,48 +143,6 @@ const Settings = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Divider />
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="h5" component="span" sx={{ ...titleSX, textTransform: 'uppercase' }}>
-                        Updates From System Notification
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Grid container direction="column" spacing={0}>
-                        <Grid item>
-                            <Typography variant="subtitle1">Email you with?</Typography>
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={<Checkbox checked={state.checkedA} onChange={handleChangeState} name="checkedA" color="primary" />}
-                                label="News about PCT-themes products and feature updates"
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={<Checkbox checked={state.checkedB} onChange={handleChangeState} name="checkedB" color="primary" />}
-                                label="Tips on getting more out of PCT-themes"
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={<Checkbox checked={state.checkedC} onChange={handleChangeState} name="checkedC" color="primary" />}
-                                label="Things you missed since you last logged into PCT-themes"
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={<Checkbox checked={state.checkedD} onChange={handleChangeState} name="checkedD" color="primary" />}
-                                label="News about products and other services"
-                            />
-                        </Grid>
-                        <Grid item>
-                            <FormControlLabel
-                                control={<Checkbox checked={state.checkedE} onChange={handleChangeState} name="checkedE" color="primary" />}
-                                label="Tips and Document business products"
-                            />
-                        </Grid>
-                    </Grid>
                 </Grid>
             </Grid>
             <Divider sx={{ mt: 2 }} />

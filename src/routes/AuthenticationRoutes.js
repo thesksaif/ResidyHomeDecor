@@ -103,7 +103,7 @@ const AuthenticationRoutes = {
             element: <AuthRegister3 />
         },
         {
-            path: '/pages/forgot-password/forgot-password3',
+            path: '/forgot-password',
             element: <AuthForgotPassword3 />
         },
         {

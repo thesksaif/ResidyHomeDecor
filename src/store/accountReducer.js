@@ -11,6 +11,8 @@ const initialState = {
 
 // eslint-disable-next-line
 const accountReducer = (state = initialState, action) => {
+    console.log('Account reducer action:', action.type, action.payload);
+
     switch (action.type) {
         case REGISTER: {
             const { user } = action.payload;
@@ -21,6 +23,7 @@ const accountReducer = (state = initialState, action) => {
         }
         case LOGIN: {
             const { user } = action.payload;
+            console.log('LOGIN action - setting user:', user);
             return {
                 ...state,
                 isLoggedIn: true,
@@ -29,6 +32,7 @@ const accountReducer = (state = initialState, action) => {
             };
         }
         case LOGOUT: {
+            console.log('LOGOUT action');
             return {
                 ...state,
                 isInitialized: true,

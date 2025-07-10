@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useEffect } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -18,7 +19,15 @@ import {
     TableRow,
     TableSortLabel,
     Tooltip,
-    Chip
+    Chip,
+    CircularProgress,
+    Alert,
+    Typography,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
@@ -27,6 +36,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { CSVExport } from '../TableExports';
+import axios from 'utils/axios';
 
 // assets
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -34,64 +44,52 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
-// table data
-function createData(id, name, email, phone, service, budget, status, date, details) {
-    return {
-        id,
-        name,
-        email,
-        phone,
-        service,
-        budget,
-        status,
-        date,
-        details
-    };
-}
+// API data transformation
+const transformApiData = (apiData) => {
+    return apiData.map((quote) => {
+        // Create details array from quote data
+        const details = [
+            { field: 'BHK Type', value: quote.bhkType },
+            { field: 'BHK Size', value: quote.bhkSize },
+            { field: 'Package', value: quote.package },
+            { field: 'Property Name', value: quote.propertyName },
+            { field: 'WhatsApp', value: quote.whatsapp ? 'Yes' : 'No' },
+            { field: 'OTP Verified', value: quote.otpVerified ? 'Yes' : 'No' },
+            { field: 'Submitted At', value: new Date(quote.submittedAt).toLocaleString() }
+        ];
 
-const rows = [
-    createData(1, 'Mike Johnson', 'mike@example.com', '+1234567892', 'Living Room Design', '$10,000 - $18,000', 'Completed', '2024-01-13', [
-        { field: 'Room Size', value: '20x25 ft' },
-        { field: 'Furniture', value: 'Sofa Set + TV Unit' },
-        { field: 'Lighting', value: 'LED + Chandelier' },
-        { field: 'Flooring', value: 'Hardwood' },
-        { field: 'Timeline', value: '2-3 months' },
-        { field: 'Additional Notes', value: 'Contemporary style preferred' }
-    ]),
-    createData(2, 'Lisa Davis', 'lisa@example.com', '+1234567895', 'Bedroom Setup', '$6,000 - $10,000', 'New', '2024-01-10', [
-        { field: 'Room Size', value: '15x18 ft' },
-        { field: 'Furniture', value: 'Bed + Wardrobe + Study' },
-        { field: 'Theme', value: 'Modern Minimalist' },
-        { field: 'Color Scheme', value: 'Neutral Tones' },
-        { field: 'Timeline', value: '1-2 months' },
-        { field: 'Additional Notes', value: 'Teen room design' }
-    ]),
-    createData(3, 'Chris Taylor', 'chris@example.com', '+1234567898', 'Home Office', '$8,000 - $12,000', 'New', '2024-01-07', [
-        { field: 'Room Size', value: '12x15 ft' },
-        { field: 'Furniture', value: 'Desk + Storage + Seating' },
-        { field: 'Style', value: 'Professional' },
-        { field: 'Features', value: 'Built-in Shelving' },
-        { field: 'Timeline', value: '2-3 months' },
-        { field: 'Additional Notes', value: 'Remote work setup' }
-    ]),
-    createData(4, 'Robert Wilson', 'robert@example.com', '+1234567900', 'Dining Room', '$7,000 - $11,000', 'In Progress', '2024-01-05', [
-        { field: 'Room Size', value: '16x20 ft' },
-        { field: 'Furniture', value: 'Dining Table + Chairs + Sideboard' },
-        { field: 'Style', value: 'Traditional' },
-        { field: 'Lighting', value: 'Chandelier + Wall Sconces' },
-        { field: 'Timeline', value: '2-3 months' },
-        { field: 'Additional Notes', value: 'Formal dining setup' }
-    ]),
-    createData(5, 'Maria Garcia', 'maria@example.com', '+1234567901', 'Study Room', '$5,000 - $8,000', 'Completed', '2024-01-04', [
-        { field: 'Room Size', value: '10x12 ft' },
-        { field: 'Furniture', value: 'Study Table + Bookshelves + Chair' },
-        { field: 'Style', value: 'Modern' },
-        { field: 'Features', value: 'Built-in Storage' },
-        { field: 'Timeline', value: '1-2 months' },
-        { field: 'Additional Notes', value: 'Student study area' }
-    ])
-];
+        // Add rooms information
+        if (quote.rooms && quote.rooms.length > 0) {
+            quote.rooms.forEach((room, index) => {
+                details.push({
+                    field: `Room ${index + 1}`,
+                    value: `${room.name} (${room.count} count)`
+                });
+            });
+        }
+
+        return {
+            id: quote._id,
+            name: quote.name,
+            email: quote.email,
+            phone: quote.phoneNumber,
+            service: quote.propertyName,
+            budget: quote.package, // Using package as budget
+            status: quote.otpVerified ? 'Verified' : 'Pending',
+            date: new Date(quote.submittedAt).toLocaleDateString(),
+            details,
+            whatsapp: quote.whatsapp,
+            otpVerified: quote.otpVerified,
+            bhkType: quote.bhkType,
+            bhkSize: quote.bhkSize,
+            package: quote.package,
+            rooms: quote.rooms,
+            submittedAt: quote.submittedAt
+        };
+    });
+};
 
 // table filter
 function descendingComparator(a, b, orderBy) {
@@ -239,17 +237,15 @@ EnhancedTableHead.propTypes = {
 
 // ==============================|| COLLAPSIBLE ROW ||============================== //
 
-function Row({ row, index, page, rowsPerPage, isSelected, onSelectClick }) {
+function Row({ row, index, page, rowsPerPage, isSelected, onSelectClick, onDeleteClick }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'New':
-                return 'primary';
-            case 'In Progress':
+            case 'Pending':
                 return 'warning';
-            case 'Completed':
+            case 'Verified':
                 return 'success';
             default:
                 return 'default';
@@ -294,7 +290,12 @@ function Row({ row, index, page, rowsPerPage, isSelected, onSelectClick }) {
                     {row.name}
                 </TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell>{row.phone}</TableCell>
+                <TableCell>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography>{row.phone}</Typography>
+                        {row.whatsapp && <Chip label="WhatsApp" size="small" color="success" sx={{ fontSize: '0.7rem', height: '20px' }} />}
+                    </Stack>
+                </TableCell>
                 <TableCell>{row.service}</TableCell>
                 <TableCell>{row.budget}</TableCell>
                 <TableCell>
@@ -326,7 +327,7 @@ function Row({ row, index, page, rowsPerPage, isSelected, onSelectClick }) {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete Quote">
-                            <IconButton size="small" color="error" sx={{ padding: '4px' }}>
+                            <IconButton size="small" color="error" sx={{ padding: '4px' }} onClick={() => onDeleteClick(row)}>
                                 <DeleteIcon sx={{ fontSize: '16px' }} />
                             </IconButton>
                         </Tooltip>
@@ -394,7 +395,8 @@ Row.propTypes = {
     page: PropTypes.number,
     rowsPerPage: PropTypes.number,
     isSelected: PropTypes.bool,
-    onSelectClick: PropTypes.func
+    onSelectClick: PropTypes.func,
+    onDeleteClick: PropTypes.func
 };
 
 // ==============================|| TABLE - ENHANCED COLLAPSIBLE ||============================== //
@@ -405,6 +407,94 @@ export default function QuoteTable() {
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rows, setRows] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+    const [itemToDelete, setItemToDelete] = React.useState(null);
+    const [deleteLoading, setDeleteLoading] = React.useState(false);
+
+    // Fetch quotes from API
+    useEffect(() => {
+        const fetchQuotes = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const response = await axios.get('/api/quote');
+
+                if (response.data && response.data.status === 200) {
+                    const transformedData = transformApiData(response.data.data);
+                    setRows(transformedData);
+                } else {
+                    throw new Error('Failed to fetch quotes');
+                }
+            } catch (err) {
+                console.error('Error fetching quotes:', err);
+                setError(err.response?.data?.message || 'Failed to fetch quotes. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchQuotes();
+    }, []);
+
+    const handleRefresh = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await axios.get('/api/quote');
+
+            if (response.data && response.data.status === 200) {
+                const transformedData = transformApiData(response.data.data);
+                setRows(transformedData);
+            } else {
+                throw new Error('Failed to fetch quotes');
+            }
+        } catch (err) {
+            console.error('Error fetching quotes:', err);
+            setError(err.response?.data?.message || 'Failed to fetch quotes. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Delete functions
+    const handleDeleteClick = (item) => {
+        setItemToDelete(item);
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        if (!itemToDelete) return;
+
+        try {
+            setDeleteLoading(true);
+
+            const response = await axios.delete(`/api/quote/${itemToDelete.id}`);
+
+            if (response.data && response.data.status === 200) {
+                // Remove the deleted item from the rows
+                setRows((prevRows) => prevRows.filter((row) => row.id !== itemToDelete.id));
+                setDeleteDialogOpen(false);
+                setItemToDelete(null);
+            } else {
+                throw new Error('Failed to delete quote');
+            }
+        } catch (err) {
+            console.error('Error deleting quote:', err);
+            setError(err.response?.data?.message || 'Failed to delete quote. Please try again.');
+        } finally {
+            setDeleteLoading(false);
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setDeleteDialogOpen(false);
+        setItemToDelete(null);
+    };
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -456,83 +546,151 @@ export default function QuoteTable() {
         { label: 'Name', key: 'name' },
         { label: 'Email', key: 'email' },
         { label: 'Phone', key: 'phone' },
-        { label: 'Service', key: 'service' },
-        { label: 'Budget', key: 'budget' },
+        { label: 'Property Name', key: 'service' },
+        { label: 'Package', key: 'budget' },
         { label: 'Status', key: 'status' },
         { label: 'Date', key: 'date' }
     ];
 
-    return (
-        <MainCard
-            content={false}
-            title="General Quote Requests"
-            secondary={
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <CSVExport data={rows} filename="general-quote-requests.csv" header={header} />
-                    <SecondaryAction link="https://next.material-ui.com/components/tables/" />
-                </Stack>
-            }
-        >
-            <TableContainer>
-                <Table
-                    sx={{
-                        minWidth: 750,
-                        '& .MuiTableRow-root:nth-of-type(even)': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.02)'
-                        },
-                        '& .MuiTableRow-root:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                        }
-                    }}
-                    aria-labelledby="tableTitle"
-                >
-                    <EnhancedTableHead
-                        numSelected={selected.length}
-                        order={order}
-                        orderBy={orderBy}
-                        onSelectAllClick={handleSelectAllClick}
-                        onRequestSort={handleRequestSort}
-                        rowCount={rows.length}
-                    />
-                    <TableBody>
-                        {stableSort(rows, getComparator(order, orderBy))
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => {
-                                const isItemSelected = isSelected(row.id);
+    // Show loading state
+    if (loading) {
+        return (
+            <MainCard content={false} title="General Quote Requests">
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+                    <CircularProgress />
+                </Box>
+            </MainCard>
+        );
+    }
 
-                                return (
-                                    <Row
-                                        key={row.id}
-                                        row={row}
-                                        index={index}
-                                        page={page}
-                                        rowsPerPage={rowsPerPage}
-                                        isSelected={isItemSelected}
-                                        onSelectClick={(event) => handleClick(event, row.id)}
-                                    />
-                                );
-                            })}
-                        {emptyRows > 0 && (
-                            <TableRow
-                                style={{
-                                    height: 53 * emptyRows
-                                }}
-                            >
-                                <TableCell colSpan={10} />
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </MainCard>
+    // Show error state
+    if (error) {
+        return (
+            <MainCard content={false} title="General Quote Requests">
+                <Box p={3}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>
+            </MainCard>
+        );
+    }
+
+    return (
+        <>
+            <MainCard
+                content={false}
+                title="General Quote Requests"
+                secondary={
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <Tooltip title="Refresh Data">
+                            <IconButton onClick={handleRefresh} color="primary" disabled={loading}>
+                                <RefreshIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <CSVExport data={rows} filename="general-quote-requests.csv" header={header} />
+                        <SecondaryAction link="https://next.material-ui.com/components/tables/" />
+                    </Stack>
+                }
+            >
+                <TableContainer>
+                    <Table
+                        sx={{
+                            minWidth: 750,
+                            '& .MuiTableRow-root:nth-of-type(even)': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.02)'
+                            },
+                            '& .MuiTableRow-root:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                            }
+                        }}
+                        aria-labelledby="tableTitle"
+                    >
+                        <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onSelectAllClick={handleSelectAllClick}
+                            onRequestSort={handleRequestSort}
+                            rowCount={rows.length}
+                        />
+                        <TableBody>
+                            {stableSort(rows, getComparator(order, orderBy))
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    const isItemSelected = isSelected(row.id);
+
+                                    return (
+                                        <Row
+                                            key={row.id}
+                                            row={row}
+                                            index={index}
+                                            page={page}
+                                            rowsPerPage={rowsPerPage}
+                                            isSelected={isItemSelected}
+                                            onSelectClick={(event) => handleClick(event, row.id)}
+                                            onDeleteClick={handleDeleteClick}
+                                        />
+                                    );
+                                })}
+                            {emptyRows > 0 && (
+                                <TableRow
+                                    style={{
+                                        height: 53 * emptyRows
+                                    }}
+                                >
+                                    <TableCell colSpan={10} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </MainCard>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog
+                open={deleteDialogOpen}
+                onClose={handleDeleteCancel}
+                aria-labelledby="delete-dialog-title"
+                aria-describedby="delete-dialog-description"
+            >
+                <DialogTitle id="delete-dialog-title">Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <Typography>Are you sure you want to delete this quote?</Typography>
+                    {itemToDelete && (
+                        <Box mt={2}>
+                            <Typography variant="body2" color="textSecondary">
+                                <strong>Name:</strong> {itemToDelete.name}
+                                <br />
+                                <strong>Property:</strong> {itemToDelete.service}
+                                <br />
+                                <strong>Package:</strong> {itemToDelete.budget}
+                            </Typography>
+                        </Box>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteCancel} color="primary" disabled={deleteLoading}>
+                        No, Cancel
+                    </Button>
+                    <Button
+                        onClick={handleDeleteConfirm}
+                        color="error"
+                        variant="contained"
+                        disabled={deleteLoading}
+                        startIcon={deleteLoading ? <CircularProgress size={16} /> : null}
+                    >
+                        {deleteLoading ? 'Deleting...' : 'Yes, Delete'}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 }

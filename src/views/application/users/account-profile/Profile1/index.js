@@ -9,7 +9,6 @@ import { Box, Grid, Tab, Tabs } from '@mui/material';
 // project imports
 import Profile from './Profile';
 import PersonalAccount from './PersonalAccount';
-import MyAccount from './MyAccount';
 import ChangePassword from './ChangePassword';
 import Settings from './Settings';
 import MainCard from 'ui-component/cards/MainCard';
@@ -18,7 +17,6 @@ import { gridSpacing } from 'store/constant';
 // assets
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
-import LibraryBooksTwoToneIcon from '@mui/icons-material/LibraryBooksTwoTone';
 import LockTwoToneIcon from '@mui/icons-material/LockTwoTone';
 import MailTwoToneIcon from '@mui/icons-material/MailTwoTone';
 
@@ -53,10 +51,6 @@ const tabsOption = [
     {
         label: 'Personal Details',
         icon: <DescriptionTwoToneIcon sx={{ fontSize: '1.3rem' }} />
-    },
-    {
-        label: 'My Account',
-        icon: <LibraryBooksTwoToneIcon sx={{ fontSize: '1.3rem' }} />
     },
     {
         label: 'Change Password',
@@ -126,12 +120,9 @@ const Profile1 = () => {
                         <PersonalAccount />
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        <MyAccount />
-                    </TabPanel>
-                    <TabPanel value={value} index={3}>
                         <ChangePassword />
                     </TabPanel>
-                    <TabPanel value={value} index={4}>
+                    <TabPanel value={value} index={3}>
                         <Settings />
                     </TabPanel>
                 </Grid>

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { useEffect } from 'react';
 
 // material-ui
 import {
@@ -18,7 +19,23 @@ import {
     Tooltip,
     Typography,
     Stack,
-    Chip
+    Chip,
+    CircularProgress,
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    TextField,
+    FormControlLabel,
+    Switch,
+    Grid,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    Snackbar
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
@@ -26,119 +43,30 @@ import { visuallyHidden } from '@mui/utils';
 import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { CSVExport } from '../TableExports';
+import axios from 'utils/axios';
 
 // assets
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
-// table data
-function createData(id, name, email, phone, subject, message, status, date) {
-    return {
-        id,
-        name,
-        email,
-        phone,
-        subject,
-        message,
-        status,
-        date
-    };
-}
-
-const rows = [
-    createData(
-        1,
-        'John Doe',
-        'john@example.com',
-        '+1234567890',
-        'Kitchen Renovation',
-        'I need a quote for kitchen renovation...',
-        'New',
-        '2024-01-15'
-    ),
-    createData(
-        2,
-        'Jane Smith',
-        'jane@example.com',
-        '+1234567891',
-        'Wardrobe Design',
-        'Looking for custom wardrobe design...',
-        'In Progress',
-        '2024-01-14'
-    ),
-    createData(
-        3,
-        'Mike Johnson',
-        'mike@example.com',
-        '+1234567892',
-        'General Inquiry',
-        'Interested in your services...',
-        'Completed',
-        '2024-01-13'
-    ),
-    createData(
-        4,
-        'Sarah Wilson',
-        'sarah@example.com',
-        '+1234567893',
-        'Bathroom Remodel',
-        'Need bathroom remodeling quote...',
-        'New',
-        '2024-01-12'
-    ),
-    createData(
-        5,
-        'David Brown',
-        'david@example.com',
-        '+1234567894',
-        'Living Room Design',
-        'Want to redesign living room...',
-        'In Progress',
-        '2024-01-11'
-    ),
-    createData(
-        6,
-        'Lisa Davis',
-        'lisa@example.com',
-        '+1234567895',
-        'Bedroom Furniture',
-        'Looking for bedroom furniture...',
-        'New',
-        '2024-01-10'
-    ),
-    createData(
-        7,
-        'Tom Miller',
-        'tom@example.com',
-        '+1234567896',
-        'Office Setup',
-        'Need office furniture setup...',
-        'Completed',
-        '2024-01-09'
-    ),
-    createData(
-        8,
-        'Emma Wilson',
-        'emma@example.com',
-        '+1234567897',
-        'Dining Room',
-        'Dining room renovation needed...',
-        'In Progress',
-        '2024-01-08'
-    ),
-    createData(
-        9,
-        'Chris Taylor',
-        'chris@example.com',
-        '+1234567898',
-        'Outdoor Furniture',
-        'Looking for outdoor furniture...',
-        'New',
-        '2024-01-07'
-    ),
-    createData(10, 'Anna Garcia', 'anna@example.com', '+1234567899', 'Home Office', 'Need home office setup...', 'Completed', '2024-01-06')
-];
+// API data transformation
+const transformApiData = (apiData) => {
+    return apiData.map((contact) => ({
+        id: contact._id,
+        name: contact.fullName,
+        email: contact.email,
+        phone: contact.phoneNumber,
+        subject: contact.serviceDescription,
+        message: contact.message,
+        status: contact.status || 'New',
+        date: new Date(contact.submittedAt).toLocaleDateString(),
+        whatsapp: Boolean(contact.whatsapp),
+        mobileVerified: Boolean(contact.mobileVerified),
+        submittedAt: contact.submittedAt
+    }));
+};
 
 // table filter
 function descendingComparator(a, b, orderBy) {
@@ -202,6 +130,12 @@ const headCells = [
         numeric: false,
         disablePadding: false,
         label: 'Status'
+    },
+    {
+        id: 'mobileVerified',
+        numeric: false,
+        disablePadding: false,
+        label: 'Mobile Verified'
     },
     {
         id: 'date',
@@ -315,6 +249,226 @@ export default function ContactLeads() {
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rows, setRows] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+    const [itemToDelete, setItemToDelete] = React.useState(null);
+    const [deleteLoading, setDeleteLoading] = React.useState(false);
+    const [editDialogOpen, setEditDialogOpen] = React.useState(false);
+    const [itemToEdit, setItemToEdit] = React.useState(null);
+    const [editLoading, setEditLoading] = React.useState(false);
+    const [editFormData, setEditFormData] = React.useState({
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+        serviceDescription: '',
+        message: '',
+        whatsapp: false,
+        status: 'New',
+        mobileVerified: false
+    });
+    const [snackbar, setSnackbar] = React.useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
+    const [updatedRowId, setUpdatedRowId] = React.useState(null);
+
+    // Fetch contacts from API
+    useEffect(() => {
+        const fetchContacts = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const response = await axios.get('/api/contact');
+
+                if (response.data && response.data.status === 200) {
+                    const transformedData = transformApiData(response.data.data);
+                    setRows(transformedData);
+                } else {
+                    throw new Error('Failed to fetch contacts');
+                }
+            } catch (err) {
+                console.error('Error fetching contacts:', err);
+                setError(err.response?.data?.message || 'Failed to fetch contacts. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchContacts();
+    }, []);
+
+    const handleRefresh = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await axios.get('/api/contact');
+
+            if (response.data && response.data.status === 200) {
+                const transformedData = transformApiData(response.data.data);
+                setRows(transformedData);
+            } else {
+                throw new Error('Failed to fetch contacts');
+            }
+        } catch (err) {
+            console.error('Error fetching contacts:', err);
+            setError(err.response?.data?.message || 'Failed to fetch contacts. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Delete functions
+    const handleDeleteClick = (item) => {
+        setItemToDelete(item);
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        if (!itemToDelete) return;
+
+        try {
+            setDeleteLoading(true);
+
+            const response = await axios.delete(`/api/contact/${itemToDelete.id}`);
+
+            if (response.data && response.data.status === 200) {
+                // Remove the deleted item from the rows
+                setRows((prevRows) => prevRows.filter((row) => row.id !== itemToDelete.id));
+                setDeleteDialogOpen(false);
+                setItemToDelete(null);
+                showSnackbar('Contact deleted successfully!', 'success');
+            } else {
+                throw new Error('Failed to delete contact');
+            }
+        } catch (err) {
+            console.error('Error deleting contact:', err);
+            const errorMessage = err.response?.data?.message || 'Failed to delete contact. Please try again.';
+            showSnackbar(errorMessage, 'error');
+        } finally {
+            setDeleteLoading(false);
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setDeleteDialogOpen(false);
+        setItemToDelete(null);
+    };
+
+    // Edit functions
+    const handleEditClick = (item) => {
+        setItemToEdit(item);
+        setEditFormData({
+            fullName: item.name || '',
+            email: item.email || '',
+            phoneNumber: item.phone || '',
+            serviceDescription: item.subject || '',
+            message: item.message || '',
+            whatsapp: Boolean(item.whatsapp),
+            status: item.status || 'New',
+            mobileVerified: Boolean(item.mobileVerified)
+        });
+        setEditDialogOpen(true);
+    };
+
+    const handleEditFormChange = (field, value) => {
+        setEditFormData((prev) => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
+    const handleEditConfirm = async () => {
+        if (!itemToEdit) return;
+
+        try {
+            setEditLoading(true);
+
+            const response = await axios.put(`/api/contact/${itemToEdit.id}`, editFormData);
+
+            if (response.data && response.data.status === 200) {
+                // Update the item in the rows using the response data if available
+                setRows((prevRows) =>
+                    prevRows.map((row) =>
+                        row.id === itemToEdit.id
+                            ? {
+                                  ...row,
+                                  name: editFormData.fullName,
+                                  email: editFormData.email,
+                                  phone: editFormData.phoneNumber,
+                                  subject: editFormData.serviceDescription,
+                                  message: editFormData.message,
+                                  whatsapp: Boolean(editFormData.whatsapp),
+                                  status: editFormData.status,
+                                  mobileVerified: Boolean(editFormData.mobileVerified)
+                              }
+                            : row
+                    )
+                );
+
+                // Set the updated row ID for visual feedback
+                setUpdatedRowId(itemToEdit.id);
+                setTimeout(() => setUpdatedRowId(null), 3000); // Clear after 3 seconds
+
+                setEditDialogOpen(false);
+                setItemToEdit(null);
+                setEditFormData({
+                    fullName: '',
+                    email: '',
+                    phoneNumber: '',
+                    serviceDescription: '',
+                    message: '',
+                    whatsapp: false,
+                    status: 'New',
+                    mobileVerified: false
+                });
+                showSnackbar('Contact updated successfully!', 'success');
+            } else {
+                throw new Error('Failed to update contact');
+            }
+        } catch (err) {
+            console.error('Error updating contact:', err);
+            const errorMessage = err.response?.data?.message || 'Failed to update contact. Please try again.';
+            showSnackbar(errorMessage, 'error');
+        } finally {
+            setEditLoading(false);
+        }
+    };
+
+    const handleEditCancel = () => {
+        setEditDialogOpen(false);
+        setItemToEdit(null);
+        setEditFormData({
+            fullName: '',
+            email: '',
+            phoneNumber: '',
+            serviceDescription: '',
+            message: '',
+            whatsapp: false,
+            status: 'New',
+            mobileVerified: false
+        });
+    };
+
+    // Snackbar functions
+    const showSnackbar = (message, severity = 'success') => {
+        setSnackbar({
+            open: true,
+            message,
+            severity
+        });
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbar((prev) => ({
+            ...prev,
+            open: false
+        }));
+    };
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -362,14 +516,25 @@ export default function ContactLeads() {
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+    // Status options for dropdown
+    const statusOptions = ['New', 'Pending', 'Process', 'Success', 'Failed', 'Reject', 'False Data'];
+
     const getStatusColor = (status) => {
         switch (status) {
             case 'New':
                 return 'primary';
-            case 'In Progress':
+            case 'Pending':
                 return 'warning';
-            case 'Completed':
+            case 'Process':
+                return 'info';
+            case 'Success':
                 return 'success';
+            case 'Failed':
+                return 'error';
+            case 'Reject':
+                return 'error';
+            case 'False Data':
+                return 'error';
             default:
                 return 'default';
         }
@@ -394,130 +559,401 @@ export default function ContactLeads() {
         { label: 'Phone', key: 'phone' },
         { label: 'Subject', key: 'subject' },
         { label: 'Status', key: 'status' },
+        { label: 'Mobile Verified', key: 'mobileVerified' },
         { label: 'Date', key: 'date' }
     ];
 
+    // Show loading state
+    if (loading) {
+        return (
+            <MainCard content={false} title="Contact Leads">
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+                    <CircularProgress />
+                </Box>
+            </MainCard>
+        );
+    }
+
+    // Show error state
+    if (error) {
+        return (
+            <MainCard content={false} title="Contact Leads">
+                <Box p={3}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>
+            </MainCard>
+        );
+    }
+
     return (
-        <MainCard
-            content={false}
-            title="Contact Leads"
-            secondary={
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <CSVExport data={rows} filename="contact-leads.csv" header={header} />
-                    <SecondaryAction link="https://next.material-ui.com/components/tables/" />
-                </Stack>
-            }
-        >
-            <TableContainer>
-                <Table
+        <>
+            <MainCard
+                content={false}
+                title="Contact Leads"
+                secondary={
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <Tooltip title="Refresh Data">
+                            <IconButton onClick={handleRefresh} color="primary" disabled={loading}>
+                                <RefreshIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <CSVExport data={rows} filename="contact-leads.csv" header={header} />
+                        <SecondaryAction link="https://next.material-ui.com/components/tables/" />
+                    </Stack>
+                }
+            >
+                <TableContainer>
+                    <Table
+                        sx={{
+                            minWidth: 750,
+                            '& .MuiTableRow-root:nth-of-type(even)': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.02)'
+                            },
+                            '& .MuiTableRow-root:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                            }
+                        }}
+                        aria-labelledby="tableTitle"
+                    >
+                        <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onSelectAllClick={handleSelectAllClick}
+                            onRequestSort={handleRequestSort}
+                            rowCount={rows.length}
+                        />
+                        <TableBody>
+                            {stableSort(rows, getComparator(order, orderBy))
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    const isItemSelected = isSelected(row.id);
+                                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                                    return (
+                                        <TableRow
+                                            hover
+                                            role="checkbox"
+                                            aria-checked={isItemSelected}
+                                            tabIndex={-1}
+                                            key={row.id}
+                                            selected={isItemSelected}
+                                            sx={{
+                                                backgroundColor: updatedRowId === row.id ? 'rgba(76, 175, 80, 0.1)' : 'inherit',
+                                                transition: 'background-color 0.3s ease'
+                                            }}
+                                        >
+                                            <TableCell padding="checkbox" sx={{ pl: 3 }}>
+                                                <Checkbox
+                                                    color="primary"
+                                                    size="small"
+                                                    checked={isItemSelected}
+                                                    inputProps={{
+                                                        'aria-labelledby': labelId
+                                                    }}
+                                                    onClick={(event) => handleClick(event, row.id)}
+                                                />
+                                            </TableCell>
+                                            <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
+                                            <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell>{row.email}</TableCell>
+                                            <TableCell>
+                                                <Stack direction="row" spacing={1} alignItems="center">
+                                                    <Typography>{row.phone}</Typography>
+                                                    {row.whatsapp && (
+                                                        <Chip
+                                                            label="WhatsApp"
+                                                            size="small"
+                                                            color="success"
+                                                            sx={{ fontSize: '0.7rem', height: '20px' }}
+                                                        />
+                                                    )}
+                                                </Stack>
+                                            </TableCell>
+                                            <TableCell>{row.subject}</TableCell>
+                                            <TableCell>
+                                                <Chip
+                                                    label={row.status}
+                                                    color={getStatusColor(row.status)}
+                                                    size="small"
+                                                    sx={{
+                                                        color: getStatusTextColor(row.status),
+                                                        fontWeight: 'bold'
+                                                    }}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                {console.log(
+                                                    'Rendering mobileVerified for row:',
+                                                    row.id,
+                                                    'Value:',
+                                                    row.mobileVerified,
+                                                    'Type:',
+                                                    typeof row.mobileVerified
+                                                )}
+                                                <Chip
+                                                    label={row.mobileVerified ? 'Verified' : 'Not Verified'}
+                                                    color={row.mobileVerified ? 'success' : 'default'}
+                                                    size="small"
+                                                    sx={{
+                                                        fontSize: '0.75rem',
+                                                        height: 20,
+                                                        px: 1,
+                                                        minWidth: 80
+                                                    }}
+                                                />
+                                                <Typography
+                                                    variant="caption"
+                                                    display="block"
+                                                    sx={{ fontSize: '0.6rem', color: 'text.secondary' }}
+                                                >
+                                                    {/* Raw: {String(row.mobileVerified)} */}
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>{row.date}</TableCell>
+                                            <TableCell>
+                                                <Stack direction="row" spacing={0.5}>
+                                                    <Tooltip title="View Details">
+                                                        <IconButton size="small" color="primary" sx={{ padding: '4px' }}>
+                                                            <VisibilityIcon sx={{ fontSize: '16px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Edit Lead">
+                                                        <IconButton
+                                                            size="small"
+                                                            color="secondary"
+                                                            sx={{ padding: '4px' }}
+                                                            onClick={() => handleEditClick(row)}
+                                                        >
+                                                            <EditIcon sx={{ fontSize: '16px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Delete Lead">
+                                                        <IconButton
+                                                            size="small"
+                                                            color="error"
+                                                            sx={{ padding: '4px' }}
+                                                            onClick={() => handleDeleteClick(row)}
+                                                        >
+                                                            <DeleteIcon sx={{ fontSize: '16px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Stack>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                            {emptyRows > 0 && (
+                                <TableRow
+                                    style={{
+                                        height: 53 * emptyRows
+                                    }}
+                                >
+                                    <TableCell colSpan={10} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </MainCard>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog
+                open={deleteDialogOpen}
+                onClose={handleDeleteCancel}
+                aria-labelledby="delete-dialog-title"
+                aria-describedby="delete-dialog-description"
+            >
+                <DialogTitle id="delete-dialog-title">Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <Typography>Are you sure you want to delete this contact lead?</Typography>
+                    {itemToDelete && (
+                        <Box mt={2}>
+                            <Typography variant="body2" color="textSecondary">
+                                <strong>Name:</strong> {itemToDelete.name}
+                                <br />
+                                <strong>Subject:</strong> {itemToDelete.subject}
+                                <br />
+                                <strong>Phone:</strong> {itemToDelete.phone}
+                            </Typography>
+                        </Box>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteCancel} color="primary" disabled={deleteLoading}>
+                        No, Cancel
+                    </Button>
+                    <Button
+                        onClick={handleDeleteConfirm}
+                        color="error"
+                        variant="contained"
+                        disabled={deleteLoading}
+                        startIcon={deleteLoading ? <CircularProgress size={16} /> : null}
+                    >
+                        {deleteLoading ? 'Deleting...' : 'Yes, Delete'}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Edit Contact Modal */}
+            <Dialog
+                open={editDialogOpen}
+                onClose={handleEditCancel}
+                aria-labelledby="edit-dialog-title"
+                aria-describedby="edit-dialog-description"
+                maxWidth="md"
+                fullWidth
+            >
+                <DialogTitle id="edit-dialog-title">Edit Contact Lead</DialogTitle>
+                <DialogContent>
+                    <Box sx={{ pt: 2 }}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    label="Full Name"
+                                    value={editFormData.fullName}
+                                    onChange={(e) => handleEditFormChange('fullName', e.target.value)}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    label="Email"
+                                    type="email"
+                                    value={editFormData.email}
+                                    onChange={(e) => handleEditFormChange('email', e.target.value)}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    label="Phone Number"
+                                    value={editFormData.phoneNumber}
+                                    onChange={(e) => handleEditFormChange('phoneNumber', e.target.value)}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    label="Service Description"
+                                    value={editFormData.serviceDescription}
+                                    onChange={(e) => handleEditFormChange('serviceDescription', e.target.value)}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Message"
+                                    value={editFormData.message}
+                                    onChange={(e) => handleEditFormChange('message', e.target.value)}
+                                    variant="outlined"
+                                    multiline
+                                    rows={4}
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl fullWidth size="small">
+                                    <InputLabel id="status-label">Status</InputLabel>
+                                    <Select
+                                        labelId="status-label"
+                                        value={editFormData.status}
+                                        label="Status"
+                                        onChange={(e) => handleEditFormChange('status', e.target.value)}
+                                    >
+                                        {statusOptions.map((status) => (
+                                            <MenuItem key={status} value={status}>
+                                                {status}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={editFormData.whatsapp}
+                                            onChange={(e) => handleEditFormChange('whatsapp', e.target.checked)}
+                                            color="primary"
+                                        />
+                                    }
+                                    label="WhatsApp Contact"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={editFormData.mobileVerified}
+                                            onChange={(e) => handleEditFormChange('mobileVerified', e.target.checked)}
+                                            color="primary"
+                                        />
+                                    }
+                                    label="Mobile Verified"
+                                />
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleEditCancel} color="primary" disabled={editLoading}>
+                        Cancel
+                    </Button>
+                    <Button
+                        onClick={handleEditConfirm}
+                        color="primary"
+                        variant="contained"
+                        disabled={editLoading}
+                        startIcon={editLoading ? <CircularProgress size={16} /> : null}
+                    >
+                        {editLoading ? 'Updating...' : 'Update Contact'}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Snackbar for notifications */}
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={snackbar.severity}
                     sx={{
-                        minWidth: 750,
-                        '& .MuiTableRow-root:nth-of-type(even)': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.02)'
-                        },
-                        '& .MuiTableRow-root:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                        width: '100%',
+                        backgroundColor: snackbar.severity === 'success' ? '#4caf50' : '#f44336',
+                        color: '#ffffff',
+                        '& .MuiAlert-icon': {
+                            color: '#ffffff'
                         }
                     }}
-                    aria-labelledby="tableTitle"
                 >
-                    <EnhancedTableHead
-                        numSelected={selected.length}
-                        order={order}
-                        orderBy={orderBy}
-                        onSelectAllClick={handleSelectAllClick}
-                        onRequestSort={handleRequestSort}
-                        rowCount={rows.length}
-                    />
-                    <TableBody>
-                        {stableSort(rows, getComparator(order, orderBy))
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => {
-                                const isItemSelected = isSelected(row.id);
-                                const labelId = `enhanced-table-checkbox-${index}`;
-
-                                return (
-                                    <TableRow
-                                        hover
-                                        role="checkbox"
-                                        aria-checked={isItemSelected}
-                                        tabIndex={-1}
-                                        key={row.id}
-                                        selected={isItemSelected}
-                                    >
-                                        <TableCell padding="checkbox" sx={{ pl: 3 }}>
-                                            <Checkbox
-                                                color="primary"
-                                                size="small"
-                                                checked={isItemSelected}
-                                                inputProps={{
-                                                    'aria-labelledby': labelId
-                                                }}
-                                                onClick={(event) => handleClick(event, row.id)}
-                                            />
-                                        </TableCell>
-                                        <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
-                                        <TableCell component="th" id={labelId} scope="row" padding="none">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell>{row.email}</TableCell>
-                                        <TableCell>{row.phone}</TableCell>
-                                        <TableCell>{row.subject}</TableCell>
-                                        <TableCell>
-                                            <Chip
-                                                label={row.status}
-                                                color={getStatusColor(row.status)}
-                                                size="small"
-                                                sx={{
-                                                    color: getStatusTextColor(row.status),
-                                                    fontWeight: 'bold'
-                                                }}
-                                            />
-                                        </TableCell>
-                                        <TableCell>{row.date}</TableCell>
-                                        <TableCell>
-                                            <Stack direction="row" spacing={0.5}>
-                                                <Tooltip title="View Details">
-                                                    <IconButton size="small" color="primary" sx={{ padding: '4px' }}>
-                                                        <VisibilityIcon sx={{ fontSize: '16px' }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Edit Lead">
-                                                    <IconButton size="small" color="secondary" sx={{ padding: '4px' }}>
-                                                        <EditIcon sx={{ fontSize: '16px' }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Delete Lead">
-                                                    <IconButton size="small" color="error" sx={{ padding: '4px' }}>
-                                                        <DeleteIcon sx={{ fontSize: '16px' }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </Stack>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                        {emptyRows > 0 && (
-                            <TableRow
-                                style={{
-                                    height: 53 * emptyRows
-                                }}
-                            >
-                                <TableCell colSpan={9} />
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </MainCard>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+        </>
     );
 }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { useEffect } from 'react';
 
 // material-ui
 import {
@@ -18,7 +19,14 @@ import {
     Tooltip,
     Typography,
     Stack,
-    Chip
+    Chip,
+    CircularProgress,
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
@@ -26,129 +34,31 @@ import { visuallyHidden } from '@mui/utils';
 import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { CSVExport } from '../TableExports';
+import axios from 'utils/axios';
 
 // assets
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
-// table data
-function createData(id, name, email, phone, service, budget, timeline, status, date) {
-    return {
-        id,
-        name,
-        email,
-        phone,
-        service,
-        budget,
-        timeline,
-        status,
-        date
-    };
-}
-
-const rows = [
-    createData(
-        1,
-        'John Doe',
-        'john@example.com',
-        '+1234567890',
-        'Kitchen Renovation',
-        '$10,000 - $15,000',
-        '2-3 months',
-        'New',
-        '2024-01-15'
-    ),
-    createData(
-        2,
-        'Jane Smith',
-        'jane@example.com',
-        '+1234567891',
-        'Wardrobe Design',
-        '$5,000 - $8,000',
-        '1-2 months',
-        'In Progress',
-        '2024-01-14'
-    ),
-    createData(
-        3,
-        'Mike Johnson',
-        'mike@example.com',
-        '+1234567892',
-        'Living Room Design',
-        '$8,000 - $12,000',
-        '3-4 months',
-        'Completed',
-        '2024-01-13'
-    ),
-    createData(
-        4,
-        'Sarah Wilson',
-        'sarah@example.com',
-        '+1234567893',
-        'Bathroom Remodel',
-        '$6,000 - $10,000',
-        '2-3 months',
-        'New',
-        '2024-01-12'
-    ),
-    createData(
-        5,
-        'David Brown',
-        'david@example.com',
-        '+1234567894',
-        'Bedroom Furniture',
-        '$3,000 - $6,000',
-        '1 month',
-        'In Progress',
-        '2024-01-11'
-    ),
-    createData(
-        6,
-        'Lisa Davis',
-        'lisa@example.com',
-        '+1234567895',
-        'Dining Room Setup',
-        '$4,000 - $7,000',
-        '1-2 months',
-        'New',
-        '2024-01-10'
-    ),
-    createData(
-        7,
-        'Tom Miller',
-        'tom@example.com',
-        '+1234567896',
-        'Office Setup',
-        '$7,000 - $11,000',
-        '2-3 months',
-        'Completed',
-        '2024-01-09'
-    ),
-    createData(
-        8,
-        'Emma Wilson',
-        'emma@example.com',
-        '+1234567897',
-        'Outdoor Furniture',
-        '$5,000 - $9,000',
-        '1-2 months',
-        'In Progress',
-        '2024-01-08'
-    ),
-    createData(9, 'Chris Taylor', 'chris@example.com', '+1234567898', 'Home Office', '$4,000 - $8,000', '2 months', 'New', '2024-01-07'),
-    createData(
-        10,
-        'Anna Garcia',
-        'anna@example.com',
-        '+1234567899',
-        'Kitchen Cabinets',
-        '$8,000 - $12,000',
-        '2-3 months',
-        'Completed',
-        '2024-01-06'
-    )
-];
+// API data transformation
+const transformApiData = (apiData) => {
+    return apiData.map((consult) => ({
+        id: consult._id,
+        name: consult.name,
+        email: consult.email,
+        phone: consult.mobileNumber,
+        service: consult.propertyName,
+        budget: 'Not specified', // API doesn't provide budget
+        timeline: 'Not specified', // API doesn't provide timeline
+        status: consult.otpVerified ? 'Verified' : 'Pending',
+        date: new Date(consult.submittedAt).toLocaleDateString(),
+        whatsapp: consult.whatsapp,
+        otpVerified: consult.otpVerified,
+        submittedAt: consult.submittedAt
+    }));
+};
 
 // table filter
 function descendingComparator(a, b, orderBy) {
@@ -205,19 +115,7 @@ const headCells = [
         id: 'service',
         numeric: false,
         disablePadding: false,
-        label: 'Service'
-    },
-    {
-        id: 'budget',
-        numeric: false,
-        disablePadding: false,
-        label: 'Budget'
-    },
-    {
-        id: 'timeline',
-        numeric: false,
-        disablePadding: false,
-        label: 'Timeline'
+        label: 'Property Name'
     },
     {
         id: 'status',
@@ -337,6 +235,94 @@ export default function QuickConsultLeads() {
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rows, setRows] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+    const [itemToDelete, setItemToDelete] = React.useState(null);
+    const [deleteLoading, setDeleteLoading] = React.useState(false);
+
+    // Fetch quick consults from API
+    useEffect(() => {
+        const fetchQuickConsults = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+
+                const response = await axios.get('/api/quick-consult');
+
+                if (response.data && response.data.status === 200) {
+                    const transformedData = transformApiData(response.data.data);
+                    setRows(transformedData);
+                } else {
+                    throw new Error('Failed to fetch quick consults');
+                }
+            } catch (err) {
+                console.error('Error fetching quick consults:', err);
+                setError(err.response?.data?.message || 'Failed to fetch quick consults. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchQuickConsults();
+    }, []);
+
+    const handleRefresh = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await axios.get('/api/quick-consult');
+
+            if (response.data && response.data.status === 200) {
+                const transformedData = transformApiData(response.data.data);
+                setRows(transformedData);
+            } else {
+                throw new Error('Failed to fetch quick consults');
+            }
+        } catch (err) {
+            console.error('Error fetching quick consults:', err);
+            setError(err.response?.data?.message || 'Failed to fetch quick consults. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Delete functions
+    const handleDeleteClick = (item) => {
+        setItemToDelete(item);
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        if (!itemToDelete) return;
+
+        try {
+            setDeleteLoading(true);
+
+            const response = await axios.delete(`/api/quick-consult/${itemToDelete.id}`);
+
+            if (response.data && response.data.status === 200) {
+                // Remove the deleted item from the rows
+                setRows((prevRows) => prevRows.filter((row) => row.id !== itemToDelete.id));
+                setDeleteDialogOpen(false);
+                setItemToDelete(null);
+            } else {
+                throw new Error('Failed to delete quick consult');
+            }
+        } catch (err) {
+            console.error('Error deleting quick consult:', err);
+            setError(err.response?.data?.message || 'Failed to delete quick consult. Please try again.');
+        } finally {
+            setDeleteLoading(false);
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setDeleteDialogOpen(false);
+        setItemToDelete(null);
+    };
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -386,11 +372,9 @@ export default function QuickConsultLeads() {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'New':
-                return 'primary';
-            case 'In Progress':
+            case 'Pending':
                 return 'warning';
-            case 'Completed':
+            case 'Verified':
                 return 'success';
             default:
                 return 'default';
@@ -414,136 +398,216 @@ export default function QuickConsultLeads() {
         { label: 'Name', key: 'name' },
         { label: 'Email', key: 'email' },
         { label: 'Phone', key: 'phone' },
-        { label: 'Service', key: 'service' },
-        { label: 'Budget', key: 'budget' },
-        { label: 'Timeline', key: 'timeline' },
+        { label: 'Property Name', key: 'service' },
         { label: 'Status', key: 'status' },
         { label: 'Date', key: 'date' }
     ];
 
-    return (
-        <MainCard
-            content={false}
-            title="Quick Consult Leads"
-            secondary={
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <CSVExport data={rows} filename="quick-consult-leads.csv" header={header} />
-                    <SecondaryAction link="https://next.material-ui.com/components/tables/" />
-                </Stack>
-            }
-        >
-            <TableContainer>
-                <Table
-                    sx={{
-                        minWidth: 750,
-                        '& .MuiTableRow-root:nth-of-type(even)': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.02)'
-                        },
-                        '& .MuiTableRow-root:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                        }
-                    }}
-                    aria-labelledby="tableTitle"
-                >
-                    <EnhancedTableHead
-                        numSelected={selected.length}
-                        order={order}
-                        orderBy={orderBy}
-                        onSelectAllClick={handleSelectAllClick}
-                        onRequestSort={handleRequestSort}
-                        rowCount={rows.length}
-                    />
-                    <TableBody>
-                        {stableSort(rows, getComparator(order, orderBy))
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => {
-                                const isItemSelected = isSelected(row.id);
-                                const labelId = `enhanced-table-checkbox-${index}`;
+    // Show loading state
+    if (loading) {
+        return (
+            <MainCard content={false} title="Quick Consult Leads">
+                <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+                    <CircularProgress />
+                </Box>
+            </MainCard>
+        );
+    }
 
-                                return (
-                                    <TableRow
-                                        hover
-                                        role="checkbox"
-                                        aria-checked={isItemSelected}
-                                        tabIndex={-1}
-                                        key={row.id}
-                                        selected={isItemSelected}
-                                    >
-                                        <TableCell padding="checkbox" sx={{ pl: 3 }}>
-                                            <Checkbox
-                                                color="primary"
-                                                size="small"
-                                                checked={isItemSelected}
-                                                inputProps={{
-                                                    'aria-labelledby': labelId
-                                                }}
-                                                onClick={(event) => handleClick(event, row.id)}
-                                            />
-                                        </TableCell>
-                                        <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
-                                        <TableCell component="th" id={labelId} scope="row" padding="none">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell>{row.email}</TableCell>
-                                        <TableCell>{row.phone}</TableCell>
-                                        <TableCell>{row.service}</TableCell>
-                                        <TableCell>{row.budget}</TableCell>
-                                        <TableCell>{row.timeline}</TableCell>
-                                        <TableCell>
-                                            <Chip
-                                                label={row.status}
-                                                color={getStatusColor(row.status)}
-                                                size="small"
-                                                sx={{
-                                                    color: getStatusTextColor(row.status),
-                                                    fontWeight: 'bold'
-                                                }}
-                                            />
-                                        </TableCell>
-                                        <TableCell>{row.date}</TableCell>
-                                        <TableCell>
-                                            <Stack direction="row" spacing={0.5}>
-                                                <Tooltip title="View Details">
-                                                    <IconButton size="small" color="primary" sx={{ padding: '4px' }}>
-                                                        <VisibilityIcon sx={{ fontSize: '16px' }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Edit Lead">
-                                                    <IconButton size="small" color="secondary" sx={{ padding: '4px' }}>
-                                                        <EditIcon sx={{ fontSize: '16px' }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                                <Tooltip title="Delete Lead">
-                                                    <IconButton size="small" color="error" sx={{ padding: '4px' }}>
-                                                        <DeleteIcon sx={{ fontSize: '16px' }} />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </Stack>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                        {emptyRows > 0 && (
-                            <TableRow
-                                style={{
-                                    height: 53 * emptyRows
-                                }}
-                            >
-                                <TableCell colSpan={11} />
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </MainCard>
+    // Show error state
+    if (error) {
+        return (
+            <MainCard content={false} title="Quick Consult Leads">
+                <Box p={3}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>
+            </MainCard>
+        );
+    }
+
+    return (
+        <>
+            <MainCard
+                content={false}
+                title="Quick Consult Leads"
+                secondary={
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <Tooltip title="Refresh Data">
+                            <IconButton onClick={handleRefresh} color="primary" disabled={loading}>
+                                <RefreshIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <CSVExport data={rows} filename="quick-consult-leads.csv" header={header} />
+                        <SecondaryAction link="https://next.material-ui.com/components/tables/" />
+                    </Stack>
+                }
+            >
+                <TableContainer>
+                    <Table
+                        sx={{
+                            minWidth: 750,
+                            '& .MuiTableRow-root:nth-of-type(even)': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.02)'
+                            },
+                            '& .MuiTableRow-root:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                            }
+                        }}
+                        aria-labelledby="tableTitle"
+                    >
+                        <EnhancedTableHead
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
+                            onSelectAllClick={handleSelectAllClick}
+                            onRequestSort={handleRequestSort}
+                            rowCount={rows.length}
+                        />
+                        <TableBody>
+                            {stableSort(rows, getComparator(order, orderBy))
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    const isItemSelected = isSelected(row.id);
+                                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                                    return (
+                                        <TableRow
+                                            hover
+                                            role="checkbox"
+                                            aria-checked={isItemSelected}
+                                            tabIndex={-1}
+                                            key={row.id}
+                                            selected={isItemSelected}
+                                        >
+                                            <TableCell padding="checkbox" sx={{ pl: 3 }}>
+                                                <Checkbox
+                                                    color="primary"
+                                                    size="small"
+                                                    checked={isItemSelected}
+                                                    inputProps={{
+                                                        'aria-labelledby': labelId
+                                                    }}
+                                                    onClick={(event) => handleClick(event, row.id)}
+                                                />
+                                            </TableCell>
+                                            <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
+                                            <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell>{row.email}</TableCell>
+                                            <TableCell>
+                                                <Stack direction="row" spacing={1} alignItems="center">
+                                                    <Typography>{row.phone}</Typography>
+                                                    {row.whatsapp && (
+                                                        <Chip
+                                                            label="WhatsApp"
+                                                            size="small"
+                                                            color="success"
+                                                            sx={{ fontSize: '0.7rem', height: '20px' }}
+                                                        />
+                                                    )}
+                                                </Stack>
+                                            </TableCell>
+                                            <TableCell>{row.service}</TableCell>
+                                            <TableCell>
+                                                <Chip
+                                                    label={row.status}
+                                                    color={getStatusColor(row.status)}
+                                                    size="small"
+                                                    sx={{
+                                                        color: getStatusTextColor(row.status),
+                                                        fontWeight: 'bold'
+                                                    }}
+                                                />
+                                            </TableCell>
+                                            <TableCell>{row.date}</TableCell>
+                                            <TableCell>
+                                                <Stack direction="row" spacing={0.5}>
+                                                    <Tooltip title="View Details">
+                                                        <IconButton size="small" color="primary" sx={{ padding: '4px' }}>
+                                                            <VisibilityIcon sx={{ fontSize: '16px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Edit Lead">
+                                                        <IconButton size="small" color="secondary" sx={{ padding: '4px' }}>
+                                                            <EditIcon sx={{ fontSize: '16px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip title="Delete Lead">
+                                                        <IconButton
+                                                            size="small"
+                                                            color="error"
+                                                            sx={{ padding: '4px' }}
+                                                            onClick={() => handleDeleteClick(row)}
+                                                        >
+                                                            <DeleteIcon sx={{ fontSize: '16px' }} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </Stack>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                            {emptyRows > 0 && (
+                                <TableRow
+                                    style={{
+                                        height: 53 * emptyRows
+                                    }}
+                                >
+                                    <TableCell colSpan={8} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </MainCard>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog
+                open={deleteDialogOpen}
+                onClose={handleDeleteCancel}
+                aria-labelledby="delete-dialog-title"
+                aria-describedby="delete-dialog-description"
+            >
+                <DialogTitle id="delete-dialog-title">Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <Typography>Are you sure you want to delete this quick consult lead?</Typography>
+                    {itemToDelete && (
+                        <Box mt={2}>
+                            <Typography variant="body2" color="textSecondary">
+                                <strong>Name:</strong> {itemToDelete.name}
+                                <br />
+                                <strong>Property:</strong> {itemToDelete.service}
+                                <br />
+                                <strong>Phone:</strong> {itemToDelete.phone}
+                            </Typography>
+                        </Box>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteCancel} color="primary" disabled={deleteLoading}>
+                        No, Cancel
+                    </Button>
+                    <Button
+                        onClick={handleDeleteConfirm}
+                        color="error"
+                        variant="contained"
+                        disabled={deleteLoading}
+                        startIcon={deleteLoading ? <CircularProgress size={16} /> : null}
+                    >
+                        {deleteLoading ? 'Deleting...' : 'Yes, Delete'}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 }

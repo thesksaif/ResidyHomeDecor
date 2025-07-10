@@ -54,8 +54,8 @@ const JWTLogin = ({ loginProp, ...others }) => {
     return (
         <Formik
             initialValues={{
-                email: 'info@residyhomedecor.com',
-                password: '123456',
+                email: '',
+                password: '',
                 submit: null
             }}
             validationSchema={Yup.object().shape({
@@ -150,11 +150,7 @@ const JWTLogin = ({ loginProp, ...others }) => {
                             <Typography
                                 variant="subtitle1"
                                 component={Link}
-                                to={
-                                    loginProp
-                                        ? `/pages/forgot-password/forgot-password${loginProp}`
-                                        : '/pages/forgot-password/forgot-password3'
-                                }
+                                to={loginProp ? `/forgot-password${loginProp}` : '/forgot-password'}
                                 color="error"
                                 sx={{ textDecoration: 'none' }}
                             >

@@ -2,6 +2,9 @@
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, useMediaQuery } from '@mui/material';
 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+
 // project imports
 import LAYOUT_CONST from 'constant';
 import useConfig from 'hooks/useConfig';
@@ -10,6 +13,7 @@ import SearchSection from './SearchSection';
 import MobileSection from './MobileSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
+import { openDrawer } from 'store/slices/menu';
 
 // assets
 import { IconMenu2 } from '@tabler/icons';
@@ -18,6 +22,7 @@ import { IconMenu2 } from '@tabler/icons';
 
 const Header = () => {
     const theme = useTheme();
+    const dispatch = useDispatch();
 
     const { drawerOpen } = useSelector((state) => state.menu);
 

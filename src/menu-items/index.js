@@ -1,12 +1,12 @@
 import dashboard from './dashboard';
 import pages from './pages';
 import leads from './leads';
-import settings from './settings';
+// import settings from './settings';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, leads, pages, settings]
+    items: [dashboard, leads, pages]
 };
 
 export default menuItems;
