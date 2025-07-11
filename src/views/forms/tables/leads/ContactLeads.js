@@ -48,7 +48,6 @@ import axios from 'utils/axios';
 // assets
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 // API data transformation
@@ -715,11 +714,6 @@ export default function ContactLeads() {
                                             <TableCell>{row.date}</TableCell>
                                             <TableCell>
                                                 <Stack direction="row" spacing={0.5}>
-                                                    <Tooltip title="View Details">
-                                                        <IconButton size="small" color="primary" sx={{ padding: '4px' }}>
-                                                            <VisibilityIcon sx={{ fontSize: '16px' }} />
-                                                        </IconButton>
-                                                    </Tooltip>
                                                     <Tooltip title="Edit Lead">
                                                         <IconButton
                                                             size="small"

@@ -41,7 +41,6 @@ import axios from 'utils/axios';
 // assets
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -320,11 +319,6 @@ function Row({ row, index, page, rowsPerPage, isSelected, onSelectClick, onDelet
                 <TableCell>{row.date}</TableCell>
                 <TableCell>
                     <Stack direction="row" spacing={0.5}>
-                        <Tooltip title="View Details">
-                            <IconButton size="small" color="primary" sx={{ padding: '4px' }}>
-                                <VisibilityIcon sx={{ fontSize: '16px' }} />
-                            </IconButton>
-                        </Tooltip>
                         <Tooltip title="Edit Quote">
                             <IconButton size="small" color="secondary" sx={{ padding: '4px' }}>
                                 <EditIcon sx={{ fontSize: '16px' }} />
