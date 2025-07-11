@@ -20,7 +20,7 @@ export const ContactProvider = ({ children }) => {
                 message: form.message,
                 whatsapp: form.whatsapp
             };
-            const response = await axios.post('http://localhost:3500/api/contact', payload, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}api/contact`, payload, {
                 headers: { 'Content-Type': 'application/json' }
             });
             setLoading(false);

@@ -13,7 +13,7 @@ export const WardrobeQuoteProvider = ({ children }) => {
         setError(null);
         try {
             // The form should already be shaped to match the API
-            const response = await axios.post('http://localhost:3500/api/wardrobe-quote', form, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}api/wardrobe-quote`, form, {
                 headers: { 'Content-Type': 'application/json' }
             });
             setLoading(false);
